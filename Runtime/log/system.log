@@ -1,0 +1,533 @@
+time="2022-06-07T21:42:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T21:45:17+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T21:45:25+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T21:45:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:11:52+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:14:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:20:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:20:44+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:28:05+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:29:41+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:43:38+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-07T22:46:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-08T01:14:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:14:22+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:14:41+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:14:45+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:19:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:22:01+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:35:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:36:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:36:28+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-08T01:36:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T01:36:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:40:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:43:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:44:03+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:44:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:50:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:50:47+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:52:38+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T01:52:53+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T01:52:59+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T01:53:06+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T01:53:13+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:05:20+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:08:29+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:08:48+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:08:52+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:08:59+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:11:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:11:35+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:11:42+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:14:06+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:14:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:14:49+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:15:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:15:48+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:17:50+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:20:57+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:26:19+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:26:32+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:26:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:26:57+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:28:46+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:29:04+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:29:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:29:54+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:30:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:30:14+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:30:24+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:30:29+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:30:33+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:51:04+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T19:51:14+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:51:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:52:31+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T19:52:35+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:00:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T20:00:34+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:00:38+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:00:42+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:03:04+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:03:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:03:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:03:17+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T20:04:00+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:04:53+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:04:57+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:13:26+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T20:13:38+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:14:37+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T20:51:40+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T20:57:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T20:58:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T20:58:42+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T20:59:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T20:59:45+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:00:05+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:01:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:01:37+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:01:58+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:03:03+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:03:51+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:15+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:22+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:52+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:56+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:06:58+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:01+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:23+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:07:33+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:08:54+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:09:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:09:22+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:09:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T21:09:44+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:44:58+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:45:00+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:45:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:45:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:45:40+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:45:44+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-09T22:46:54+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:12:01+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:13:13+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:13:34+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-09T23:15:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:27:29+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:33:47+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-09T23:34:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:01:18+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-11T13:01:28+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:01:39+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:01:49+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:02:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:03:15+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:03:58+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:04:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:04:27+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:04:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:04:41+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:06:14+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:12:32+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:17:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:17:32+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:17:35+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:17:53+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:21:32+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:22:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:23:32+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:27:57+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:48:12+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:49:52+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:50:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-11T13:50:13+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-11T13:52:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCode status_code=200
+time="2022-06-11T13:52:25+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/register status_code=200
+time="2022-06-11T13:52:38+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-11T13:53:13+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-11T13:53:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T12:43:19+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T12:43:45+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T12:45:26+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T12:47:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T12:47:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:02:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:03:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:03:17+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:05:12+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:05:12+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:08:43+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:08:49+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:10:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:02+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:04+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:04+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:05+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:05+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:05+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:06+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:07+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:10+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:11:58+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:12:49+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:17:51+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:27:22+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:27:29+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:27:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T14:27:31+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T16:51:37+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T16:54:47+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T16:54:53+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T16:54:55+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T16:56:30+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T17:21:51+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:22:48+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:22:59+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:23:23+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:23:51+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:24:03+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:24:16+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:46:47+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:47:43+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:49:09+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:49:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:50:33+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:50:47+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:53:55+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:55:08+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:56:00+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:56:14+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/sendEmailVerificationCodeByForget status_code=200
+time="2022-06-12T17:56:29+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:58:28+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/forget status_code=200
+time="2022-06-12T17:58:37+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-12T17:58:43+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/login status_code=200
+time="2022-06-17T13:22:36+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:25:21+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:26:15+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:27:17+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:27:17+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:27:19+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:27:26+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:30:11+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:30:25+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-06-17T13:41:45+08:00" level=info client_ip=127.0.0.1 req_method=POST req_uri=/login/wxAuthorization status_code=200
+time="2022-10-27T16:01:59+08:00" level=info msg="开启直播"
+time="2022-10-27T18:47:25+08:00" level=info msg="开启直播"
+time="2022-10-27T19:04:00+08:00" level=info msg="A group of walrus emerges from the ocean" animal=walrus size=10
+time="2022-10-27T19:08:44+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:08:44+08:00" level=info msg="开启直播"
+time="2022-10-27T19:08:44+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:20:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:20:07+08:00" level=info msg="开启直播"
+time="2022-10-27T19:20:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:21:48+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:21:48+08:00" level=info msg="开启直播"
+time="2022-10-27T19:21:48+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:21:57+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:21:57+08:00" level=info msg="开启直播"
+time="2022-10-27T19:21:57+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:23:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:23:53+08:00" level=info msg="开启直播"
+time="2022-10-27T19:23:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:33:43+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-27T19:33:43+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:33:43+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-27T19:33:43+08:00" level=info msg="开启直播"
+time="2022-10-27T19:33:43+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:36:40+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-27T19:36:40+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:36:40+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-27T19:36:40+08:00" level=error msg="开启直播"
+time="2022-10-27T19:36:40+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:39:04+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-27T19:39:04+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:39:04+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-27T19:39:04+08:00" level=info msg="开启直播"
+time="2022-10-27T19:39:04+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:49:17+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-27T19:49:17+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:49:17+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-27T19:49:17+08:00" level=info msg="开启直播"
+time="2022-10-27T19:49:17+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:54:41+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-27T19:54:41+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-27T19:54:41+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-27T19:54:41+08:00" level=info msg="开启直播"
+time="2022-10-27T19:54:41+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:27:28+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:27:29+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-28T09:27:29+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-28T09:27:29+08:00" level=info msg="开启直播"
+time="2022-10-28T09:27:29+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:30:19+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:30:20+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-28T09:30:20+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-28T09:30:20+08:00" level=info msg="开启直播"
+time="2022-10-28T09:30:20+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:36:21+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T09:36:21+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-28T09:36:21+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-28T09:36:21+08:00" level=info msg="开启直播"
+time="2022-10-28T09:36:21+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Config\\live\\"
+time="2022-10-28T14:46:16+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-28T14:46:16+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-28T14:46:16+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-28T14:46:16+08:00" level=info msg="开启直播"
+time="2022-10-28T14:46:16+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T09:36:01+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T09:36:01+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-31T09:36:01+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-31T09:36:01+08:00" level=info msg="开启直播"
+time="2022-10-31T09:36:01+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:10:56+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-31T16:10:56+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:10:56+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-31T16:10:56+08:00" level=info msg="开启直播"
+time="2022-10-31T16:10:56+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:16:23+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-31T16:16:23+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:16:23+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-31T16:16:23+08:00" level=info msg="开启直播"
+time="2022-10-31T16:16:23+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:17:22+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-31T16:17:22+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:17:22+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-31T16:17:22+08:00" level=info msg="开启直播"
+time="2022-10-31T16:17:22+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:19:29+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-10-31T16:19:29+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-10-31T16:19:29+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-10-31T16:19:29+08:00" level=info msg="开启直播"
+time="2022-10-31T16:19:29+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T00:32:43+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T00:32:44+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-01T00:32:44+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-01T00:32:44+08:00" level=info msg="开启直播"
+time="2022-11-01T00:32:44+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T08:26:17+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T08:26:18+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-01T08:26:18+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-01T08:26:18+08:00" level=info msg="开启直播"
+time="2022-11-01T08:26:18+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T18:32:54+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T18:32:54+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-01T18:32:54+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-01T18:32:54+08:00" level=info msg="开启直播"
+time="2022-11-01T18:32:54+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T23:51:43+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-01T23:51:44+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-01T23:51:44+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-01T23:51:44+08:00" level=info msg="开启直播"
+time="2022-11-01T23:51:44+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-02T21:51:19+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-02T21:51:20+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-02T21:51:20+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-02T21:51:20+08:00" level=info msg="开启直播"
+time="2022-11-02T21:51:20+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:25:51+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:25:51+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:25:51+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:25:51+08:00" level=info msg="开启直播"
+time="2022-11-04T14:25:51+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:44:25+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:44:25+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:44:25+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:44:25+08:00" level=info msg="开启直播"
+time="2022-11-04T14:44:25+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:47:53+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:47:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:47:53+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:47:53+08:00" level=info msg="开启直播"
+time="2022-11-04T14:47:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:50:30+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:50:30+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:50:30+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:50:30+08:00" level=info msg="开启直播"
+time="2022-11-04T14:50:30+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:55:56+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:55:56+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:55:56+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:55:56+08:00" level=info msg="开启直播"
+time="2022-11-04T14:55:56+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:56:26+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T14:56:26+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T14:56:26+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T14:56:26+08:00" level=info msg="开启直播"
+time="2022-11-04T14:56:26+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:08:53+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:08:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:08:53+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:08:53+08:00" level=info msg="开启直播"
+time="2022-11-04T15:08:53+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:10:57+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:10:57+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:10:57+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:10:57+08:00" level=info msg="开启直播"
+time="2022-11-04T15:10:57+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:11:12+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:11:12+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:11:12+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:11:12+08:00" level=info msg="开启直播"
+time="2022-11-04T15:11:12+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:11:30+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:11:30+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:11:30+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:11:30+08:00" level=info msg="开启直播"
+time="2022-11-04T15:11:30+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:12:37+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:12:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:12:37+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:12:37+08:00" level=info msg="开启直播"
+time="2022-11-04T15:12:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:07+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:13:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:07+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:13:07+08:00" level=info msg="开启直播"
+time="2022-11-04T15:13:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:11+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:13:11+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:11+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:13:11+08:00" level=info msg="开启直播"
+time="2022-11-04T15:13:11+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:34+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:13:34+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:34+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:13:34+08:00" level=info msg="开启直播"
+time="2022-11-04T15:13:34+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:52+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:13:52+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:13:52+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:13:52+08:00" level=info msg="开启直播"
+time="2022-11-04T15:13:52+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:14:10+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:14:10+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:14:10+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:14:10+08:00" level=info msg="开启直播"
+time="2022-11-04T15:14:10+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:15:06+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:15:06+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:15:06+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:15:06+08:00" level=info msg="开启直播"
+time="2022-11-04T15:15:06+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:15:51+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:15:51+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:15:51+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:15:51+08:00" level=info msg="开启直播"
+time="2022-11-04T15:15:51+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:21:08+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:21:08+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:21:08+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:21:08+08:00" level=info msg="开启直播"
+time="2022-11-04T15:21:08+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:07+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:26:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:07+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:26:07+08:00" level=info msg="开启直播"
+time="2022-11-04T15:26:07+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:24+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:26:24+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:24+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:26:24+08:00" level=info msg="开启直播"
+time="2022-11-04T15:26:24+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:41+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:26:41+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:26:41+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:26:41+08:00" level=info msg="开启直播"
+time="2022-11-04T15:26:41+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:30:17+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:30:17+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:30:17+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:30:17+08:00" level=info msg="开启直播"
+time="2022-11-04T15:30:17+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:30:50+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:30:50+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:30:50+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:30:50+08:00" level=info msg="开启直播"
+time="2022-11-04T15:30:50+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:31:10+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:31:10+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:31:10+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:31:10+08:00" level=info msg="开启直播"
+time="2022-11-04T15:31:10+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:31:37+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:31:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:31:37+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:31:37+08:00" level=info msg="开启直播"
+time="2022-11-04T15:31:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:37:22+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:37:22+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:37:22+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:37:22+08:00" level=info msg="开启直播"
+time="2022-11-04T15:37:22+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:46:37+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:46:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:46:37+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:46:37+08:00" level=info msg="开启直播"
+time="2022-11-04T15:46:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:58:33+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:58:33+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:58:33+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:58:33+08:00" level=info msg="开启直播"
+time="2022-11-04T15:58:33+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:59:20+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:59:20+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:59:20+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:59:20+08:00" level=info msg="开启直播"
+time="2022-11-04T15:59:20+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:59:25+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T15:59:25+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T15:59:25+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T15:59:25+08:00" level=info msg="开启直播"
+time="2022-11-04T15:59:25+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T16:02:55+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-04T16:02:55+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-04T16:02:55+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-04T16:02:55+08:00" level=info msg="开启直播"
+time="2022-11-04T16:02:55+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:17:58+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:17:59+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-05T17:17:59+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-05T17:17:59+08:00" level=info msg="开启直播"
+time="2022-11-05T17:17:59+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:19:08+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-05T17:19:08+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:19:08+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-05T17:19:08+08:00" level=info msg="开启直播"
+time="2022-11-05T17:19:08+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:46:37+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-05T17:46:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:46:37+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-05T17:46:37+08:00" level=info msg="开启直播"
+time="2022-11-05T17:46:37+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:49:19+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-05T17:49:20+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-05T17:49:20+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-05T17:49:20+08:00" level=info msg="开启直播"
+time="2022-11-05T17:49:20+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-06T14:17:47+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-06T14:17:47+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-06T14:17:47+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-06T14:17:47+08:00" level=info msg="开启直播"
+time="2022-11-06T14:17:47+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-06T21:19:58+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
+time="2022-11-06T21:19:59+08:00" level=info msg="127.0.0.1:8090127.0.0.1:8090端口已开启(success)!"
+time="2022-11-06T21:19:59+08:00" level=info msg="127.0.0.1:7001127.0.0.1:7001端口已开启(success)!"
+time="2022-11-06T21:19:59+08:00" level=info msg="开启直播"
+time="2022-11-06T21:19:59+08:00" level=info msg="D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\"
