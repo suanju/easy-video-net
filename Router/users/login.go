@@ -9,14 +9,14 @@ type LoginRouter struct {
 }
 
 func (s *LoginRouter) InitLoginRouter(Router *gin.RouterGroup) {
-	usersRouter := Router.Group("login").Use()
+	loginRouter := Router.Group("login").Use()
 	{
 		loginControllers := new(users.LoginControllers)
-		usersRouter.POST("/wxAuthorization", loginControllers.WxAuthorization)
-		usersRouter.POST("/register", loginControllers.Register)
-		usersRouter.POST("/login", loginControllers.Login)
-		usersRouter.POST("/sendEmailVerificationCode", loginControllers.SendEmailVerCode)
-		usersRouter.POST("/sendEmailVerificationCodeByForget", loginControllers.SendEmailVerCodeByForget)
-		usersRouter.POST("/forget", loginControllers.Forget)
+		loginRouter.POST("/wxAuthorization", loginControllers.WxAuthorization)
+		loginRouter.POST("/register", loginControllers.Register)
+		loginRouter.POST("/login", loginControllers.Login)
+		loginRouter.POST("/sendEmailVerificationCode", loginControllers.SendEmailVerCode)
+		loginRouter.POST("/sendEmailVerificationCodeByForget", loginControllers.SendEmailVerCodeByForget)
+		loginRouter.POST("/forget", loginControllers.Forget)
 	}
 }

@@ -10,8 +10,10 @@ type UserRouter struct {
 }
 
 func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
-	_ = Router.Group("user").Use(Middlewares.VerificationToken())
+	router := Router.Group("user").Use(Middlewares.VerificationToken())
 	{
-		_ = new(users.UserControllers)
+		usersControllers := new(users.UserControllers)
+		router.POST("/getUserInfo", usersControllers.GetUserInfo)
+
 	}
 }
