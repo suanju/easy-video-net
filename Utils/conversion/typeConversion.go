@@ -25,3 +25,11 @@ func BoolTurnInt8(is bool) int8 {
 		return 0
 	}
 }
+
+func IntTurnBool(i int) bool {
+	if i > 0 {
+		return true
+	} else {
+		return false
+	}
+}

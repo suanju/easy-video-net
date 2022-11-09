@@ -14,6 +14,8 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 	{
 		usersControllers := new(users.UserControllers)
 		router.POST("/getUserInfo", usersControllers.GetUserInfo)
+		router.POST("/setUserInfo", usersControllers.SetUserInfo)
+		router.POST("/determineNameExists", usersControllers.DetermineNameExists)
 
 	}
 }

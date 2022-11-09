@@ -1,5 +1,7 @@
 package users
 
+import "time"
+
 // WxAuthorizationReceiveStruct 微信登入接口数据结构体
 type WxAuthorizationReceiveStruct struct {
 	AvatarUrl string `json:"avatarUrl" binding:"required"`
@@ -32,4 +34,15 @@ type ForgetReceiveStruct struct {
 	Password         string `json:"password" binding:"required"`
 	Email            string `json:"email" binding:"required,email"`
 	VerificationCode string `json:"verificationCode" binding:"required"`
+}
+type DetermineNameExistsStruct struct {
+	Username string `json:"username"`
+}
+
+type SetUserInfoStruct struct {
+	Username  string    `json:"username"`
+	Gender    int       `json:"gender"`
+	BirthDate time.Time `json:"birth_Date"`
+	IsVisible bool      `json:"is_Visible"`
+	Signature string    `json:"signature"`
 }

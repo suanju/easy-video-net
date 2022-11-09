@@ -5,17 +5,22 @@ import (
 	"Go-Live/Models/common"
 	"crypto/md5"
 	"fmt"
+	"time"
 )
 
 //User 表结构体
 type User struct {
 	common.PublicModel
-	Email    string `json:"email" gorm:"email"`
-	Username string `json:"username" gorm:"username"`
-	Openid   string `json:"openid" gorm:"openid"`
-	Salt     string `json:"salt" gorm:"salt"`
-	Password string `json:"password" gorm:"password"`
-	Photo    string `json:"photo" gorm:"photo"`
+	Email     string    `json:"email" gorm:"email"`
+	Username  string    `json:"username" gorm:"username"`
+	Openid    string    `json:"openid" gorm:"openid"`
+	Salt      string    `json:"salt" gorm:"salt"`
+	Password  string    `json:"password" gorm:"password"`
+	Photo     string    `json:"photo" gorm:"photo"`
+	Gender    int       `json:"gender" gorm:"gender"`
+	BirthDate time.Time `json:"birth_date" gorm:"birth_date"`
+	IsVisible int       `json:"is_visible" gorm:"is_visible"`
+	Signature string    `json:"signature" gorm:"signature"`
 }
 
 func (User) TableName() string {
