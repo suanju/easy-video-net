@@ -1,14 +1,14 @@
 package main
 
 import (
-	_ "Go-Live/Global/dataBases/Mysql"
-	_ "Go-Live/Global/dataBases/Redis"
-	"Go-Live/Router"
-	"Go-Live/Utils/testing"
+	_ "Go-Live/global/dataBases/Mysql"
+	_ "Go-Live/global/dataBases/Redis"
+	"Go-Live/router"
+	"Go-Live/utils/testing"
 )
 
 func main() {
 	//检查直播服务
 	testing.LiveSeverTesting()
-	Router.InitRouter()
+	router.InitRouter()
 }
