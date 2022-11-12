@@ -38,3 +38,126 @@
 {"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 16:45:02"}
 {"level":"info","msg":"开启直播","time":"2022-11-11 16:45:02"}
 {"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 16:45:02"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 19:51:43"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:51:43"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 19:51:43"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 19:51:43"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:51:43"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 19:54:08"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:54:08"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 19:54:08"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 19:54:08"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:54:08"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 19:54:57"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:54:57"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 19:54:57"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 19:54:57"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:54:57"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 19:57:03"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:57:03"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 19:57:03"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 19:57:03"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 19:57:03"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:04:30"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:04:30"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:04:30"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:04:30"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:04:30"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:07:41"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:07:41"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:07:41"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:07:41"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:07:41"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:07:51"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:11:26"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:11:26"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:11:26"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:11:26"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:11:26"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:12:30"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:12:39"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:23:23"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:23:23"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:23:23"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:23:23"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:23:23"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:23:29"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:23:50"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:23:50"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:23:50"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:23:50"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:23:50"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:23:54"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:25:03"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:25:03"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:25:03"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:25:03"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:25:03"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:25:09"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:25:42"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:25:42"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:25:42"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:25:42"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:25:42"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:25:45"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:26:19"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:26:32"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:26:32"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:26:32"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:26:32"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:26:32"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:26:35"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:27:05"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:27:05"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:27:05"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:27:05"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:27:05"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:27:08"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:27:45"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:27:45"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:27:45"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:27:45"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:27:45"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:27:48"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:28:06"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:28:56"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:28:56"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:28:56"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:28:56"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:28:56"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:29:55"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:29:55"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:29:55"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:29:55"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:29:55"}
+{"level":"warning","msg":"userid %d update headPortrait err30","time":"2022-11-11 20:30:02"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:30:32"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:30:32"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:30:32"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:30:32"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:30:32"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:31:23"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:31:23"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:31:23"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:31:23"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:31:23"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:33:29"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:33:29"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:33:29"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:33:29"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:33:29"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:35:20"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:35:20"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:35:20"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:35:20"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:35:20"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:44:34"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:44:34"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:44:34"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:44:34"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:44:34"}
+{"level":"info","msg":"127.0.0.1:8090127.0.0.1:8090端口已开启(success)!","time":"2022-11-11 20:48:34"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:48:34"}
+{"level":"info","msg":"127.0.0.1:7001127.0.0.1:7001端口已开启(success)!","time":"2022-11-11 20:48:34"}
+{"level":"info","msg":"开启直播","time":"2022-11-11 20:48:34"}
+{"level":"info","msg":"D:\\GoStudy\\Go-Live\\Go-Live-Sever\\Config\\live\\","time":"2022-11-11 20:48:34"}

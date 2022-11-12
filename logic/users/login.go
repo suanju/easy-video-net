@@ -113,11 +113,12 @@ func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err e
 	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
 
 	registerData := userModel.User{
-		Email:    data.Email,
-		Username: data.UserName,
-		Salt:     string(salt),
-		Password: passwordMd5,
-		Photo:    fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		Email:     data.Email,
+		Username:  data.UserName,
+		Salt:      string(salt),
+		Password:  passwordMd5,
+		Photo:     fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		BirthDate: time.Now(),
 	}
 	registerRes := registerData.Create()
 	if !registerRes {
