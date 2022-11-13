@@ -46,3 +46,6 @@ type SetUserInfoStruct struct {
 	IsVisible *bool     `json:"is_Visible" binding:"required"`
 	Signature string    `json:"signature" binding:"required"`
 }
+type UpdateAvatarStruct struct {
+	ImgUrl string `json:"imgUrl"`
+}

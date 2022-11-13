@@ -16,6 +16,7 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/getUserInfo", usersControllers.GetUserInfo)
 		router.POST("/setUserInfo", usersControllers.SetUserInfo)
 		router.POST("/determineNameExists", usersControllers.DetermineNameExists)
+		router.POST("/updateAvatar", usersControllers.UpdateAvatar)
 		router.POST("/upload", usersControllers.Upload)
 
 	}

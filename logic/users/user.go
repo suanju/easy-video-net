@@ -62,12 +62,20 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
 		global.Logger.Warn("userid %d update headPortrait err", userID)
-		return nil, fmt.Errorf("更新失败")
-	}
-	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: dst}
-	if user.Update() {
+		return nil, fmt.Errorf("上传失败")
+	} else {
 		return dst, nil
 	}
+
 	// 上传文件至指定的完整文件路径
-	return nil, fmt.Errorf("更新失败")
+	return nil, fmt.Errorf("上传失败")
+}
+
+func UpdateAvatar(data *users.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
+	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: data.ImgUrl}
+	if user.Update() {
+		return conversion.FormattingSrc(data.ImgUrl), nil
+	} else {
+		return nil, fmt.Errorf("更新失败")
+	}
 }

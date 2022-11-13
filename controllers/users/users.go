@@ -65,3 +65,19 @@ func (us UserControllers) Upload(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//UpdateAvatar 修改头像
+func (us UserControllers) UpdateAvatar(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	updateAvatarReceive := new(usersModel.UpdateAvatarStruct)
+	if err := ctx.ShouldBind(updateAvatarReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.UpdateAvatar(updateAvatarReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
