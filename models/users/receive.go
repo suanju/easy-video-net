@@ -39,6 +39,7 @@ type DetermineNameExistsStruct struct {
 	Username string `json:"username" binding:"required"`
 }
 
+//SetUserInfoStruct 设置用户信息
 type SetUserInfoStruct struct {
 	Username  string    `json:"username" binding:"required"`
 	Gender    *int      `json:"gender" binding:"required"`
@@ -46,6 +47,8 @@ type SetUserInfoStruct struct {
 	IsVisible *bool     `json:"is_Visible" binding:"required"`
 	Signature string    `json:"signature" binding:"required"`
 }
+
+//UpdateAvatarStruct 更新头像
 type UpdateAvatarStruct struct {
 	ImgUrl string `json:"imgUrl"`
 }

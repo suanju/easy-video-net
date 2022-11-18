@@ -3,6 +3,7 @@ package users
 import (
 	"Go-Live/logic/users"
 	usersModel "Go-Live/models/users"
+	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
@@ -56,6 +57,7 @@ func (us UserControllers) DetermineNameExists(ctx *gin.Context) {
 
 //Upload  文件上传
 func (us UserControllers) Upload(ctx *gin.Context) {
+
 	userID := ctx.GetUint("currentUserID")
 	file, _ := ctx.FormFile("file")
 	results, err := users.Upload(file, userID, ctx)
@@ -75,6 +77,33 @@ func (us UserControllers) UpdateAvatar(ctx *gin.Context) {
 		return
 	}
 	results, err := users.UpdateAvatar(updateAvatarReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetLiveData 获取直播资料
+func (us UserControllers) GetLiveData(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	results, err := users.GetLiveData(userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//SaveLiveData 修改直播资料
+func (us UserControllers) SaveLiveData(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	saveLiveDataReceive := new(liveInfo.SaveLiveDataStruct)
+	if err := ctx.ShouldBind(saveLiveDataReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.SaveLiveData(saveLiveDataReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

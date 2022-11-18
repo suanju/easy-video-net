@@ -2,14 +2,16 @@ package router
 
 import (
 	"Go-Live/middlewares"
+	"Go-Live/router/commonality"
 	"Go-Live/router/live"
 	usersRouter "Go-Live/router/users"
 	"github.com/gin-gonic/gin"
 )
 
 type RoutersGroup struct {
-	Users usersRouter.RouterGroup
-	Live  live.RouterGroup
+	Users       usersRouter.RouterGroup
+	Live        live.RouterGroup
+	Commonality commonality.RouterGroup
 }
 
 var RoutersGroupApp = new(RoutersGroup)
@@ -25,6 +27,7 @@ func InitRouter() {
 		RoutersGroupApp.Users.LoginRouter.InitLoginRouter(PrivateGroup)
 		RoutersGroupApp.Users.InitRouter(PrivateGroup)
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
+		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
 	}
 
 	err := router.Run()

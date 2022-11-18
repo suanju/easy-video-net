@@ -9,6 +9,7 @@ import (
 
 func main() {
 	//检查直播服务
+
 	testing.LiveSeverTesting()
 	router.InitRouter()
 }
