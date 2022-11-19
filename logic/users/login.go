@@ -2,7 +2,7 @@ package users
 
 import (
 	"Go-Live/global"
-	"Go-Live/global/dataBases/Redis"
+	Redis "Go-Live/global/dataBases/redis"
 	userModel "Go-Live/models/users"
 	"Go-Live/utils/email"
 	"Go-Live/utils/jwt"

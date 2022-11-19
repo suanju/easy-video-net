@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "Go-Live/global/dataBases/Mysql"
-	_ "Go-Live/global/dataBases/Redis"
+	_ "Go-Live/global/dataBases/mysql"
+	_ "Go-Live/global/dataBases/redis"
 	"Go-Live/router"
 	"Go-Live/utils/testing"
 )

@@ -1,6 +1,7 @@
 package oss
 
 import (
+	"Go-Live/global"
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/base64"
@@ -12,16 +13,16 @@ import (
 )
 
 // 请填写您的AccessKeyId。
-var accessKeyId string = "LTAI5tJsWsBEkUkACuhbZ9NS"
+var accessKeyId string = global.Config.AliyunOss.AccessKeyId
 
 // 请填写您的AccessKeySecret。
-var accessKeySecret string = "IDpY89W7oPAfioGJ46bCqP70mCP2YM"
+var accessKeySecret string = global.Config.AliyunOss.AccessKeySecret
 
 // host的格式为 bucket-name.endpoint ，请替换为您的真实信息。
-var host string = " https://eraser-go-live.oss-cn-hangzhou.aliyuncs.com"
+var host string = global.Config.AliyunOss.Host
 
 // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
-var callbackUrl string = "https://eraser-go-live.oss-cn-hangzhou.aliyuncs.com "
+var callbackUrl string = global.Config.AliyunOss.CallbackUrl
 
 // 用户上传文件时指定的前缀。
 var uploadDir string = "upload/img/user/liveCover/"

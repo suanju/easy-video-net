@@ -11,6 +11,7 @@ type ConfigStruct struct {
 	RConfig       *RConfigStruct
 	ProjectConfig *ProjectConfigStruct
 	LiveConfig    *LiveConfigStruct
+	AliyunOss     *AliyunOss
 	ProjectUrl    string
 }
 
@@ -51,6 +52,13 @@ type ProjectConfigStruct struct {
 	UrlTest   string `ini:"url_test"`
 }
 
+type AliyunOss struct {
+	AccessKeyId     string `ini:"accessKeyId"`
+	AccessKeySecret string `ini:"accessKeySecret"`
+	Host            string `ini:"host"`
+	CallbackUrl     string `ini:"callbackUrl"`
+}
+
 func ReturnsInstance() *ConfigStruct {
 	Config.SqlConfig = &SqlConfigStruct{}
 	cfg, err = ini.Load("config/config.ini")
@@ -83,6 +91,14 @@ func ReturnsInstance() *ConfigStruct {
 		fmt.Printf("Live读取配置文件错误: %v \n", err)
 		os.Exit(1)
 	}
+
+	Config.AliyunOss = &AliyunOss{}
+	err = cfg.Section("aliyunOss").MapTo(Config.AliyunOss)
+	if err != nil {
+		fmt.Printf("Live读取配置文件错误: %v \n", err)
+		os.Exit(1)
+	}
+
 	//判断是否为正式环境
 	if Config.ProjectConfig.UrlStates {
 		Config.ProjectUrl = Config.ProjectConfig.Url
