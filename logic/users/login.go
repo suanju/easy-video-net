@@ -1,9 +1,11 @@
 package users
 
 import (
+	"Go-Live/consts"
 	"Go-Live/global"
-	Redis "Go-Live/global/dataBases/redis"
+	"Go-Live/models/common"
 	userModel "Go-Live/models/users"
+	"Go-Live/utils/conversion"
 	"Go-Live/utils/email"
 	"Go-Live/utils/jwt"
 	"Go-Live/utils/location"
@@ -20,9 +22,9 @@ import (
 func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results interface{}, err error) {
 	/*微信小程序登录 返回值*/
 	type WXLoginResp struct {
-		OpenId     string `json:"openid"`
+		OpenID     string `json:"openid"`
 		SessionKey string `json:"session_key"`
-		UnionId    string `json:"unionId"`
+		UnionID    string `json:"unionId"`
 		ErrCode    int    `json:"errCode"`
 		ErrMsg     string `json:"errMsg"`
 		Token      string `json:"token"`
@@ -56,12 +58,16 @@ func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results inte
 	}
 	//得到openid进行处理
 	users := new(userModel.User)
-	if !users.IsExistByField("openid", wxResp.OpenId) {
+	if !users.IsExistByField("openid", wxResp.OpenID) {
 		//当这个微信没有注册
+		photo, _ := json.Marshal(common.Img{
+			Src: data.AvatarUrl,
+			Tp:  "wx",
+		})
 		users := userModel.User{
 			Username: data.NickName,
-			Openid:   wxResp.OpenId,
-			Photo:    data.AvatarUrl,
+			Openid:   wxResp.OpenID,
+			Photo:    photo,
 		}
 		registerRes := users.Create()
 		if !registerRes {
@@ -69,21 +75,23 @@ func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results inte
 		}
 		//注册token
 		tokenString := jwt.NextToken(users.ID)
+		src, _ := conversion.FormattingJsonSrc(users.Photo)
 		userInfo := userModel.UserInfoResponse{
 			ID:       users.ID,
 			UserName: users.Username,
-			Photo:    users.Photo,
+			Photo:    src,
 			Token:    tokenString,
 		}
 		return userInfo, nil
 	}
 	//已经注册的话直接返回token
 	fmt.Printf("查询到的用户id是：%v", users.ID)
+	src, _ := conversion.FormattingJsonSrc(users.Photo)
 	tokenString := jwt.NextToken(users.ID)
 	userInfo := userModel.UserInfoResponse{
 		ID:       users.ID,
 		UserName: users.Username,
-		Photo:    users.Photo,
+		Photo:    src,
 		Token:    tokenString,
 	}
 	return userInfo, nil
@@ -96,7 +104,7 @@ func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err e
 		return nil, fmt.Errorf("邮箱已被注册")
 	}
 	//判断验证码是否正确
-	verCode, err := global.RedisDb.Get(fmt.Sprintf("%s%s", Redis.KeyName.RegEmailVerCode, data.Email)).Result()
+	verCode, err := global.RedisDb.Get(fmt.Sprintf("%s%s", consts.RegEmailVerCode, data.Email)).Result()
 	if err == redis.Nil {
 		return nil, fmt.Errorf("验证码过期！")
 	}
@@ -111,13 +119,16 @@ func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err e
 	}
 	password := []byte(fmt.Sprintf("%s%s%s", salt, data.Password, salt))
 	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
-
+	photo, _ := json.Marshal(common.Img{
+		Src: fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		Tp:  "local",
+	})
 	registerData := userModel.User{
 		Email:     data.Email,
 		Username:  data.UserName,
 		Salt:      string(salt),
 		Password:  passwordMd5,
-		Photo:     fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		Photo:     photo,
 		BirthDate: time.Now(),
 	}
 	registerRes := registerData.Create()
@@ -162,7 +173,7 @@ func SendEmailVerCode(data *userModel.SendEmailVerCodeReceiveStruct) (results in
 	if err != nil {
 		return nil, err
 	}
-	err = global.RedisDb.Set(fmt.Sprintf("%s%s", Redis.KeyName.RegEmailVerCode, data.Email), code, 5*time.Minute).Err()
+	err = global.RedisDb.Set(fmt.Sprintf("%s%s", consts.RegEmailVerCode, data.Email), code, 5*time.Minute).Err()
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +197,7 @@ func SendEmailVerCodeByForget(data *userModel.SendEmailVerCodeReceiveStruct) (re
 	if err != nil {
 		return nil, err
 	}
-	err = global.RedisDb.Set(fmt.Sprintf("%s%s", Redis.KeyName.RegEmailVerCodeByForget, data.Email), code, 5*time.Minute).Err()
+	err = global.RedisDb.Set(fmt.Sprintf("%s%s", consts.RegEmailVerCodeByForget, data.Email), code, 5*time.Minute).Err()
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +211,7 @@ func Forget(data *userModel.ForgetReceiveStruct) (results interface{}, err error
 		return nil, fmt.Errorf("该账号不存在")
 	}
 	//判断验证码是否正确
-	verCode, err := global.RedisDb.Get(fmt.Sprintf("%s%s", Redis.KeyName.RegEmailVerCodeByForget, data.Email)).Result()
+	verCode, err := global.RedisDb.Get(fmt.Sprintf("%s%s", consts.RegEmailVerCodeByForget, data.Email)).Result()
 	if err == redis.Nil {
 		return nil, fmt.Errorf("验证码过期！")
 	}

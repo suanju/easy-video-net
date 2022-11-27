@@ -13,9 +13,15 @@ type Controllers struct {
 
 //GetOssConfig 获取oss配置
 func (c *Controllers) GetOssConfig(ctx *gin.Context) {
-	results, err := commonality.GetOssConfig()
+	getOssConfigReceive := new(commonalityModel.GetOssConfigReceiveStruct)
+	if err := ctx.ShouldBind(getOssConfigReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := commonality.GetOssConfig(getOssConfigReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
+		return
 	}
 	response.Success(ctx, results)
 }

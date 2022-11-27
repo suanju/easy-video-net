@@ -17,7 +17,7 @@ func VerificationToken() gin.HandlerFunc {
 			return
 		}
 		u := new(users.User)
-		if !u.IsExistByField("id", claim.UserId) {
+		if !u.IsExistByField("id", claim.UserID) {
 			//没有改用户的情况下
 			ControllersCommon.NotLogin(c, "用户异常")
 			c.Abort()

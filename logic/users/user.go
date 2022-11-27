@@ -3,6 +3,7 @@ package users
 import (
 	"Go-Live/global"
 	"Go-Live/models/common"
+	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
 	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/conversion"
@@ -61,6 +62,18 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 	fileNameSlice := mForm.Value["name"]
 	var fileName string
 	fileName = strings.Join(fileNameSlice, fileName)
+
+	fileInterfaceSlice := mForm.Value["interface"]
+	var fileInterface string
+	fileInterface = strings.Join(fileInterfaceSlice, fileInterface)
+
+	method := new(uploadMethod.UploadMethod)
+	if !method.IsExistByField("interface", fileInterface) {
+		return nil, fmt.Errorf("上传接口不存在")
+	}
+	if len(method.Path) == 0 {
+		return nil, fmt.Errorf("请联系管理员设置接口保存路径")
+	}
 	//取出文件
 	_, fileHeader, err := ctx.Request.FormFile("file")
 	index := strings.LastIndex(fileHeader.Filename, ".")
@@ -70,7 +83,12 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 	default:
 		return nil, fmt.Errorf("只能上传图片格式嗷！")
 	}
-	dst := location.AppConfig.ImagePath.UserHeadPortrait + "/" + fileName
+	if !location.IsDir(method.Path) {
+		if !location.CreateDir(method.Path) {
+			return nil, fmt.Errorf("创建保存路径失败")
+		}
+	}
+	dst := method.Path + "/" + fileName
 	err = ctx.SaveUploadedFile(fileHeader, dst)
 	if err != nil {
 		global.Logger.Warn("userid %d update headPortrait err", userID)
@@ -84,7 +102,15 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 }
 
 func UpdateAvatar(data *users.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
-	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: data.ImgUrl}
+	method := new(uploadMethod.UploadMethod)
+	if !method.IsExistByField("interface", data.Interface) {
+		return nil, fmt.Errorf("上传接口不存在")
+	}
+	photo, _ := json.Marshal(common.Img{
+		Src: data.ImgUrl,
+		Tp:  method.Method,
+	})
+	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: photo}
 	if user.Update() {
 		return conversion.FormattingSrc(data.ImgUrl), nil
 	} else {

@@ -15,16 +15,16 @@ var SaltStr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 //Claims  TOKEN 的结构体
 type Claims struct {
-	UserId uint
+	UserID uint
 	jwt.StandardClaims
 }
 
 // NextToken 登录以后签发jwt
-func NextToken(userId uint) string {
-	fmt.Printf("传入JWT的id:%v/n", userId)
+func NextToken(userID uint) string {
+	fmt.Printf("传入JWT的id:%v/n", userID)
 	expireTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
-		UserId: userId,
+		UserID: userID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(), //过期时间
 			IssuedAt:  time.Now().Unix(),

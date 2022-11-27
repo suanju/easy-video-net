@@ -25,11 +25,7 @@ type UserSetInfoResponse struct {
 func (us *User) UserInfoResponse(token string) UserInfoResponse {
 	//判断用户是否为微信用户进行图片处理
 	var photo string
-	if len(us.Openid) <= 0 {
-		photo = conversion.FormattingSrc(us.Photo)
-	} else {
-		photo = us.Photo
-	}
+	photo, _ = conversion.FormattingJsonSrc(us.Photo)
 	return UserInfoResponse{
 		ID:       us.ID,
 		UserName: us.Username,

@@ -9,6 +9,7 @@ type UploadMethod struct {
 	common.PublicModel
 	Interfaces string `json:"interface"  gorm:"interface"`
 	Method     string `json:"method"  gorm:"method"`
+	Path       string `json:"path" gorm:"path"`
 }
 
 func (UploadMethod) TableName() string {

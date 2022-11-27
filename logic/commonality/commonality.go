@@ -2,13 +2,17 @@ package commonality
 
 import (
 	"Go-Live/models/commonality"
+	commonalityModel "Go-Live/models/commonality"
 	"Go-Live/models/config/uploadMethod"
 	"Go-Live/utils/oss"
 	"fmt"
 )
 
-func GetOssConfig() (results interface{}, err error) {
-	policyToken := oss.GetPolicyToken()
+func GetOssConfig(data *commonalityModel.GetOssConfigReceiveStruct) (results interface{}, err error) {
+	policyToken, err := oss.GetPolicyToken(data.Interface)
+	if err != nil {
+		return nil, err
+	}
 	return policyToken, nil
 }
 

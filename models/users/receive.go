@@ -50,5 +50,6 @@ type SetUserInfoStruct struct {
 
 //UpdateAvatarStruct 更新头像
 type UpdateAvatarStruct struct {
-	ImgUrl string `json:"imgUrl"`
+	ImgUrl    string `json:"imgUrl"`
+	Interface string `json:"interface"`
 }

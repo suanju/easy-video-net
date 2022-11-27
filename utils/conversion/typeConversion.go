@@ -1,6 +1,10 @@
 package conversion
 
-import "strings"
+import (
+	"reflect"
+	"strings"
+	"unsafe"
+)
 
 // StringConversionMap 字符串转数组
 func StringConversionMap(s string) []string {
@@ -32,4 +36,20 @@ func IntTurnBool(i int) bool {
 	} else {
 		return false
 	}
+}
+
+// String2Bytes 强转化
+func String2Bytes(s string) []byte {
+	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	bh := reflect.SliceHeader{
+		Data: sh.Data,
+		Len:  sh.Len,
+		Cap:  sh.Len,
+	}
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
+// Bytes2String 强转化
+func Bytes2String(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }

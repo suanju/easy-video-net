@@ -47,3 +47,23 @@ func getCurrentAbPathByCaller() string {
 	}
 	return abPath
 }
+
+// IsDir 判断是否存在
+func IsDir(fileAddr string) bool {
+	s, err := os.Stat(fileAddr)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return s.IsDir()
+}
+
+// CreateDir 创建目录
+func CreateDir(dirName string) bool {
+	err := os.Mkdir(dirName, 755)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}

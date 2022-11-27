@@ -5,6 +5,7 @@ import (
 	"Go-Live/router/commonality"
 	"Go-Live/router/live"
 	usersRouter "Go-Live/router/users"
+	"Go-Live/router/ws"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,7 @@ type RoutersGroup struct {
 	Users       usersRouter.RouterGroup
 	Live        live.RouterGroup
 	Commonality commonality.RouterGroup
+	Ws          ws.Router
 }
 
 var RoutersGroupApp = new(RoutersGroup)
@@ -25,6 +27,7 @@ func InitRouter() {
 		//静态资源访问
 		router.Static("/assets", "./assets/")
 		RoutersGroupApp.Users.LoginRouter.InitLoginRouter(PrivateGroup)
+		RoutersGroupApp.Ws.InitSocketRouter(PrivateGroup)
 		RoutersGroupApp.Users.InitRouter(PrivateGroup)
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)

@@ -2,6 +2,7 @@ package oss
 
 import (
 	"Go-Live/global"
+	"Go-Live/models/config/uploadMethod"
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/base64"
@@ -25,7 +26,7 @@ var host string = global.Config.AliyunOss.Host
 var callbackUrl string = global.Config.AliyunOss.CallbackUrl
 
 // 用户上传文件时指定的前缀。
-var uploadDir string = "upload/img/user/liveCover/"
+//var uploadDir string = "upload/img/user/liveCover/"
 var expireTime int64 = 30
 
 type ConfigStruct struct {
@@ -48,7 +49,16 @@ type PolicyToken struct {
 	Callback    string `json:"callback"`
 }
 
-func GetPolicyToken() PolicyToken {
+func GetPolicyToken(_interface string) (results interface{}, err error) {
+	//获取当前接口对于的储存路径
+	method := new(uploadMethod.UploadMethod)
+	if !method.IsExistByField("interface", _interface) {
+		return nil, fmt.Errorf("上传接口不存在")
+	}
+	if len(method.Path) == 0 {
+		return nil, fmt.Errorf("请联系管理员设置接口保存路径")
+	}
+	uploadDir := method.Path
 	now := time.Now().Unix()
 	expireEnd := now + expireTime
 	var tokenExpire = getGmtIso8601(expireEnd)
@@ -68,7 +78,7 @@ func GetPolicyToken() PolicyToken {
 	h := hmac.New(func() hash.Hash { return sha1.New() }, []byte(accessKeySecret))
 	_, err = io.WriteString(h, debate)
 	if err != nil {
-		return PolicyToken{}
+		return PolicyToken{}, nil
 	}
 	signedStr := base64.StdEncoding.EncodeToString(h.Sum(nil))
 
@@ -94,7 +104,7 @@ func GetPolicyToken() PolicyToken {
 	//if err != nil {
 	//	fmt.Println("json err:", err)
 	//}
-	return policyToken
+	return policyToken, nil
 }
 
 func getGmtIso8601(expireEnd int64) string {

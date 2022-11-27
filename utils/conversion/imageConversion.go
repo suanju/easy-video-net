@@ -24,6 +24,8 @@ func FormattingJsonSrc(str []byte) (url string, err error) {
 		return fmt.Sprintf("%s/%s", global.Config.ProjectUrl, data.Src), nil
 	case "aliyunOss":
 		return fmt.Sprintf("%s/%s", "https://eraser-go-live.oss-cn-hangzhou.aliyuncs.com", data.Src), nil
+	case "wx":
+		return data.Src, nil
 	default:
 		return "", fmt.Errorf("undefined format")
 	}
