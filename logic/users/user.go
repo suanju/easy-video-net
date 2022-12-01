@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/datatypes"
 	"mime/multipart"
+	"os"
 	"strings"
 )
 
@@ -79,12 +80,12 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 	index := strings.LastIndex(fileHeader.Filename, ".")
 	suffix := fileHeader.Filename[index:]
 	switch suffix {
-	case ".jpg", ".jpeg", ".png", ".ico", ".gif", ".wbmp", ".bmp", ".svg", ".webp":
+	case ".jpg", ".jpeg", ".png", ".ico", ".gif", ".wbmp", ".bmp", ".svg", ".webp", ".mp4":
 	default:
-		return nil, fmt.Errorf("只能上传图片格式嗷！")
+		return nil, fmt.Errorf("非法后缀！")
 	}
 	if !location.IsDir(method.Path) {
-		if !location.CreateDir(method.Path) {
+		if err = os.MkdirAll(method.Path, 077); err != nil {
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
 	}

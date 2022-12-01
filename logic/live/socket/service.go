@@ -31,7 +31,7 @@ func serviceSendBarrage(lre LiveRoomEvent, text []byte) error {
 	}
 	//将弹幕存入最近消息
 	str := conversion.Bytes2String(data)
-	if studentLen, _ := global.RedisDb.LLen(consts.LiveRoomHistoricalBarrage + strconv.Itoa(int(lre.RoomID))).Result(); studentLen >= 20 {
+	if studentLen, _ := global.RedisDb.LLen(consts.LiveRoomHistoricalBarrage + strconv.Itoa(int(lre.RoomID))).Result(); studentLen >= 10 {
 		err := global.RedisDb.RPop(consts.LiveRoomHistoricalBarrage + strconv.Itoa(int(lre.RoomID))).Err()
 		if err != nil {
 			return err
