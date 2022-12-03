@@ -3,6 +3,7 @@ package router
 import (
 	"Go-Live/middlewares"
 	"Go-Live/router/commonality"
+	"Go-Live/router/contribution"
 	"Go-Live/router/live"
 	usersRouter "Go-Live/router/users"
 	"Go-Live/router/ws"
@@ -10,10 +11,11 @@ import (
 )
 
 type RoutersGroup struct {
-	Users       usersRouter.RouterGroup
-	Live        live.RouterGroup
-	Commonality commonality.RouterGroup
-	Ws          ws.Router
+	Users        usersRouter.RouterGroup
+	Live         live.RouterGroup
+	Commonality  commonality.RouterGroup
+	Contribution contribution.RouterGroup
+	Ws           ws.Router
 }
 
 var RoutersGroupApp = new(RoutersGroup)
@@ -31,6 +33,8 @@ func InitRouter() {
 		RoutersGroupApp.Users.InitRouter(PrivateGroup)
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
+		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
+
 	}
 
 	err := router.Run()
