@@ -4,6 +4,6 @@ type GetLiveRoomReceiveStruct struct {
 }
 
 type ReqGetRoom struct {
-	Status int    `json:"status"`
-	Data   string `json:"data"`
+	Status int    `json:"status" binding:"required"`
+	Data   string `json:"data" binding:"required"`
 }

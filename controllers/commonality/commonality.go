@@ -40,3 +40,18 @@ func (c *Controllers) UploadingMethod(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//GetFullPathOfImage 获取图片完整路径
+func (c *Controllers) GetFullPathOfImage(ctx *gin.Context) {
+	getFullPathOfImageMethodReceive := new(commonalityModel.GetFullPathOfImageMethodStruct)
+	if err := ctx.ShouldBind(getFullPathOfImageMethodReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := commonality.GetFullPathOfImage(getFullPathOfImageMethodReceive)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}

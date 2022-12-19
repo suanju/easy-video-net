@@ -4,6 +4,7 @@ import (
 	"Go-Live/models/commonality"
 	commonalityModel "Go-Live/models/commonality"
 	"Go-Live/models/config/uploadMethod"
+	"Go-Live/utils/conversion"
 	"Go-Live/utils/oss"
 	"fmt"
 )
@@ -23,4 +24,12 @@ func UploadingMethod(data *commonality.UploadingMethodStruct) (results interface
 	} else {
 		return nil, fmt.Errorf("未配置上传方法")
 	}
+}
+
+func GetFullPathOfImage(data *commonality.GetFullPathOfImageMethodStruct) (results interface{}, err error) {
+	path, err := conversion.SwitchIngStorageFun(data.Type, data.Path)
+	if err != nil {
+		return nil, err
+	}
+	return path, nil
 }

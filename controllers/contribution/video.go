@@ -11,7 +11,7 @@ import (
 type Controllers struct {
 }
 
-//CreateVideoContribution 获取直播房间
+//CreateVideoContribution 发布视频
 func (C Controllers) CreateVideoContribution(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
 	CreateVideoContributionReceive := new(video.CreateVideoContributionReceiveStruct)

@@ -34,6 +34,7 @@ func InitRouter() {
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
+		RoutersGroupApp.Contribution.ArticleRouter.InitArticleRouter(PrivateGroup)
 
 	}
 

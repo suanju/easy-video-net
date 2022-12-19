@@ -11,6 +11,6 @@ func (r *RouterGroup) InitRouter(Router *gin.RouterGroup) {
 		commonalityControllers := new(commonality.Controllers)
 		routers.POST("/ossConfig", commonalityControllers.GetOssConfig)
 		routers.POST("/uploadingMethod", commonalityControllers.UploadingMethod)
-
+		routers.POST("/getFullPathOfImage", commonalityControllers.GetFullPathOfImage)
 	}
 }

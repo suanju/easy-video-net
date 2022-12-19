@@ -12,6 +12,16 @@ func StringConversionMap(s string) []string {
 	return list
 }
 
+// MapConversionString 数组转字符串
+func MapConversionString(m []string) string {
+	var srt string
+	for _, v := range m {
+		srt = srt + v + ","
+	}
+	srt = srt[:len(srt)-1]
+	return srt
+}
+
 // StringImgConversionMap 字符串图片转数组
 func StringImgConversionMap(s string) []string {
 	list := strings.Split(s, ",")
@@ -27,6 +37,15 @@ func BoolTurnInt8(is bool) int8 {
 		return 1
 	} else {
 		return 0
+	}
+}
+
+//Int8TurnBool int8类型转布尔
+func Int8TurnBool(i int8) bool {
+	if i > 0 {
+		return true
+	} else {
+		return false
 	}
 }
 

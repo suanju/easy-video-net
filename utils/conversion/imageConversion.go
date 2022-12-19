@@ -19,13 +19,31 @@ func FormattingJsonSrc(str []byte) (url string, err error) {
 	if err != nil {
 		return "", fmt.Errorf("json format error")
 	}
-	switch data.Tp {
+	path, err := SwitchIngStorageFun(data.Tp, data.Src)
+	if err != nil {
+		return "", err
+	}
+	return path, nil
+}
+
+//SwitchIngStorageFun 根据类型拼接路径
+func SwitchIngStorageFun(tp string, path string) (url string, err error) {
+	prefix, err := SwitchTypeAsUrlPrefix(tp)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s/%s", prefix, path), nil
+}
+
+//SwitchTypeAsUrlPrefix 取url前缀
+func SwitchTypeAsUrlPrefix(tp string) (url string, err error) {
+	switch tp {
 	case "local":
-		return fmt.Sprintf("%s/%s", global.Config.ProjectUrl, data.Src), nil
+		return global.Config.ProjectUrl, nil
 	case "aliyunOss":
-		return fmt.Sprintf("%s/%s", "https://eraser-go-live.oss-cn-hangzhou.aliyuncs.com", data.Src), nil
+		return global.Config.AliyunOss.Host, nil
 	case "wx":
-		return data.Src, nil
+		return "", nil
 	default:
 		return "", fmt.Errorf("undefined format")
 	}
