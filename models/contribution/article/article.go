@@ -6,6 +6,7 @@ import (
 	"Go-Live/models/contribution/article/comments"
 	"Go-Live/models/contribution/article/like"
 	"gorm.io/datatypes"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -53,7 +54,20 @@ func (l *ArticlesContributionList) GetListByUid(userID uint) bool {
 
 //GetInfoByID 查询单个文章
 func (vc *ArticlesContribution) GetInfoByID(ID uint) bool {
-	err := global.Db.Where("id", ID).Preload("Likes").Preload("Comments").Order("created_at desc").Find(vc).Error
+	err := global.Db.Where("id", ID).Preload("Likes").Preload("Comments", func(db *gorm.DB) *gorm.DB {
+		return db.Preload("UserInfo").Order("created_at desc")
+	}).Find(vc).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+//GetArticleComments 获取评论
+func (vc *ArticlesContribution) GetArticleComments(ID uint, info common.PageInfo) bool {
+	err := global.Db.Where("id", ID).Preload("Likes").Preload("Comments", func(db *gorm.DB) *gorm.DB {
+		return db.Preload("UserInfo").Order("created_at desc").Limit(info.Size).Offset((info.Page - 1) * info.Size)
+	}).Find(vc).Error
 	if err != nil {
 		return false
 	}

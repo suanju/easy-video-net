@@ -55,3 +55,35 @@ func (C Controllers) GetArticleContributionByID(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//ArticlePostComment 发布评论
+func (C Controllers) ArticlePostComment(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	ArticlePostCommentReceive := new(article.ArticlesPostCommentReceiveStruct)
+	if err := ctx.ShouldBind(ArticlePostCommentReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := contribution.ArticlePostComment(ArticlePostCommentReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetArticleComment 获取文章评论
+func (C Controllers) GetArticleComment(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	GetArticleCommentReceive := new(article.GetArticleCommentReceiveStruct)
+	if err := ctx.ShouldBind(GetArticleCommentReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := contribution.GetArticleComment(GetArticleCommentReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}

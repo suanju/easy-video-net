@@ -1,6 +1,7 @@
 package article
 
 import (
+	"Go-Live/models/common"
 	"time"
 )
 
@@ -22,4 +23,14 @@ type GetArticleContributionListByUserReceiveStruct struct {
 
 type GetArticleContributionByIDReceiveStruct struct {
 	ArticleID uint `json:"articleID" binding:"required"`
+}
+type ArticlesPostCommentReceiveStruct struct {
+	ArticleID uint   `json:"article_id"`
+	Content   string `json:"content"`
+	ContentID uint   `json:"content_id"`
+}
+
+type GetArticleCommentReceiveStruct struct {
+	PageInfo  common.PageInfo `json:"pageInfo"`
+	ArticleID uint            `json:"articleID" binding:"required"`
 }

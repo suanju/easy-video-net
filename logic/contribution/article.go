@@ -4,6 +4,7 @@ import (
 	"Go-Live/consts"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
+	"Go-Live/models/contribution/article/comments"
 	"Go-Live/utils/conversion"
 	"encoding/json"
 	"fmt"
@@ -71,4 +72,36 @@ func GetArticleContributionByID(data *article.GetArticleContributionByIDReceiveS
 		return nil, fmt.Errorf("查询失败")
 	}
 	return articlesContribution.GetArticleContributionByIDResponse(), nil
+}
+
+func ArticlePostComment(data *article.ArticlesPostCommentReceiveStruct, userID uint) (results interface{}, err error) {
+	ct := comments.Comment{
+		PublicModel: common.PublicModel{ID: data.ContentID},
+	}
+	CommentFirstID := ct.GetCommentFirstID()
+
+	ctu := comments.Comment{
+		PublicModel: common.PublicModel{ID: data.ContentID},
+	}
+	CommentUserID := ctu.GetCommentUserID()
+	comment := comments.Comment{
+		Uid:            userID,
+		ContributionID: data.ArticleID,
+		Context:        data.Content,
+		CommentID:      data.ContentID,
+		CommentUserID:  CommentUserID,
+		CommentFirstID: CommentFirstID,
+	}
+	if !comment.Create() {
+		return nil, fmt.Errorf("发布失败")
+	}
+	return "发布成功", nil
+}
+
+func GetArticleComment(data *article.GetArticleCommentReceiveStruct, userID uint) (results interface{}, err error) {
+	articlesContribution := new(article.ArticlesContribution)
+	if !articlesContribution.GetArticleComments(data.ArticleID, data.PageInfo) {
+		return nil, fmt.Errorf("查询失败")
+	}
+	return articlesContribution.GetArticleContributionCommentsResponse(), nil
 }

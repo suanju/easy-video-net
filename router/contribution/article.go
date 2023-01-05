@@ -14,7 +14,10 @@ func (v *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
 	{
 		contributionControllers := new(contribution.Controllers)
 		contributionRouter.POST("/createArticleContribution", contributionControllers.CreateArticleContribution)
-		contributionRouter.POST("/GetArticleContributionListByUser", contributionControllers.GetArticleContributionListByUser)
-		contributionRouter.POST("/GetArticleContributionByID", contributionControllers.GetArticleContributionByID)
+		contributionRouter.POST("/getArticleContributionListByUser", contributionControllers.GetArticleContributionListByUser)
+		contributionRouter.POST("/getArticleContributionByID", contributionControllers.GetArticleContributionByID)
+		contributionRouter.POST("/articlePostComment", contributionControllers.ArticlePostComment)
+		contributionRouter.POST("/getArticleComment", contributionControllers.GetArticleComment)
+
 	}
 }

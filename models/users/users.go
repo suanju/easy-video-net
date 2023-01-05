@@ -67,7 +67,7 @@ func (us *User) IsExistByField(field string, value any) bool {
 	return true
 }
 
-//IfPasswordCorrect 根据字段判断用户是否存在
+//IfPasswordCorrect 判断密码
 func (us *User) IfPasswordCorrect(password string) bool {
 	passwordImport := fmt.Sprintf("%s%s%s", us.Salt, password, us.Salt)
 	passwordImport = fmt.Sprintf("%x", md5.Sum([]byte(passwordImport)))
