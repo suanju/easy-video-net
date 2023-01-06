@@ -9,7 +9,7 @@ type PageInfo struct {
 
 func (p *PageInfo) Init() {
 	if p.Size == 0 {
-		p.Size = 15
+		p.Size = 20
 	}
 	if p.Page == 0 {
 		p.Page = 1
