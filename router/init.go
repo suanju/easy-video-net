@@ -4,6 +4,7 @@ import (
 	"Go-Live/middlewares"
 	"Go-Live/router/commonality"
 	"Go-Live/router/contribution"
+	"Go-Live/router/home"
 	"Go-Live/router/live"
 	usersRouter "Go-Live/router/users"
 	"Go-Live/router/ws"
@@ -13,6 +14,7 @@ import (
 type RoutersGroup struct {
 	Users        usersRouter.RouterGroup
 	Live         live.RouterGroup
+	Home         home.RouterGroup
 	Commonality  commonality.RouterGroup
 	Contribution contribution.RouterGroup
 	Ws           ws.Router
@@ -32,6 +34,7 @@ func InitRouter() {
 		RoutersGroupApp.Ws.InitSocketRouter(PrivateGroup)
 		RoutersGroupApp.Users.InitRouter(PrivateGroup)
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
+		RoutersGroupApp.Home.InitLiveRouter(PrivateGroup)
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.ArticleRouter.InitArticleRouter(PrivateGroup)
