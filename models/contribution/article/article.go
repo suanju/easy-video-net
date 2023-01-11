@@ -31,7 +31,7 @@ type ArticlesContribution struct {
 type ArticlesContributionList []ArticlesContribution
 
 func (ArticlesContribution) TableName() string {
-	return "live_article_contribution"
+	return "lv_article_contribution"
 }
 
 //Create 添加数据
