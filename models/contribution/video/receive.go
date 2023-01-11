@@ -15,4 +15,5 @@ type CreateVideoContributionReceiveStruct struct {
 	TimingTime      time.Time `json:"timingTime"`
 	Label           []string  `json:"label" binding:"required"`
 	Introduce       string    `json:"introduce" binding:"required"`
+	VideoDuration   int64     `json:"videoDuration" binding:"required"`
 }
