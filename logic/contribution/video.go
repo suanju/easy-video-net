@@ -18,16 +18,17 @@ func CreateVideoContribution(data *video.CreateVideoContributionReceiveStruct, u
 		Tp:  data.CoverUploadType,
 	})
 	videoContribution := video.VideosContribution{
-		Uid:        userID,
-		Title:      data.Title,
-		Video:      videoSrc,
-		Cover:      coverImg,
-		Reprinted:  conversion.BoolTurnInt8(*data.Reprinted),
-		Timing:     conversion.BoolTurnInt8(*data.Timing),
-		TimingTime: data.TimingTime,
-		Label:      conversion.MapConversionString(data.Label),
-		Introduce:  data.Introduce,
-		Heat:       0,
+		Uid:           userID,
+		Title:         data.Title,
+		Video:         videoSrc,
+		Cover:         coverImg,
+		VideoDuration: data.VideoDuration,
+		Reprinted:     conversion.BoolTurnInt8(*data.Reprinted),
+		Timing:        conversion.BoolTurnInt8(*data.Timing),
+		TimingTime:    data.TimingTime,
+		Label:         conversion.MapConversionString(data.Label),
+		Introduce:     data.Introduce,
+		Heat:          0,
 	}
 	if *data.Timing {
 		//发布视频后进行的推送相关（待开发）
