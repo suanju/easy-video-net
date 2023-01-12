@@ -5,6 +5,7 @@ import (
 	"Go-Live/utils/conversion"
 )
 
+//首页轮播图
 type rotographInfo struct {
 	Title string `json:"title"`
 	Cover string `json:"cover"`
@@ -12,11 +13,26 @@ type rotographInfo struct {
 	Type  string `json:"type"`
 	ToId  uint   `json:"to_id"`
 }
-
 type rotographInfoList []rotographInfo
+
+//首页视频
+
+type VideoInfo struct {
+	Uid           uint   `json:"uid" `
+	Title         string `json:"title" `
+	Video         string `json:"video"`
+	Cover         string `json:"cover" gorm:"cover"`
+	VideoDuration int64  `json:"video_duration" gorm:"video_duration"`
+	Label         string `json:"label" gorm:"label"`
+	Introduce     string `json:"introduce" gorm:"introduce"`
+	Heat          int    `json:"heat" gorm:"heat"`
+}
+
+type videoInfoList []VideoInfo
 
 type GetHomeInfoResponse struct {
 	Rotograph rotographInfoList `json:"rotograph"`
+	VideoList videoInfoList     `json:"videoList"`
 }
 
 func (r *GetHomeInfoResponse) Response(rotographList *rotograph.List) {
