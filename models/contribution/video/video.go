@@ -3,6 +3,8 @@ package video
 import (
 	"Go-Live/global"
 	"Go-Live/models/common"
+	"Go-Live/models/contribution/video/comments"
+	"Go-Live/models/contribution/video/like"
 	"gorm.io/datatypes"
 	"time"
 )
@@ -20,6 +22,9 @@ type VideosContribution struct {
 	Label         string         `json:"label" gorm:"label"`
 	Introduce     string         `json:"introduce" gorm:"introduce"`
 	Heat          int            `json:"heat" gorm:"heat"`
+
+	Likes    []like.Likes       `json:"likes" gorm:"foreignKey:VideID" `
+	Comments []comments.Comment `json:"comments" gorm:"foreignKey:VideID"`
 }
 
 func (VideosContribution) TableName() string {
@@ -33,4 +38,8 @@ func (vc *VideosContribution) Create() bool {
 		return false
 	}
 	return true
+}
+func (vc *VideosContribution) GetHoneVideoList() error {
+	err := global.Db.Find(&vc).Error
+	return err
 }
