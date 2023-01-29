@@ -15,11 +15,14 @@ func StringConversionMap(s string) []string {
 // MapConversionString 数组转字符串
 func MapConversionString(m []string) string {
 	var srt string
-	for _, v := range m {
-		srt = srt + v + ","
+	if len(m) != 0 {
+		for _, v := range m {
+			srt = srt + v + ","
+		}
+		srt = srt[:len(srt)-1]
+		return srt
 	}
-	srt = srt[:len(srt)-1]
-	return srt
+	return ""
 }
 
 // StringImgConversionMap 字符串图片转数组
