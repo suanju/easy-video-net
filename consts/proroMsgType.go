@@ -1,6 +1,9 @@
 package consts
 
 const (
+	//Error 错误信息
+	Error = "error"
+
 	/*
 		WebClientBarrageReq  发送弹幕请求数据
 		WebClientBarrageRes  发送弹幕响应数据
