@@ -1,6 +1,8 @@
 package contribution
 
 import (
+	receive "Go-Live/interaction/receive/contribution/video"
+	response "Go-Live/interaction/response/contribution/video"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/video"
 	"Go-Live/utils/conversion"
@@ -8,7 +10,7 @@ import (
 	"fmt"
 )
 
-func CreateVideoContribution(data *video.CreateVideoContributionReceiveStruct, userID uint) (results interface{}, err error) {
+func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct, userID uint) (results interface{}, err error) {
 	videoSrc, _ := json.Marshal(common.Img{
 		Src: data.Video,
 		Tp:  data.VideoUploadType,
@@ -37,4 +39,19 @@ func CreateVideoContribution(data *video.CreateVideoContributionReceiveStruct, u
 		return nil, fmt.Errorf("保存失败")
 	}
 	return "保存成功", nil
+}
+
+func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
+	videoInfo := new(video.VideosContribution)
+	err = videoInfo.FindByID(data.VideoID)
+	if err != nil {
+		return nil, err
+	}
+	recommendList := new(video.VideosContributionList)
+	err = recommendList.GetRecommendList()
+	if err != nil {
+		return nil, err
+	}
+	res := response.GetVideoContributionByIDResponse(videoInfo, recommendList)
+	return res, nil
 }

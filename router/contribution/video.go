@@ -14,5 +14,6 @@ func (v *VideoRouter) InitVideoRouter(Router *gin.RouterGroup) {
 	{
 		contributionControllers := new(contribution.Controllers)
 		contributionRouter.POST("/createVideoContribution", contributionControllers.CreateVideoContribution)
+		contributionRouter.POST("/getVideoContributionByID", contributionControllers.GetVideoContributionByID)
 	}
 }

@@ -3,8 +3,10 @@ package video
 import (
 	"Go-Live/global"
 	"Go-Live/models/common"
+	"Go-Live/models/contribution/video/barrage"
 	"Go-Live/models/contribution/video/comments"
 	"Go-Live/models/contribution/video/like"
+	"Go-Live/models/users"
 	"gorm.io/datatypes"
 	"time"
 )
@@ -23,9 +25,13 @@ type VideosContribution struct {
 	Introduce     string         `json:"introduce" gorm:"introduce"`
 	Heat          int            `json:"heat" gorm:"heat"`
 
-	Likes    []like.Likes       `json:"likes" gorm:"foreignKey:VideID" `
-	Comments []comments.Comment `json:"comments" gorm:"foreignKey:VideID"`
+	UserInfo users.User         `json:"user_info" gorm:"foreignKey:Uid"`
+	Likes    []like.Likes       `json:"likes" gorm:"foreignKey:VideoID" `
+	Comments []comments.Comment `json:"comments" gorm:"foreignKey:VideoID"`
+	Barrage  []barrage.Barrage  `json:"barrage" gorm:"foreignKey:VideoID"`
 }
+
+type VideosContributionList []VideosContribution
 
 func (VideosContribution) TableName() string {
 	return "lv_video_contribution"
@@ -39,7 +45,20 @@ func (vc *VideosContribution) Create() bool {
 	}
 	return true
 }
-func (vc *VideosContribution) GetHoneVideoList() error {
-	err := global.Db.Find(&vc).Error
+
+func (vl *VideosContributionList) GetHoneVideoList() error {
+	err := global.Db.Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Order("created_at desc").Find(&vl).Error
+	return err
+}
+
+//GetRecommendList 获取推荐视频
+func (vl *VideosContributionList) GetRecommendList() error {
+	err := global.Db.Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Order("created_at desc").Limit(7).Find(&vl).Error
+	return err
+}
+
+//FindByID 根据查询
+func (vc *VideosContribution) FindByID(id uint) error {
+	err := global.Db.Where("id", id).Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Order("created_at desc").Find(&vc).Error
 	return err
 }
