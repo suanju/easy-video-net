@@ -17,3 +17,7 @@ type CreateVideoContributionReceiveStruct struct {
 	Introduce       string    `json:"introduce" binding:"required"`
 	VideoDuration   int64     `json:"videoDuration" binding:"required"`
 }
+
+type GetVideoContributionByIDReceiveStruct struct {
+	VideoID uint `json:"video_id"`
+}
