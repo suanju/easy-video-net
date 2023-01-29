@@ -2,6 +2,8 @@ package users
 
 import (
 	"Go-Live/global"
+	receive "Go-Live/interaction/receive/users"
+	response "Go-Live/interaction/response/users"
 	"Go-Live/models/common"
 	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
@@ -20,11 +22,11 @@ import (
 func GetUserInfo(userID uint) (results interface{}, err error) {
 	user := new(users.User)
 	user.IsExistByField("id", userID)
-	response := user.UserSetInfoResponse()
-	return response, nil
+	res := response.UserSetInfoResponse(user)
+	return res, nil
 }
 
-func SetUserInfo(data *users.SetUserInfoStruct, userID uint) (results interface{}, err error) {
+func SetUserInfo(data *receive.SetUserInfoStruct, userID uint) (results interface{}, err error) {
 	user := &users.User{
 		PublicModel: common.PublicModel{ID: userID},
 	}
@@ -39,7 +41,7 @@ func SetUserInfo(data *users.SetUserInfoStruct, userID uint) (results interface{
 	return user.UpdatePureZero(update), nil
 }
 
-func DetermineNameExists(data *users.DetermineNameExistsStruct, userID uint) (results interface{}, err error) {
+func DetermineNameExists(data *receive.DetermineNameExistsStruct, userID uint) (results interface{}, err error) {
 	user := new(users.User)
 	is := user.IsExistByField("username", data.Username)
 	//判断是否未更改
@@ -102,7 +104,7 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 
 }
 
-func UpdateAvatar(data *users.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
+func UpdateAvatar(data *receive.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
 	method := new(uploadMethod.UploadMethod)
 	if !method.IsExistByField("interface", data.Interface) {
 		return nil, fmt.Errorf("上传接口不存在")
@@ -122,7 +124,7 @@ func UpdateAvatar(data *users.UpdateAvatarStruct, userID uint) (results interfac
 func GetLiveData(userID uint) (results interface{}, err error) {
 	info := new(liveInfo.LiveInfo)
 	if info.IsExistByField("uid", userID) {
-		results, err = info.GetLiveDataResponse()
+		results, err = response.GetLiveDataResponse(info)
 		if err != nil {
 			return nil, fmt.Errorf("获取失败")
 		}
@@ -131,7 +133,7 @@ func GetLiveData(userID uint) (results interface{}, err error) {
 	return common.Img{}, nil
 }
 
-func SaveLiveData(data *liveInfo.SaveLiveDataStruct, userID uint) (results interface{}, err error) {
+func SaveLiveData(data *receive.SaveLiveDataStruct, userID uint) (results interface{}, err error) {
 	img, _ := json.Marshal(common.Img{
 		Src: data.ImgUrl,
 		Tp:  data.Tp,

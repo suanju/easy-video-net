@@ -1,12 +1,15 @@
 package socket
 
 import (
+	"Go-Live/consts"
 	"Go-Live/global"
 	userModel "Go-Live/models/users"
+	"Go-Live/proto/pb"
 	"Go-Live/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/protobuf/proto"
 )
 
 type Engine struct {
@@ -54,6 +57,17 @@ func (e *Engine) Start() {
 		//注册事件
 		case registerMsg := <-e.Register:
 			logrus.Infof("注册事件 %v", registerMsg)
+			//不存在房间直接推出
+			if _, ok := e.LiveRoom[registerMsg.RoomID]; !ok {
+				//格式化响应
+				message := &pb.Message{
+					MsgType: consts.Error,
+					Data:    []byte("消息格式错误"),
+				}
+				res, _ := proto.Marshal(message)
+				_ = registerMsg.Channel.Socket.WriteMessage(websocket.BinaryMessage, res)
+				return
+			}
 			//添加成员
 			e.LiveRoom[registerMsg.RoomID][registerMsg.Channel.UserInfo.ID] = registerMsg.Channel
 			//广播用户上线

@@ -1,10 +1,13 @@
 package live
 
 import (
+	"Go-Live/consts"
 	"Go-Live/logic/live/socket"
+	"Go-Live/proto/pb"
 	"Go-Live/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"google.golang.org/protobuf/proto"
 	"strconv"
 )
 
@@ -17,7 +20,13 @@ func (lv LivesControllers) LiveSocket(ctx *gin.Context) {
 	liveRoom, _ := strconv.Atoi(ctx.Query("liveRoom"))
 	liveRoomID := uint(liveRoom)
 	if socket.Severe.LiveRoom[liveRoomID] == nil {
-		response.ErrorWs(ws, "直播未开启")
+		message := &pb.Message{
+			MsgType: consts.Error,
+			Data:    []byte("直播未开启"),
+		}
+		res, _ := proto.Marshal(message)
+		_ = ws.WriteMessage(websocket.BinaryMessage, res)
+		return
 	}
 
 	err := socket.CreateSocket(ctx, userID, liveRoomID, ws)

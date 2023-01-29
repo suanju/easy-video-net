@@ -2,7 +2,8 @@ package live
 
 import (
 	"Go-Live/global"
-	liveModel "Go-Live/models/live"
+	receive "Go-Live/interaction/receive/live"
+	response "Go-Live/interaction/response/live"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,7 +11,7 @@ import (
 	"strconv"
 )
 
-func GetLiveRoom(data *liveModel.GetLiveRoomReceiveStruct, userId uint) (results interface{}, err error) {
+func GetLiveRoom(data *receive.GetLiveRoomReceiveStruct, userId uint) (results interface{}, err error) {
 	//请求直播服务器
 	url := "http://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.GetRoom + "/control/get?room="
 	// 合成url, 这里的appId和secret是在微信公众平台上获取的
@@ -27,7 +28,7 @@ func GetLiveRoom(data *liveModel.GetLiveRoomReceiveStruct, userId uint) (results
 		}
 	}(resp.Body)
 	// 解析http请求中body 数据到我们定义的结构体中
-	ReqGetRoom := new(liveModel.ReqGetRoom)
+	ReqGetRoom := new(receive.ReqGetRoom)
 	decoder := json.NewDecoder(resp.Body)
 	if err := decoder.Decode(ReqGetRoom); err != nil {
 		return nil, err
@@ -35,9 +36,9 @@ func GetLiveRoom(data *liveModel.GetLiveRoomReceiveStruct, userId uint) (results
 	if ReqGetRoom.Status != 200 {
 		return nil, fmt.Errorf("获取直播地址失败")
 	}
-	response := liveModel.GetLiveRoomResponse{
+	res := response.GetLiveRoomResponseStruct{
 		Address: "rtmp://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.RTMP + "/live",
 		Key:     ReqGetRoom.Data,
 	}
-	return response, nil
+	return res, nil
 }

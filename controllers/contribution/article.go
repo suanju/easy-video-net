@@ -1,8 +1,8 @@
 package contribution
 
 import (
+	receive "Go-Live/interaction/receive/contribution/article"
 	"Go-Live/logic/contribution"
-	"Go-Live/models/contribution/article"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
@@ -11,7 +11,7 @@ import (
 //CreateArticleContribution 发布专栏
 func (C Controllers) CreateArticleContribution(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	CreateArticleContributionReceive := new(article.CreateArticleContributionReceiveStruct)
+	CreateArticleContributionReceive := new(receive.CreateArticleContributionReceiveStruct)
 	if err := ctx.ShouldBind(CreateArticleContributionReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -27,7 +27,7 @@ func (C Controllers) CreateArticleContribution(ctx *gin.Context) {
 //GetArticleContributionListByUser 查询用户发布的专栏
 func (C Controllers) GetArticleContributionListByUser(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	GetArticleContributionListByUserReceive := new(article.GetArticleContributionListByUserReceiveStruct)
+	GetArticleContributionListByUserReceive := new(receive.GetArticleContributionListByUserReceiveStruct)
 	if err := ctx.ShouldBind(GetArticleContributionListByUserReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -43,7 +43,7 @@ func (C Controllers) GetArticleContributionListByUser(ctx *gin.Context) {
 //GetArticleContributionByID 查询专栏信息根据ID
 func (C Controllers) GetArticleContributionByID(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	GetArticleContributionByIDReceive := new(article.GetArticleContributionByIDReceiveStruct)
+	GetArticleContributionByIDReceive := new(receive.GetArticleContributionByIDReceiveStruct)
 	if err := ctx.ShouldBind(GetArticleContributionByIDReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -59,7 +59,7 @@ func (C Controllers) GetArticleContributionByID(ctx *gin.Context) {
 //ArticlePostComment 发布评论
 func (C Controllers) ArticlePostComment(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	ArticlePostCommentReceive := new(article.ArticlesPostCommentReceiveStruct)
+	ArticlePostCommentReceive := new(receive.ArticlesPostCommentReceiveStruct)
 	if err := ctx.ShouldBind(ArticlePostCommentReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -75,7 +75,7 @@ func (C Controllers) ArticlePostComment(ctx *gin.Context) {
 //GetArticleComment 获取文章评论
 func (C Controllers) GetArticleComment(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	GetArticleCommentReceive := new(article.GetArticleCommentReceiveStruct)
+	GetArticleCommentReceive := new(receive.GetArticleCommentReceiveStruct)
 	if err := ctx.ShouldBind(GetArticleCommentReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return

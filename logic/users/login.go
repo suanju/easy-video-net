@@ -3,6 +3,8 @@ package users
 import (
 	"Go-Live/consts"
 	"Go-Live/global"
+	receive "Go-Live/interaction/receive/users"
+	response "Go-Live/interaction/response/users"
 	"Go-Live/models/common"
 	userModel "Go-Live/models/users"
 	"Go-Live/utils/conversion"
@@ -19,7 +21,7 @@ import (
 	"time"
 )
 
-func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results interface{}, err error) {
+func WxAuthorization(data *receive.WxAuthorizationReceiveStruct) (results interface{}, err error) {
 	/*微信小程序登录 返回值*/
 	type WXLoginResp struct {
 		OpenID     string `json:"openid"`
@@ -76,7 +78,7 @@ func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results inte
 		//注册token
 		tokenString := jwt.NextToken(users.ID)
 		src, _ := conversion.FormattingJsonSrc(users.Photo)
-		userInfo := userModel.UserInfoResponse{
+		userInfo := response.UserInfoResponseStruct{
 			ID:       users.ID,
 			UserName: users.Username,
 			Photo:    src,
@@ -88,7 +90,7 @@ func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results inte
 	fmt.Printf("查询到的用户id是：%v", users.ID)
 	src, _ := conversion.FormattingJsonSrc(users.Photo)
 	tokenString := jwt.NextToken(users.ID)
-	userInfo := userModel.UserInfoResponse{
+	userInfo := response.UserInfoResponseStruct{
 		ID:       users.ID,
 		UserName: users.Username,
 		Photo:    src,
@@ -97,7 +99,7 @@ func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results inte
 	return userInfo, nil
 }
 
-func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err error) {
+func Register(data *receive.RegisterReceiveStruct) (results interface{}, err error) {
 	//判断邮箱是否唯一
 	users := new(userModel.User)
 	if users.IsExistByField("email", data.Email) {
@@ -123,7 +125,7 @@ func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err e
 		Src: fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
 		Tp:  "local",
 	})
-	registerData := userModel.User{
+	registerData := &userModel.User{
 		Email:     data.Email,
 		Username:  data.UserName,
 		Salt:      string(salt),
@@ -137,13 +139,13 @@ func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err e
 	}
 	//注册token
 	tokenString := jwt.NextToken(registerData.ID)
-	results = registerData.UserInfoResponse(tokenString)
+	results = response.UserInfoResponse(registerData, tokenString)
 
 	return results, nil
 
 }
 
-func Login(data *userModel.LoginReceiveStruct) (results interface{}, err error) {
+func Login(data *receive.LoginReceiveStruct) (results interface{}, err error) {
 	users := new(userModel.User)
 	if !users.IsExistByField("username", data.Username) {
 		return nil, fmt.Errorf("账号不存在")
@@ -153,11 +155,11 @@ func Login(data *userModel.LoginReceiveStruct) (results interface{}, err error) 
 	}
 	//注册token
 	tokenString := jwt.NextToken(users.ID)
-	userInfo := users.UserInfoResponse(tokenString)
+	userInfo := response.UserInfoResponse(users, tokenString)
 	return userInfo, nil
 }
 
-func SendEmailVerCode(data *userModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
+func SendEmailVerCode(data *receive.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
 	users := new(userModel.User)
 	if users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("邮箱已被注册")
@@ -180,7 +182,7 @@ func SendEmailVerCode(data *userModel.SendEmailVerCodeReceiveStruct) (results in
 	return "发送成功", nil
 }
 
-func SendEmailVerCodeByForget(data *userModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
+func SendEmailVerCodeByForget(data *receive.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
 	//判断用户是否存在
 	users := new(userModel.User)
 	if !users.IsExistByField("email", data.Email) {
@@ -204,7 +206,7 @@ func SendEmailVerCodeByForget(data *userModel.SendEmailVerCodeReceiveStruct) (re
 	return "发送成功", nil
 }
 
-func Forget(data *userModel.ForgetReceiveStruct) (results interface{}, err error) {
+func Forget(data *receive.ForgetReceiveStruct) (results interface{}, err error) {
 	//判断邮箱是否唯一
 	users := new(userModel.User)
 	if !users.IsExistByField("email", data.Email) {

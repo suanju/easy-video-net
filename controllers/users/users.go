@@ -1,9 +1,8 @@
 package users
 
 import (
+	receive "Go-Live/interaction/receive/users"
 	"Go-Live/logic/users"
-	usersModel "Go-Live/models/users"
-	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
@@ -26,7 +25,7 @@ func (us UserControllers) GetUserInfo(ctx *gin.Context) {
 //SetUserInfo  设置用户信息
 func (us UserControllers) SetUserInfo(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	setUserInfoReceive := new(usersModel.SetUserInfoStruct)
+	setUserInfoReceive := new(receive.SetUserInfoStruct)
 	if err := ctx.ShouldBind(setUserInfoReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -42,7 +41,7 @@ func (us UserControllers) SetUserInfo(ctx *gin.Context) {
 //DetermineNameExists 判断名字是否存在
 func (us UserControllers) DetermineNameExists(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	determineNameExistsReceive := new(usersModel.DetermineNameExistsStruct)
+	determineNameExistsReceive := new(receive.DetermineNameExistsStruct)
 	if err := ctx.ShouldBind(determineNameExistsReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -71,7 +70,7 @@ func (us UserControllers) Upload(ctx *gin.Context) {
 //UpdateAvatar 修改头像
 func (us UserControllers) UpdateAvatar(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	updateAvatarReceive := new(usersModel.UpdateAvatarStruct)
+	updateAvatarReceive := new(receive.UpdateAvatarStruct)
 	if err := ctx.ShouldBind(updateAvatarReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
@@ -98,7 +97,7 @@ func (us UserControllers) GetLiveData(ctx *gin.Context) {
 //SaveLiveData 修改直播资料
 func (us UserControllers) SaveLiveData(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	saveLiveDataReceive := new(liveInfo.SaveLiveDataStruct)
+	saveLiveDataReceive := new(receive.SaveLiveDataStruct)
 	if err := ctx.ShouldBind(saveLiveDataReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return

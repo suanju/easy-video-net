@@ -9,7 +9,7 @@ import (
 type Comment struct {
 	common.PublicModel
 	Uid            uint   `json:"uid" gorm:"uid"`
-	VideID         uint   `json:"video_id" gorm:"contribution_id"`
+	VideoID        uint   `json:"video_id" gorm:"contribution_id"`
 	Context        string `json:"context" gorm:"context"`
 	CommentID      uint   `json:"comment_id" gorm:"comment_id"`
 	CommentUserID  uint   `json:"comment_user_id" gorm:"comment_user_id"`
@@ -19,7 +19,7 @@ type Comment struct {
 }
 
 func (Comment) TableName() string {
-	return "lv_article_contribution_comments"
+	return "lv_video_contribution_comments"
 }
 
 //Find 根据id 查询

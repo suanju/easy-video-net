@@ -2,6 +2,8 @@ package contribution
 
 import (
 	"Go-Live/consts"
+	receive "Go-Live/interaction/receive/contribution/article"
+	response "Go-Live/interaction/response/contribution/article"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/article/comments"
@@ -11,7 +13,7 @@ import (
 	"github.com/dlclark/regexp2"
 )
 
-func CreateArticleContribution(data *article.CreateArticleContributionReceiveStruct, userID uint) (results interface{}, err error) {
+func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStruct, userID uint) (results interface{}, err error) {
 	//进行内容判断
 	for _, v := range data.Label {
 		vRune := []rune(v) //避免中文占位问题
@@ -58,23 +60,23 @@ func CreateArticleContribution(data *article.CreateArticleContributionReceiveStr
 	return "保存成功", nil
 }
 
-func GetArticleContributionListByUser(data *article.GetArticleContributionListByUserReceiveStruct, userID uint) (results interface{}, err error) {
+func GetArticleContributionListByUser(data *receive.GetArticleContributionListByUserReceiveStruct, userID uint) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContributionList)
 	if !articlesContribution.GetListByUid(data.UserID) {
 		return nil, fmt.Errorf("查询失败")
 	}
-	return articlesContribution.GetArticleContributionListByUserResponse(), nil
+	return response.GetArticleContributionListByUserResponse(articlesContribution), nil
 }
 
-func GetArticleContributionByID(data *article.GetArticleContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
+func GetArticleContributionByID(data *receive.GetArticleContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContribution)
 	if !articlesContribution.GetInfoByID(data.ArticleID) {
 		return nil, fmt.Errorf("查询失败")
 	}
-	return articlesContribution.GetArticleContributionByIDResponse(), nil
+	return response.GetArticleContributionByIDResponse(articlesContribution), nil
 }
 
-func ArticlePostComment(data *article.ArticlesPostCommentReceiveStruct, userID uint) (results interface{}, err error) {
+func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, userID uint) (results interface{}, err error) {
 	ct := comments.Comment{
 		PublicModel: common.PublicModel{ID: data.ContentID},
 	}
@@ -98,10 +100,10 @@ func ArticlePostComment(data *article.ArticlesPostCommentReceiveStruct, userID u
 	return "发布成功", nil
 }
 
-func GetArticleComment(data *article.GetArticleCommentReceiveStruct, userID uint) (results interface{}, err error) {
+func GetArticleComment(data *receive.GetArticleCommentReceiveStruct, userID uint) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContribution)
 	if !articlesContribution.GetArticleComments(data.ArticleID, data.PageInfo) {
 		return nil, fmt.Errorf("查询失败")
 	}
-	return articlesContribution.GetArticleContributionCommentsResponse(), nil
+	return response.GetArticleContributionCommentsResponse(articlesContribution), nil
 }

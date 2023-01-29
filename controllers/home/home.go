@@ -1,8 +1,8 @@
 package home
 
 import (
-	homeLogic "Go-Live/logic/home"
-	"Go-Live/models/home"
+	"Go-Live/interaction/receive/home"
+	receive "Go-Live/logic/home"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
@@ -18,7 +18,7 @@ func (C Controllers) GetHomeInfo(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := homeLogic.GetHomeInfo(GetHomeInfoReceive)
+	results, err := receive.GetHomeInfo(GetHomeInfoReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
