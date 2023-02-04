@@ -10,14 +10,17 @@ type ArticleRouter struct {
 }
 
 func (v *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
+	contributionControllers := new(contribution.Controllers)
+	contributionRouterNoVerification := Router.Group("contribution").Use()
+	{
+		contributionRouterNoVerification.POST("/createArticleContribution", contributionControllers.CreateArticleContribution)
+		contributionRouterNoVerification.POST("/getArticleContributionListByUser", contributionControllers.GetArticleContributionListByUser)
+		contributionRouterNoVerification.POST("/getArticleContributionByID", contributionControllers.GetArticleContributionByID)
+		contributionRouterNoVerification.POST("/getArticleComment", contributionControllers.GetArticleComment)
+
+	}
 	contributionRouter := Router.Group("contribution").Use(middlewares.VerificationToken())
 	{
-		contributionControllers := new(contribution.Controllers)
-		contributionRouter.POST("/createArticleContribution", contributionControllers.CreateArticleContribution)
-		contributionRouter.POST("/getArticleContributionListByUser", contributionControllers.GetArticleContributionListByUser)
-		contributionRouter.POST("/getArticleContributionByID", contributionControllers.GetArticleContributionByID)
 		contributionRouter.POST("/articlePostComment", contributionControllers.ArticlePostComment)
-		contributionRouter.POST("/getArticleComment", contributionControllers.GetArticleComment)
-
 	}
 }
