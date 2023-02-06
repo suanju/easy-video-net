@@ -3,6 +3,7 @@ package response
 import (
 	"Go-Live/consts"
 	"Go-Live/models/contribution/article"
+	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/users"
 	"Go-Live/utils/conversion"
 	"github.com/dlclark/regexp2"
@@ -37,6 +38,7 @@ type GetArticleContributionListByUserResponseStruct struct {
 	Heat           int       `json:"heat"`
 	LikesNumber    int       `json:"likes_number"`
 	CommentsNumber int       `json:"comments_number"`
+	Classification string    `json:"classification"`
 	CreatedAt      time.Time `json:"created_at"`
 }
 
@@ -123,8 +125,8 @@ func GetArticleContributionListByUserResponse(l *article.ArticlesContributionLis
 		reg := regexp2.MustCompile(`<(\S*?)[^>]*>.*?|<.*? />`, 0)
 		match, _ := reg.Replace(v.Content, "", -1, -1)
 		matchRune := []rune(match)
-		if len(matchRune) > 70 {
-			v.Content = string(matchRune[:70]) + "..."
+		if len(matchRune) > 100 {
+			v.Content = string(matchRune[:100]) + "..."
 		} else {
 			v.Content = match
 		}
@@ -142,6 +144,7 @@ func GetArticleContributionListByUserResponse(l *article.ArticlesContributionLis
 			Cover:          coverSrc,
 			Label:          label,
 			Content:        v.Content,
+			Classification: v.Classification.Label,
 			IsComments:     conversion.Int8TurnBool(v.IsComments),
 			Heat:           v.Heat,
 			LikesNumber:    len(v.Likes),
@@ -151,6 +154,7 @@ func GetArticleContributionListByUserResponse(l *article.ArticlesContributionLis
 	}
 	return response
 }
+
 func GetArticleContributionByIDResponse(vc *article.ArticlesContribution) GetArticleContributionByIDResponseStruct {
 	coverSrc, _ := conversion.FormattingJsonSrc(vc.Cover)
 
@@ -201,6 +205,7 @@ func GetArticleContributionByIDResponse(vc *article.ArticlesContribution) GetArt
 	}
 	return response
 }
+
 func GetArticleContributionCommentsResponse(vc *article.ArticlesContribution) GetArticleContributionCommentsResponseStruct {
 	//评论
 	comments := commentsInfoList{}
@@ -229,4 +234,113 @@ func GetArticleContributionCommentsResponse(vc *article.ArticlesContribution) Ge
 		CommentsNumber: len(vc.Comments),
 	}
 	return response
+}
+
+//ArticleClassificationInfo 文章分类信息
+type ArticleClassificationInfo struct {
+	ID       uint                          `json:"id"`
+	AID      uint                          `json:"aid"`
+	Label    string                        `json:"label"`
+	Children ArticleClassificationInfoList `json:"children"`
+}
+
+type ArticleClassificationInfoList []*ArticleClassificationInfo
+
+//得到分级结构
+func (l ArticleClassificationInfoList) getChildComment() ArticleClassificationInfoList {
+	topList := ArticleClassificationInfoList{}
+	for _, v := range l {
+		if v.AID == 0 {
+			//顶层
+			topList = append(topList, &ArticleClassificationInfo{
+				ID:       v.ID,
+				AID:      v.AID,
+				Label:    v.Label,
+				Children: nil,
+			})
+		}
+	}
+	return classificationInfoListTree(topList, l)
+}
+
+//生成树结构
+func classificationInfoListTree(menus ArticleClassificationInfoList, allData ArticleClassificationInfoList) ArticleClassificationInfoList {
+	//循环所有一级菜单
+	for k, v := range menus {
+		//查询所有该菜单下的所有子菜单
+		var nodes ArticleClassificationInfoList //定义子节点目录
+		for _, av := range allData {
+			if av.AID == v.ID {
+				nodes = append(nodes, &ArticleClassificationInfo{
+					ID:       av.ID,
+					AID:      av.AID,
+					Label:    av.Label,
+					Children: nil,
+				})
+			}
+		}
+		for kk, _ := range nodes {
+			menus[k].Children = append(menus[k].Children, nodes[kk])
+		}
+		//将刚刚查询出来的子菜单进行递归,查询出三级菜单和四级菜单
+		classificationListSecondTree(nodes, allData)
+	}
+	return menus
+}
+
+func classificationListSecondTree(menus ArticleClassificationInfoList, allData ArticleClassificationInfoList) ArticleClassificationInfoList {
+	//循环所有一级菜单
+	for k, v := range menus {
+		//查询所有该菜单下的所有子菜单
+		var nodes ArticleClassificationInfoList //定义子节点目录
+		for _, av := range allData {
+			if av.AID == v.ID {
+				nodes = append(nodes, av)
+			}
+		}
+		for kk, _ := range nodes {
+			menus[k].Children = append(menus[k].Children, nodes[kk])
+		}
+		//将刚刚查询出来的子菜单进行递归,查询出三级菜单和四级菜单
+		classificationListSecondTree(nodes, allData)
+	}
+	return menus
+}
+
+func GetArticleClassificationListResponse(cl *classification.ClassificationsList) ArticleClassificationInfoList {
+	response := make(ArticleClassificationInfoList, 0)
+	for _, v := range *cl {
+		response = append(response, &ArticleClassificationInfo{
+			ID:       v.ID,
+			AID:      v.AID,
+			Label:    v.Label,
+			Children: make(ArticleClassificationInfoList, 0),
+		})
+	}
+	return response.getChildComment()
+}
+
+type GetArticleTotalInfoResponseStruct struct {
+	Classification    ArticleClassificationInfoList `json:"classification"`
+	ArticleNum        int64                         `json:"article_num"`
+	ClassificationNum int64                         `json:"classification_num"`
+}
+
+func GetArticleTotalInfoResponse(cl *classification.ClassificationsList, articleNum *int64, clNum int64) interface{} {
+	classificationInfo := make(ArticleClassificationInfoList, 0)
+	for _, v := range *cl {
+		classificationInfo = append(classificationInfo, &ArticleClassificationInfo{
+			ID:       v.ID,
+			AID:      v.AID,
+			Label:    v.Label,
+			Children: make(ArticleClassificationInfoList, 0),
+		})
+	}
+	classificationInfo = classificationInfo.getChildComment()
+
+	return GetArticleTotalInfoResponseStruct{
+		Classification:    classificationInfo,
+		ArticleNum:        *articleNum,
+		ClassificationNum: clNum,
+	}
 }
