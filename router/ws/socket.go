@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"Go-Live/controllers/contribution"
 	"Go-Live/controllers/live"
 	"Go-Live/middlewares"
 	"github.com/gin-gonic/gin"
@@ -10,9 +11,11 @@ type Router struct {
 }
 
 func (r *Router) InitSocketRouter(Router *gin.RouterGroup) {
-	liveRouter := Router.Group("ws").Use(middlewares.VerificationTokenAsSocket())
+	socketRouter := Router.Group("ws").Use(middlewares.VerificationTokenAsSocket())
 	{
 		liveControllers := new(live.LivesControllers)
-		liveRouter.GET("/liveSocket", liveControllers.LiveSocket)
+		contributionControllers := new(contribution.Controllers)
+		socketRouter.GET("/liveSocket", liveControllers.LiveSocket)
+		socketRouter.GET("/videoSocket", contributionControllers.VideoSocket)
 	}
 }
