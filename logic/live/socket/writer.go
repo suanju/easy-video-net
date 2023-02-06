@@ -17,18 +17,3 @@ func (lre LiveRoomEvent) Writer() {
 		}
 	}
 }
-
-////公共消息监听
-//func listening() {
-//	for {
-//		select {
-//		//公共群聊
-//		case barrageMessage := <-Severe.Barrage:
-//			for k, v := range Severe.UserMapChannel {
-//				if k != barrageMessage.Sender {
-//					v.MsgList <- barrageMessage
-//				}
-//			}
-//		}
-//	}
-//}
