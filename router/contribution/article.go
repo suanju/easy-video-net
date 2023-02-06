@@ -13,14 +13,16 @@ func (v *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
 	contributionControllers := new(contribution.Controllers)
 	contributionRouterNoVerification := Router.Group("contribution").Use()
 	{
-		contributionRouterNoVerification.POST("/createArticleContribution", contributionControllers.CreateArticleContribution)
 		contributionRouterNoVerification.POST("/getArticleContributionListByUser", contributionControllers.GetArticleContributionListByUser)
 		contributionRouterNoVerification.POST("/getArticleContributionByID", contributionControllers.GetArticleContributionByID)
 		contributionRouterNoVerification.POST("/getArticleComment", contributionControllers.GetArticleComment)
+		contributionRouterNoVerification.POST("/getArticleClassificationList", contributionControllers.GetArticleClassificationList)
+		contributionRouterNoVerification.POST("/getArticleTotalInfo", contributionControllers.GetArticleTotalInfo)
 
 	}
 	contributionRouter := Router.Group("contribution").Use(middlewares.VerificationToken())
 	{
+		contributionRouter.POST("/createArticleContribution", contributionControllers.CreateArticleContribution)
 		contributionRouter.POST("/articlePostComment", contributionControllers.ArticlePostComment)
 	}
 }
