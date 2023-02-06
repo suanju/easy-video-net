@@ -3,6 +3,7 @@ package users
 import (
 	"Go-Live/global"
 	"Go-Live/models/common"
+	"Go-Live/models/users/liveInfo"
 	"crypto/md5"
 	"fmt"
 	"gorm.io/datatypes"
@@ -22,6 +23,8 @@ type User struct {
 	BirthDate time.Time      `json:"birth_date" gorm:"birth_date"`
 	IsVisible int8           `json:"is_visible" gorm:"is_visible"`
 	Signature string         `json:"signature" gorm:"signature"`
+
+	LiveInfo liveInfo.LiveInfo `json:"liveInfo" gorm:"foreignKey:Uid"`
 }
 
 func (User) TableName() string {
@@ -80,4 +83,9 @@ func (us *User) IfPasswordCorrect(password string) bool {
 //Find 根据id 查询
 func (us *User) Find(id uint) {
 	_ = global.Db.Where("id", id).Find(&us).Error
+}
+
+//FindLiveInfo 查询直播信息
+func (us *User) FindLiveInfo(id uint) {
+	_ = global.Db.Where("id", id).Preload("LiveInfo").Find(&us).Error
 }
