@@ -8,6 +8,7 @@ import (
 	"Go-Live/models/contribution/video/like"
 	"Go-Live/models/users"
 	"gorm.io/datatypes"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -59,6 +60,19 @@ func (vl *VideosContributionList) GetRecommendList() error {
 
 //FindByID 根据查询
 func (vc *VideosContribution) FindByID(id uint) error {
-	err := global.Db.Where("id", id).Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Order("created_at desc").Find(&vc).Error
+	err := global.Db.Where("id", id).Preload("Likes").Preload("Comments", func(db *gorm.DB) *gorm.DB {
+		return db.Preload("UserInfo").Order("created_at desc")
+	}).Preload("Barrage").Preload("UserInfo").Order("created_at desc").Find(&vc).Error
 	return err
+}
+
+//GetVideoComments 获取评论
+func (vc *VideosContribution) GetVideoComments(ID uint, info common.PageInfo) bool {
+	err := global.Db.Where("id", ID).Preload("Likes").Preload("Comments", func(db *gorm.DB) *gorm.DB {
+		return db.Preload("UserInfo").Order("created_at desc").Limit(info.Size).Offset((info.Page - 1) * info.Size)
+	}).Find(vc).Error
+	if err != nil {
+		return false
+	}
+	return true
 }
