@@ -15,6 +15,7 @@ type CreateArticleContributionReceiveStruct struct {
 	Label                         []string  `json:"label" binding:"required"`
 	Content                       string    `json:"content" binding:"required"`
 	Comments                      *bool     `json:"comments"  binding:"required"`
+	ClassificationID              uint      `json:"classification_id"`
 }
 
 type GetArticleContributionListByUserReceiveStruct struct {
