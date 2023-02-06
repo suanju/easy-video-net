@@ -74,13 +74,32 @@ func (C Controllers) ArticlePostComment(ctx *gin.Context) {
 
 //GetArticleComment 获取文章评论
 func (C Controllers) GetArticleComment(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
 	GetArticleCommentReceive := new(receive.GetArticleCommentReceiveStruct)
 	if err := ctx.ShouldBind(GetArticleCommentReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := contribution.GetArticleComment(GetArticleCommentReceive, userID)
+	results, err := contribution.GetArticleComment(GetArticleCommentReceive)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetArticleClassificationList 获取视频分类
+func (C Controllers) GetArticleClassificationList(ctx *gin.Context) {
+	results, err := contribution.GetArticleClassificationList()
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetArticleTotalInfo 获取文章相关总和信息
+func (C Controllers) GetArticleTotalInfo(ctx *gin.Context) {
+	results, err := contribution.GetArticleTotalInfo()
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

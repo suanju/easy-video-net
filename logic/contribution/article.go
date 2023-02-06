@@ -6,6 +6,7 @@ import (
 	response "Go-Live/interaction/response/contribution/article"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
+	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/contribution/article/comments"
 	"Go-Live/utils/conversion"
 	"encoding/json"
@@ -26,7 +27,6 @@ func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStr
 		Src: data.Cover,
 		Tp:  data.CoverUploadType,
 	})
-
 	//正则匹配替换url
 	//取url前缀
 	prefix, err := conversion.SwitchTypeAsUrlPrefix(data.ArticleContributionUploadType)
@@ -40,6 +40,7 @@ func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStr
 	//插入数据
 	articlesContribution := article.ArticlesContribution{
 		Uid:                userID,
+		ClassificationID:   data.ClassificationID,
 		Title:              data.Title,
 		Cover:              coverImg,
 		Timing:             conversion.BoolTurnInt8(*data.Timing),
@@ -100,10 +101,35 @@ func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, userID u
 	return "发布成功", nil
 }
 
-func GetArticleComment(data *receive.GetArticleCommentReceiveStruct, userID uint) (results interface{}, err error) {
+func GetArticleComment(data *receive.GetArticleCommentReceiveStruct) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContribution)
 	if !articlesContribution.GetArticleComments(data.ArticleID, data.PageInfo) {
 		return nil, fmt.Errorf("查询失败")
 	}
 	return response.GetArticleContributionCommentsResponse(articlesContribution), nil
+}
+
+func GetArticleClassificationList() (results interface{}, err error) {
+	cn := new(classification.ClassificationsList)
+	err = cn.FindAll()
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	return response.GetArticleClassificationListResponse(cn), nil
+}
+
+func GetArticleTotalInfo() (results interface{}, err error) {
+	//查询文章数量
+	articleNm := new(int64)
+	al := new(article.ArticlesContributionList)
+	al.GetAllCount(articleNm)
+	//查询文章分类信息
+	cn := make(classification.ClassificationsList, 0)
+	err = cn.FindAll()
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	cnNum := int64(len(cn))
+
+	return response.GetArticleTotalInfoResponse(&cn, articleNm, cnNum), nil
 }
