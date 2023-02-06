@@ -39,11 +39,12 @@ type RConfigStruct struct {
 	Password string `ini:"password"`
 }
 type LiveConfigStruct struct {
-	IP      string `ini:"ip"`
-	GetRoom string `ini:"getRoom"`
-	RTMP    string `ini:"rtmp"`
-	FLV     string `ini:"flv"`
-	HLS     string `ini:"hls"`
+	IP        string `ini:"ip"`
+	GetRoom   string `ini:"getRoom"`
+	Agreement string `ini:"agreement"`
+	RTMP      string `ini:"rtmp"`
+	FLV       string `ini:"flv"`
+	HLS       string `ini:"hls"`
 }
 
 type ProjectConfigStruct struct {
