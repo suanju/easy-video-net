@@ -1,7 +1,6 @@
 package socket
 
 import (
-	"Go-Live/consts"
 	"Go-Live/proto/pb"
 	"Go-Live/utils/response"
 	"fmt"
@@ -42,8 +41,8 @@ func (lre LiveRoomEvent) Read() {
 }
 func getTypeCorrespondingFunc(lre LiveRoomEvent, data *pb.Message) error {
 	switch data.MsgType {
-	case consts.WebClientBarrageReq:
-		return serviceSendBarrage(lre, data.Data)
+	//case consts.WebClientBarrageReq:
+	//	return serviceSendBarrage(lre, data.Data)
 	}
 	return fmt.Errorf("消息类型未定义")
 }
