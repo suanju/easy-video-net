@@ -4,6 +4,7 @@ import (
 	"Go-Live/global"
 	receive "Go-Live/interaction/receive/live"
 	response "Go-Live/interaction/response/live"
+	"Go-Live/models/users"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -41,4 +42,11 @@ func GetLiveRoom(data *receive.GetLiveRoomReceiveStruct, userId uint) (results i
 		Key:     ReqGetRoom.Data,
 	}
 	return res, nil
+}
+
+func GetLiveRoomInfo(data *receive.GetLiveRoomInfoReceiveStruct) (results interface{}, err error) {
+	userInfo := new(users.User)
+	userInfo.FindLiveInfo(data.RoomID)
+	flv := global.Config.LiveConfig.Agreement + "://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.FLV + "/live/" + strconv.Itoa(int(data.RoomID)) + ".flv"
+	return response.GetLiveRoomInfoResponse(userInfo, flv), nil
 }
