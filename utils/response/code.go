@@ -3,6 +3,8 @@ package response
 type MyCode int64
 
 const (
+	CodeDefault MyCode = 0
+
 	CodeSuccess       MyCode = 200
 	CodeInvalidParams MyCode = 201
 	CodeNoData        MyCode = 202
@@ -18,6 +20,7 @@ const (
 )
 
 var msgFlags = map[MyCode]string{
+	CodeDefault:       "请求成功",
 	CodeSuccess:       "success",
 	CodeInvalidParams: "请求参数错误",
 	CodeServerBusy:    "服务繁忙",
