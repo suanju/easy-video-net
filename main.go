@@ -3,7 +3,8 @@ package main
 import (
 	_ "Go-Live/global/dataBases/mysql"
 	_ "Go-Live/global/dataBases/redis"
-	"Go-Live/logic/live/socket"
+	videoSocket "Go-Live/logic/contribution/socket"
+	liveSocket "Go-Live/logic/live/socket"
 	"Go-Live/router"
 	"Go-Live/utils/testing"
 )
@@ -11,8 +12,9 @@ import (
 func main() {
 	//检查直播服务
 	testing.LiveSeverTesting()
-	//开启直播socket
-	go socket.Severe.Start()
+	//开启直播和视频socket
+	go liveSocket.Severe.Start()
+	go videoSocket.Severe.Start()
 
 	router.InitRouter()
 
