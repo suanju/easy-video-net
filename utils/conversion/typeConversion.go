@@ -9,6 +9,9 @@ import (
 // StringConversionMap 字符串转数组
 func StringConversionMap(s string) []string {
 	list := strings.Split(s, ",")
+	if len(list) == 0 {
+		return nil
+	}
 	return list
 }
 
