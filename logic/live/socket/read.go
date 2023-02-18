@@ -41,8 +41,7 @@ func (lre LiveRoomEvent) Read() {
 }
 func getTypeCorrespondingFunc(lre LiveRoomEvent, data *pb.Message) error {
 	switch data.MsgType {
-	//case consts.WebClientBarrageReq:
-	//	return serviceSendBarrage(lre, data.Data)
+
 	}
 	return fmt.Errorf("消息类型未定义")
 }
