@@ -15,5 +15,6 @@ func (s *LivesRouter) InitLiveRouter(Router *gin.RouterGroup) {
 		liveControllers := new(live.LivesControllers)
 		liveRouter.POST("/getLiveRoom", liveControllers.GetLiveRoom)
 		liveRouter.POST("/getLiveRoomInfo", liveControllers.GetLiveRoomInfo)
+		liveRouter.POST("/getBeLiveList", liveControllers.GetBeLiveList)
 	}
 }

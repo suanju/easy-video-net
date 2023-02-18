@@ -41,3 +41,13 @@ func (lv LivesControllers) GetLiveRoomInfo(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//GetBeLiveList 获取正在直播的用户
+func (lv LivesControllers) GetBeLiveList(ctx *gin.Context) {
+	results, err := live.GetBeLiveList()
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
