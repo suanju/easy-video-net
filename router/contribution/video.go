@@ -14,11 +14,14 @@ func (v *VideoRouter) InitVideoRouter(Router *gin.RouterGroup) {
 	//不需要登入
 	contributionRouterNoVerification := Router.Group("contribution").Use()
 	{
-
-		contributionRouterNoVerification.POST("/getVideoContributionByID", contributionControllers.GetVideoContributionByID)
 		contributionRouterNoVerification.GET("/video/barrage/v3/", contributionControllers.GetVideoBarrage)
 		contributionRouterNoVerification.GET("/getVideoBarrageList", contributionControllers.GetVideoBarrageList)
 		contributionRouterNoVerification.POST("/getVideoComment", contributionControllers.GetVideoComment)
+	}
+	//非必须登入
+	contributionRouterNotNecessary := Router.Group("contribution").Use(middlewares.VerificationTokenNotNecessary())
+	{
+		contributionRouterNotNecessary.POST("/getVideoContributionByID", contributionControllers.GetVideoContributionByID)
 	}
 	//需要登入 参数携带
 	contributionRouterParameter := Router.Group("contribution").Use(middlewares.VerificationTokenAsParameter())

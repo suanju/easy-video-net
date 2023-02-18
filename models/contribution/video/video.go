@@ -47,8 +47,16 @@ func (vc *VideosContribution) Create() bool {
 	return true
 }
 
-func (vl *VideosContributionList) GetHoneVideoList() error {
-	err := global.Db.Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Order("created_at desc").Find(&vl).Error
+func (vl *VideosContributionList) GetHoneVideoList(info common.PageInfo) error {
+	//首页加载13个铺满后续15个
+	var offset int
+	if info.Page == 1 {
+		info.Size = 11
+		offset = (info.Page - 1) * info.Size
+	}
+	offset = (info.Page-2)*info.Size + 11
+
+	err := global.Db.Preload("Likes").Preload("Comments").Preload("Barrage").Preload("UserInfo").Limit(info.Size).Offset(offset).Order("created_at desc").Find(&vl).Error
 	return err
 }
 
@@ -75,4 +83,19 @@ func (vc *VideosContribution) GetVideoComments(ID uint, info common.PageInfo) bo
 		return false
 	}
 	return true
+}
+
+//Watch 添加播放
+func (vc *VideosContribution) Watch(id uint) error {
+	err := global.Db.Model(vc).Where("id", id).Updates(map[string]interface{}{"heat": gorm.Expr("Heat  + ?", 1)}).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+//GetVideoListBySpace 获取个人空间视频列表
+func (vl *VideosContributionList) GetVideoListBySpace(id uint) error {
+	err := global.Db.Where("uid", id).Preload("Likes").Preload("Comments").Preload("Barrage").Order("created_at desc").Find(&vl).Error
+	return err
 }

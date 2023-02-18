@@ -2,6 +2,7 @@ package contribution
 
 import (
 	"Go-Live/consts"
+	"Go-Live/global"
 	receive "Go-Live/interaction/receive/contribution/video"
 	response "Go-Live/interaction/response/contribution/video"
 	"Go-Live/logic/contribution/socket"
@@ -9,6 +10,7 @@ import (
 	"Go-Live/models/contribution/video"
 	"Go-Live/models/contribution/video/barrage"
 	"Go-Live/models/contribution/video/comments"
+	"Go-Live/models/users/attention"
 	"Go-Live/utils/conversion"
 	"encoding/json"
 	"fmt"
@@ -46,18 +48,34 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 	return "保存成功", nil
 }
 
-func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct) (results interface{}, err error) {
+func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
 	videoInfo := new(video.VideosContribution)
+	//获取视频信息
+	isAttention := false
+	if userID != 0 {
+		//进行视频播放增加
+		if !global.RedisDb.SIsMember(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), userID).Val() {
+			//最近无播放
+			global.RedisDb.SAdd(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), userID)
+			if videoInfo.Watch(data.VideoID) != nil {
+				global.Logger.Error("添加播放量错误", videoInfo.Watch(data.VideoID))
+			}
+		}
+		//获取是否关注
+		at := new(attention.Attention)
+		isAttention = at.IsAttention(userID, videoInfo.UserInfo.ID)
+	}
 	err = videoInfo.FindByID(data.VideoID)
 	if err != nil {
 		return nil, err
 	}
+	//获取推荐列表
 	recommendList := new(video.VideosContributionList)
 	err = recommendList.GetRecommendList()
 	if err != nil {
 		return nil, err
 	}
-	res := response.GetVideoContributionByIDResponse(videoInfo, recommendList)
+	res := response.GetVideoContributionByIDResponse(videoInfo, recommendList, isAttention)
 	return res, nil
 }
 

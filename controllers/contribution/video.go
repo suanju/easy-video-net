@@ -33,12 +33,13 @@ func (C Controllers) CreateVideoContribution(ctx *gin.Context) {
 
 // GetVideoContributionByID  根据id获取视频信息
 func (C Controllers) GetVideoContributionByID(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
 	GetVideoContributionByIDReceive := new(receive.GetVideoContributionByIDReceiveStruct)
 	if err := ctx.ShouldBind(GetVideoContributionByIDReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := contribution.GetVideoContributionByID(GetVideoContributionByIDReceive)
+	results, err := contribution.GetVideoContributionByID(GetVideoContributionByIDReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
