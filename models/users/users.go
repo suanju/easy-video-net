@@ -27,6 +27,8 @@ type User struct {
 	LiveInfo liveInfo.LiveInfo `json:"liveInfo" gorm:"foreignKey:Uid"`
 }
 
+type UserList []User
+
 func (User) TableName() string {
 	return "lv_users"
 }
@@ -88,4 +90,12 @@ func (us *User) Find(id uint) {
 //FindLiveInfo 查询直播信息
 func (us *User) FindLiveInfo(id uint) {
 	_ = global.Db.Where("id", id).Preload("LiveInfo").Find(&us).Error
+}
+
+func (l *UserList) GetBeLiveList(ids []uint) error {
+	err := global.Db.Where("id", ids).Preload("LiveInfo").Find(&l).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }

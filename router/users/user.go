@@ -20,5 +20,8 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/upload", usersControllers.Upload)
 		router.POST("/getLiveData", usersControllers.GetLiveData)
 		router.POST("/saveLiveData", usersControllers.SaveLiveData)
+		router.POST("/sendEmailVerificationCodeByChangePassword", usersControllers.SendEmailVerificationCodeByChangePassword)
+		router.POST("/changePassword", usersControllers.ChangePassword)
+		router.POST("/attention", usersControllers.Attention)
 	}
 }

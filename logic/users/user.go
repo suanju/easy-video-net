@@ -1,22 +1,30 @@
 package users
 
 import (
+	"Go-Live/consts"
 	"Go-Live/global"
 	receive "Go-Live/interaction/receive/users"
 	response "Go-Live/interaction/response/users"
 	"Go-Live/models/common"
 	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
+	"Go-Live/models/users/attention"
 	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/conversion"
+	"Go-Live/utils/email"
+	"Go-Live/utils/jwt"
 	"Go-Live/utils/location"
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
 	"gorm.io/datatypes"
+	"math/rand"
 	"mime/multipart"
 	"os"
 	"strings"
+	"time"
 )
 
 func GetUserInfo(userID uint) (results interface{}, err error) {
@@ -26,7 +34,7 @@ func GetUserInfo(userID uint) (results interface{}, err error) {
 	return res, nil
 }
 
-func SetUserInfo(data *receive.SetUserInfoStruct, userID uint) (results interface{}, err error) {
+func SetUserInfo(data *receive.SetUserInfoReceiveStruct, userID uint) (results interface{}, err error) {
 	user := &users.User{
 		PublicModel: common.PublicModel{ID: userID},
 	}
@@ -133,7 +141,7 @@ func GetLiveData(userID uint) (results interface{}, err error) {
 	return common.Img{}, nil
 }
 
-func SaveLiveData(data *receive.SaveLiveDataStruct, userID uint) (results interface{}, err error) {
+func SaveLiveData(data *receive.SaveLiveDataReceiveStruct, userID uint) (results interface{}, err error) {
 	img, _ := json.Marshal(common.Img{
 		Src: data.ImgUrl,
 		Tp:  data.Tp,
@@ -149,4 +157,73 @@ func SaveLiveData(data *receive.SaveLiveDataStruct, userID uint) (results interf
 		return nil, fmt.Errorf("修改失败")
 	}
 
+}
+
+func SendEmailVerificationCodeByChangePassword(userID uint) (results interface{}, err error) {
+	user := new(users.User)
+	user.Find(userID)
+	//发送方
+	mailTo := []string{user.Email}
+	// 邮件主题
+	code := fmt.Sprintf("%06v", rand.New(rand.NewSource(time.Now().UnixNano())).Int63n(1000000))
+	subject := "验证码"
+	// 邮件正文
+	body := fmt.Sprintf("您正在修改密码,您的验证码为:%s,5分钟有效,请勿转发他人", code)
+	err = email.SendMail(mailTo, subject, body)
+	if err != nil {
+		return nil, err
+	}
+	err = global.RedisDb.Set(fmt.Sprintf("%s%s", consts.EmailVerificationCodeByChangePassword, user.Email), code, 5*time.Minute).Err()
+	if err != nil {
+		return nil, err
+	}
+	return "发送成功", nil
+	return nil, nil
+
+}
+
+func ChangePassword(data *receive.ChangePasswordReceiveStruct, userID uint) (results interface{}, err error) {
+	user := new(users.User)
+	user.Find(userID)
+
+	if data.Password != data.ConfirmPassword {
+		return nil, fmt.Errorf("两次密码不一致！")
+	}
+
+	//判断验证码是否正确
+	verCode, err := global.RedisDb.Get(fmt.Sprintf("%s%s", consts.EmailVerificationCodeByChangePassword, user.Email)).Result()
+	if err == redis.Nil {
+		return nil, fmt.Errorf("验证码过期！")
+	}
+
+	if verCode != data.VerificationCode {
+		return nil, fmt.Errorf("验证码错误")
+	}
+	//生成密码盐 8 位
+	salt := make([]byte, 6)
+	for i := range salt {
+		salt[i] = jwt.SaltStr[rand.Int63()%int64(len(jwt.SaltStr))]
+	}
+	password := []byte(fmt.Sprintf("%s%s%s", salt, data.Password, salt))
+	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
+
+	user.Salt = string(salt)
+	user.Password = passwordMd5
+
+	registerRes := user.Update()
+	if !registerRes {
+		return nil, fmt.Errorf("修改失败")
+	}
+	return "修改成功", nil
+}
+
+func Attention(data *receive.AttentionReceiveStruct, userID uint) (results interface{}, err error) {
+	at := new(attention.Attention)
+	if at.Attention(userID, data.Uid) {
+		if data.Uid == userID {
+			return nil, fmt.Errorf("操作失败")
+		}
+		return "操作成功", nil
+	}
+	return nil, fmt.Errorf("操作失败")
 }
