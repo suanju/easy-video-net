@@ -31,6 +31,7 @@ func InitRouter() {
 		//静态资源访问
 		router.Static("/assets", "./assets/")
 		RoutersGroupApp.Users.LoginRouter.InitLoginRouter(PrivateGroup)
+		RoutersGroupApp.Users.SpaceRouter.InitSpaceRouter(PrivateGroup)
 		RoutersGroupApp.Ws.InitSocketRouter(PrivateGroup)
 		RoutersGroupApp.Users.InitRouter(PrivateGroup)
 		RoutersGroupApp.Live.InitLiveRouter(PrivateGroup)
@@ -38,7 +39,6 @@ func InitRouter() {
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.ArticleRouter.InitArticleRouter(PrivateGroup)
-
 	}
 
 	err := router.Run()
