@@ -85,3 +85,12 @@ func (vc *ArticlesContribution) GetArticleComments(ID uint, info common.PageInfo
 	}
 	return true
 }
+
+//GetArticleBySpace 获取个人空间专栏列表
+func (l *ArticlesContributionList) GetArticleBySpace(id uint) error {
+	err := global.Db.Where("uid", id).Preload("Likes").Preload("Classification").Preload("Comments").Order("created_at desc").Find(l).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
