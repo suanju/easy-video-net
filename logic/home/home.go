@@ -17,7 +17,7 @@ func GetHomeInfo(data *receive.GetHomeInfoReceiveStruct) (results interface{}, e
 
 	//获取主页推荐视频
 	videoList := new(video.VideosContributionList)
-	err = videoList.GetHoneVideoList()
+	err = videoList.GetHoneVideoList(data.PageInfo)
 
 	if err != nil {
 		return nil, err
