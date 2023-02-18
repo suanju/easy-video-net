@@ -28,9 +28,11 @@ type Info struct {
 
 //创作者信息
 type creatorInfo struct {
-	Username  string `json:"username"`
-	Avatar    string `json:"avatar"`
-	Signature string `json:"signature"`
+	ID          uint   `json:"id"`
+	Username    string `json:"username"`
+	Avatar      string `json:"avatar"`
+	Signature   string `json:"signature"`
+	IsAttention bool   `json:"is_attention"`
 }
 
 //推荐视频信息
@@ -55,7 +57,7 @@ type Response struct {
 	RecommendList RecommendList `json:"recommendList"`
 }
 
-func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVideoList *video.VideosContributionList) Response {
+func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVideoList *video.VideosContributionList, isAttention bool) Response {
 	//处理视频主要信息
 	creatorAvatar, _ := conversion.FormattingJsonSrc(vc.UserInfo.Photo)
 	cover, _ := conversion.FormattingJsonSrc(vc.Cover)
@@ -98,9 +100,11 @@ func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVid
 			Comments:       commentsList,
 			CommentsNumber: len(commentsList),
 			CreatorInfo: creatorInfo{
-				Username:  vc.UserInfo.Username,
-				Avatar:    creatorAvatar,
-				Signature: vc.UserInfo.Signature,
+				ID:          vc.UserInfo.ID,
+				Username:    vc.UserInfo.Username,
+				Avatar:      creatorAvatar,
+				Signature:   vc.UserInfo.Signature,
+				IsAttention: isAttention,
 			},
 			CreatedAt: vc.CreatedAt,
 		},

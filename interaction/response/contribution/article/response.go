@@ -131,10 +131,10 @@ func GetArticleContributionListByUserResponse(l *article.ArticlesContributionLis
 			v.Content = match
 		}
 
-		//只显示两个标签
+		//只显示一个标签
 		label := conversion.StringConversionMap(v.Label)
 		if len(label) >= 3 {
-			label = label[:2]
+			label = label[:1]
 		}
 
 		response = append(response, GetArticleContributionListByUserResponseStruct{
@@ -164,7 +164,6 @@ func GetArticleContributionByIDResponse(vc *article.ArticlesContribution) GetArt
 	match, _ := reg.Replace(vc.Content, prefix, -1, -1)
 	vc.Content = match
 
-	//只显示两个标签
 	label := conversion.StringConversionMap(vc.Label)
 
 	//评论

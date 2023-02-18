@@ -39,8 +39,8 @@ type DetermineNameExistsStruct struct {
 	Username string `json:"username" binding:"required"`
 }
 
-//SetUserInfoStruct 设置用户信息
-type SetUserInfoStruct struct {
+//SetUserInfoReceiveStruct 设置用户信息
+type SetUserInfoReceiveStruct struct {
 	Username  string    `json:"username" binding:"required"`
 	Gender    *int      `json:"gender" binding:"required"`
 	BirthDate time.Time `json:"birth_Date" binding:"required"`
@@ -54,9 +54,27 @@ type UpdateAvatarStruct struct {
 	Interface string `json:"interface" binding:"required"`
 }
 
-//SaveLiveDataStruct 设置直播信息
-type SaveLiveDataStruct struct {
+//SaveLiveDataReceiveStruct 设置直播信息
+type SaveLiveDataReceiveStruct struct {
 	Tp     string `json:"type" binding:"required"`
 	ImgUrl string `json:"imgUrl" binding:"required"`
 	Title  string `json:"title" binding:"required"`
+}
+
+type ChangePasswordReceiveStruct struct {
+	VerificationCode string `json:"verificationCode" binding:"required"`
+	Password         string `json:"password" binding:"required"`
+	ConfirmPassword  string `json:"confirm_password" binding:"required"`
+}
+
+type AttentionReceiveStruct struct {
+	Uid uint `json:"uid"  binding:"required"`
+}
+
+type GetSpaceIndividualReceiveStruct struct {
+	ID uint `json:"id"`
+}
+
+type GetReleaseInformationReceiveStruct struct {
+	ID uint `json:"id"`
 }

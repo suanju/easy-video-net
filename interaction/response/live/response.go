@@ -26,3 +26,31 @@ func GetLiveRoomInfoResponse(info *users.User, flv string) interface{} {
 		Flv:       flv,
 	}
 }
+
+type BeLiveInfo struct {
+	ID       uint   `json:"id"`
+	Username string `json:"username"`
+	Photo    string `json:"photo"`
+	Img      string `json:"img"`
+	Title    string `json:"title"`
+	Online   int    `json:"online"`
+}
+
+type BeLiveInfoList []BeLiveInfo
+
+func GetBeLiveListResponse(ul *users.UserList) interface{} {
+	list := make(BeLiveInfoList, 0)
+	for _, v := range *ul {
+		photo, _ := conversion.FormattingJsonSrc(v.Photo)
+		img, _ := conversion.FormattingJsonSrc(v.LiveInfo.Img)
+		list = append(list, BeLiveInfo{
+			ID:       v.ID,
+			Username: v.Username,
+			Photo:    photo,
+			Img:      img,
+			Title:    v.LiveInfo.Title,
+			Online:   0,
+		})
+	}
+	return list
+}
