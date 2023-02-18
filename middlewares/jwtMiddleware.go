@@ -32,7 +32,7 @@ func VerificationToken() gin.HandlerFunc {
 	}
 }
 
-//VerificationTokenAsParameter
+//VerificationTokenAsParameter 请求参数中携带token
 func VerificationTokenAsParameter() gin.HandlerFunc {
 	type qu struct {
 		Token string `json:"token"`
@@ -49,6 +49,27 @@ func VerificationTokenAsParameter() gin.HandlerFunc {
 			ControllersCommon.NotLogin(c, "Token过期")
 			c.Abort()
 			return
+		}
+		u := new(users.User)
+		if !u.IsExistByField("id", claim.UserID) {
+			//没有改用户的情况下
+			ControllersCommon.NotLogin(c, "用户异常")
+			c.Abort()
+			return
+		}
+		c.Set("currentUserID", u.ID)
+		c.Set("currentUserName", u.Username)
+		c.Next()
+	}
+}
+
+//VerificationTokenNotNecessary 请求头中携带token (非必须)
+func VerificationTokenNotNecessary() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.Request.Header.Get("token")
+		claim, err := jwt.ParseToken(token)
+		if err != nil {
+			c.Next()
 		}
 		u := new(users.User)
 		if !u.IsExistByField("id", claim.UserID) {
