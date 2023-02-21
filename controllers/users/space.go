@@ -43,3 +43,35 @@ func (sp SpaceControllers) GetReleaseInformation(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//GetAttentionList 获取关注列表
+func (sp SpaceControllers) GetAttentionList(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	GetAttentionListReceive := new(receive.GetAttentionListReceiveStruct)
+	if err := ctx.ShouldBind(GetAttentionListReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.GetAttentionList(GetAttentionListReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetVermicelliList 获取粉丝列表
+func (sp SpaceControllers) GetVermicelliList(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	GetVermicelliListReceive := new(receive.GetVermicelliListReceiveStruct)
+	if err := ctx.ShouldBind(GetVermicelliListReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.GetVermicelliList(GetVermicelliListReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}

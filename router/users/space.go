@@ -10,11 +10,20 @@ type SpaceRouter struct {
 }
 
 func (s *SpaceRouter) InitSpaceRouter(Router *gin.RouterGroup) {
-	//非必须登入
-	spaceRouter := Router.Group("space").Use(middlewares.VerificationTokenNotNecessary())
+
+	spaceControllers := new(users.SpaceControllers)
+
+	//必须登入
+	spaceRouter := Router.Group("space").Use(middlewares.VerificationToken())
 	{
-		spaceControllers := new(users.SpaceControllers)
-		spaceRouter.POST("/getSpaceIndividual", spaceControllers.GetSpaceIndividual)
-		spaceRouter.POST("/getReleaseInformation", spaceControllers.GetReleaseInformation)
+		spaceRouter.POST("/getAttentionList", spaceControllers.GetAttentionList)
+		spaceRouter.POST("/getVermicelliList", spaceControllers.GetVermicelliList)
+	}
+
+	//非必须登入
+	spaceRouterNotNecessary := Router.Group("space").Use(middlewares.VerificationTokenNotNecessary())
+	{
+		spaceRouterNotNecessary.POST("/getSpaceIndividual", spaceControllers.GetSpaceIndividual)
+		spaceRouterNotNecessary.POST("/getReleaseInformation", spaceControllers.GetReleaseInformation)
 	}
 }

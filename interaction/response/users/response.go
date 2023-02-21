@@ -4,6 +4,7 @@ import (
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/video"
 	"Go-Live/models/users"
+	"Go-Live/models/users/attention"
 	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/conversion"
 	"fmt"
@@ -193,4 +194,66 @@ func GetReleaseInformationResponse(videoList *video.VideosContributionList, arti
 		VideoList:   vl,
 		ArticleList: al,
 	}, nil
+}
+
+type GetAttentionListInfo struct {
+	ID          uint   `json:"id"`
+	Name        string `json:"name"`
+	Signature   string `json:"signature"`
+	Photo       string `json:"photo"`
+	IsAttention bool   `json:"is_attention"`
+}
+
+type GetAttentionListInfoList []GetAttentionListInfo
+
+func GetAttentionListResponse(al *attention.AttentionsList, arr []uint) (data interface{}, err error) {
+	list := make(GetAttentionListInfoList, 0)
+	for _, v := range *al {
+		photo, _ := conversion.FormattingJsonSrc(v.AttentionUserInfo.Photo)
+		isAttention := false
+		for _, ak := range arr {
+			if ak == v.AttentionID {
+				isAttention = true
+			}
+		}
+		list = append(list, GetAttentionListInfo{
+			ID:          v.AttentionID,
+			Name:        v.AttentionUserInfo.Username,
+			Signature:   v.AttentionUserInfo.Signature,
+			Photo:       photo,
+			IsAttention: isAttention,
+		})
+	}
+	return list, nil
+}
+
+type GetVermicelliListInfo struct {
+	ID          uint   `json:"id"`
+	Name        string `json:"name"`
+	Signature   string `json:"signature"`
+	Photo       string `json:"photo"`
+	IsAttention bool   `json:"is_attention"`
+}
+
+type GetVermicelliListInfoList []GetVermicelliListInfo
+
+func GetVermicelliListResponse(al *attention.AttentionsList, arr []uint) (data interface{}, err error) {
+	list := make(GetVermicelliListInfoList, 0)
+	for _, v := range *al {
+		photo, _ := conversion.FormattingJsonSrc(v.UserInfo.Photo)
+		isAttention := false
+		for _, ak := range arr {
+			if ak == v.Uid {
+				isAttention = true
+			}
+		}
+		list = append(list, GetVermicelliListInfo{
+			ID:          v.Uid,
+			Name:        v.UserInfo.Username,
+			Signature:   v.UserInfo.Signature,
+			Photo:       photo,
+			IsAttention: isAttention,
+		})
+	}
+	return list, nil
 }

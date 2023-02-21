@@ -78,3 +78,11 @@ type GetSpaceIndividualReceiveStruct struct {
 type GetReleaseInformationReceiveStruct struct {
 	ID uint `json:"id"`
 }
+
+type GetAttentionListReceiveStruct struct {
+	ID uint `json:"id"`
+}
+
+type GetVermicelliListReceiveStruct struct {
+	ID uint `json:"id"`
+}

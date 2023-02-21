@@ -50,3 +50,43 @@ func GetReleaseInformation(data *receive.GetReleaseInformationReceiveStruct) (re
 	}
 	return res, nil
 }
+
+func GetAttentionList(data *receive.GetAttentionListReceiveStruct, id uint) (results interface{}, err error) {
+	//获取用户关注列表
+	al := new(attention.AttentionsList)
+	err = al.GetAttentionList(data.ID)
+	if err != nil {
+		return nil, fmt.Errorf("获取失败")
+	}
+	//获取自己关注的用户
+	ual := new(attention.AttentionsList)
+	arr, err := ual.GetAttentionListByIdArr(id)
+	if err != nil {
+		return nil, fmt.Errorf("获取失败")
+	}
+	res, err := response.GetAttentionListResponse(al, arr)
+	if err != nil {
+		return nil, fmt.Errorf("响应失败")
+	}
+	return res, nil
+}
+
+func GetVermicelliList(data *receive.GetVermicelliListReceiveStruct, id uint) (results interface{}, err error) {
+	//获取用户粉丝列表
+	al := new(attention.AttentionsList)
+	err = al.GetVermicelliList(data.ID)
+	if err != nil {
+		return nil, fmt.Errorf("获取失败")
+	}
+	//获取自己关注的用户
+	ual := new(attention.AttentionsList)
+	arr, err := ual.GetAttentionListByIdArr(id)
+	if err != nil {
+		return nil, fmt.Errorf("获取失败")
+	}
+	res, err := response.GetVermicelliListResponse(al, arr)
+	if err != nil {
+		return nil, fmt.Errorf("响应失败")
+	}
+	return res, nil
+}
