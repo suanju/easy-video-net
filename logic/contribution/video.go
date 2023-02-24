@@ -51,6 +51,11 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
 	videoInfo := new(video.VideosContribution)
 	//获取视频信息
+	err = videoInfo.FindByID(data.VideoID)
+	if err != nil {
+		return nil, err
+	}
+
 	isAttention := false
 	if userID != 0 {
 		//进行视频播放增加
@@ -64,10 +69,6 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 		//获取是否关注
 		at := new(attention.Attention)
 		isAttention = at.IsAttention(userID, videoInfo.UserInfo.ID)
-	}
-	err = videoInfo.FindByID(data.VideoID)
-	if err != nil {
-		return nil, err
 	}
 	//获取推荐列表
 	recommendList := new(video.VideosContributionList)
