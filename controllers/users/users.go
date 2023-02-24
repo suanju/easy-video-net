@@ -152,3 +152,78 @@ func (us UserControllers) Attention(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//CreateFavorites 创建收藏夹
+func (us UserControllers) CreateFavorites(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	CreateFavoritesReceive := new(receive.CreateFavoritesReceiveStruct)
+	if err := ctx.ShouldBind(CreateFavoritesReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.CreateFavorites(CreateFavoritesReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//DeleteFavorites 获取收藏夹
+func (us UserControllers) DeleteFavorites(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	DeleteFavoritesReceive := new(receive.DeleteFavoritesReceiveStruct)
+	if err := ctx.ShouldBind(DeleteFavoritesReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.DeleteFavorites(DeleteFavoritesReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetFavoritesList 获取收藏夹列表
+func (us UserControllers) GetFavoritesList(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	results, err := users.GetFavoritesList(userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//FavoriteVideo 收藏视频
+func (us UserControllers) FavoriteVideo(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	FavoriteVideoReceive := new(receive.FavoriteVideoReceiveStruct)
+	if err := ctx.ShouldBind(FavoriteVideoReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.FavoriteVideo(FavoriteVideoReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetFavoritesListByFavoriteVideo 获取收藏夹列表在视频页面
+func (us UserControllers) GetFavoritesListByFavoriteVideo(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	GetFavoritesListByFavoriteVideoReceive := new(receive.GetFavoritesListByFavoriteVideoReceiveStruct)
+	if err := ctx.ShouldBind(GetFavoritesListByFavoriteVideoReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := users.GetFavoritesListByFavoriteVideo(GetFavoritesListByFavoriteVideoReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}

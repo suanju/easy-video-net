@@ -9,6 +9,8 @@ import (
 	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/collect"
+	"Go-Live/models/users/favorites"
 	"Go-Live/models/users/liveInfo"
 	"Go-Live/utils/conversion"
 	"Go-Live/utils/email"
@@ -113,13 +115,9 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 }
 
 func UpdateAvatar(data *receive.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
-	method := new(uploadMethod.UploadMethod)
-	if !method.IsExistByField("interface", data.Interface) {
-		return nil, fmt.Errorf("上传接口不存在")
-	}
 	photo, _ := json.Marshal(common.Img{
 		Src: data.ImgUrl,
-		Tp:  method.Method,
+		Tp:  data.Tp,
 	})
 	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: photo}
 	if user.Update() {
@@ -226,4 +224,129 @@ func Attention(data *receive.AttentionReceiveStruct, userID uint) (results inter
 		return "操作成功", nil
 	}
 	return nil, fmt.Errorf("操作失败")
+}
+
+func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (results interface{}, err error) {
+	if data.ID == 0 {
+		//插入模式
+		if len(data.Title) == 0 {
+			return nil, fmt.Errorf("标题为空")
+		}
+		//判断是否只有标题
+		if data.ID <= 0 && len(data.Tp) == 0 && len(data.Content) == 0 && len(data.Cover) == 0 {
+			//单标题创建
+			fs := &favorites.Favorites{Uid: userID, Title: data.Title, Max: 1000}
+			if !fs.Create() {
+				return nil, fmt.Errorf("创建失败")
+			}
+			return fmt.Errorf("创建成功"), nil
+		} else {
+			//资料齐全创建
+			cover, _ := json.Marshal(common.Img{
+				Src: data.Cover,
+				Tp:  data.Tp,
+			})
+			fs := &favorites.Favorites{
+				Uid:     userID,
+				Title:   data.Title,
+				Content: data.Content,
+				Cover:   cover,
+				Max:     1000,
+			}
+			if !fs.Create() {
+				return nil, fmt.Errorf("创建失败")
+			}
+			return fmt.Errorf("创建成功"), nil
+		}
+	} else {
+		//进行更新
+		fs := new(favorites.Favorites)
+		if !fs.Find(data.ID) {
+			return nil, fmt.Errorf("查询失败")
+		}
+		if fs.Uid != userID {
+			return nil, fmt.Errorf("查询非法操作")
+		}
+		cover, _ := json.Marshal(common.Img{
+			Src: data.Cover,
+			Tp:  data.Tp,
+		})
+		fs.Title = data.Title
+		fs.Content = data.Content
+		fs.Cover = cover
+		if !fs.Update() {
+			return nil, fmt.Errorf("更新失败")
+		}
+		return "更新成功", nil
+	}
+}
+
+func GetFavoritesList(userID uint) (results interface{}, err error) {
+	fl := new(favorites.FavoriteList)
+	err = fl.GetFavoritesList(userID)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetFavoritesListResponse(fl)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func DeleteFavorites(data *receive.DeleteFavoritesReceiveStruct, userID uint) (results interface{}, err error) {
+	fs := new(favorites.Favorites)
+	err = fs.Delete(data.ID, userID)
+	if err != nil {
+		return nil, err
+	}
+	return "删除成功", nil
+}
+
+func FavoriteVideo(data *receive.FavoriteVideoReceiveStruct, userID uint) (results interface{}, err error) {
+	for _, k := range data.IDs {
+		fs := new(favorites.Favorites)
+		fs.Find(k)
+		if fs.Uid != userID {
+			return nil, fmt.Errorf("非法操作")
+		}
+		if len(fs.CollectList)+1 > fs.Max {
+			return nil, fmt.Errorf("收藏夹已满")
+		}
+
+		cl := &collect.Collect{
+			Uid:         userID,
+			FavoritesID: k,
+			VideoID:     data.VideoID,
+		}
+		if !cl.Create() {
+			return nil, fmt.Errorf("收藏失败")
+		}
+	}
+	return "操作成功", nil
+}
+
+func GetFavoritesListByFavoriteVideo(data *receive.GetFavoritesListByFavoriteVideoReceiveStruct, userID uint) (results interface{}, err error) {
+	//获取收藏夹列表
+	fl := new(favorites.FavoriteList)
+	err = fl.GetFavoritesList(userID)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	//查询该视频在那些收藏夹内已收藏
+	cl := new(collect.CollectsList)
+	err = cl.FindVideoExistWhere(data.VideoID)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	ids := make([]uint, 0)
+	for _, v := range *cl {
+		ids = append(ids, v.FavoritesID)
+	}
+
+	res, err := response.GetFavoritesListByFavoriteVideoResponse(fl, ids)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }

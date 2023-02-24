@@ -23,5 +23,10 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/sendEmailVerificationCodeByChangePassword", usersControllers.SendEmailVerificationCodeByChangePassword)
 		router.POST("/changePassword", usersControllers.ChangePassword)
 		router.POST("/attention", usersControllers.Attention)
+		router.POST("/createFavorites", usersControllers.CreateFavorites)
+		router.POST("/getFavoritesList", usersControllers.GetFavoritesList)
+		router.POST("/deleteFavorites", usersControllers.DeleteFavorites)
+		router.POST("/favoriteVideo", usersControllers.FavoriteVideo)
+		router.POST("/getFavoritesListByFavoriteVideo", usersControllers.GetFavoritesListByFavoriteVideo)
 	}
 }
