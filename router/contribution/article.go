@@ -18,7 +18,6 @@ func (v *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
 		contributionRouterNoVerification.POST("/getArticleComment", contributionControllers.GetArticleComment)
 		contributionRouterNoVerification.POST("/getArticleClassificationList", contributionControllers.GetArticleClassificationList)
 		contributionRouterNoVerification.POST("/getArticleTotalInfo", contributionControllers.GetArticleTotalInfo)
-
 	}
 	contributionRouter := Router.Group("contribution").Use(middlewares.VerificationToken())
 	{
