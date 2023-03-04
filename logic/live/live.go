@@ -6,6 +6,7 @@ import (
 	receive "Go-Live/interaction/receive/live"
 	response "Go-Live/interaction/response/live"
 	"Go-Live/models/users"
+	"Go-Live/models/users/record"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -15,11 +16,11 @@ import (
 	"time"
 )
 
-func GetLiveRoom(data *receive.GetLiveRoomReceiveStruct, userId uint) (results interface{}, err error) {
+func GetLiveRoom(uid uint) (results interface{}, err error) {
 	//请求直播服务器
 	url := "http://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.GetRoom + "/control/get?room="
 	// 合成url, 这里的appId和secret是在微信公众平台上获取的
-	url = url + strconv.Itoa(int(userId))
+	url = url + strconv.Itoa(int(uid))
 	// 创建http get请求
 	resp, err := http.Get(url)
 	if err != nil {
@@ -41,7 +42,7 @@ func GetLiveRoom(data *receive.GetLiveRoomReceiveStruct, userId uint) (results i
 		return nil, fmt.Errorf("获取直播地址失败")
 	}
 	//开启直播服务成功则缓存redis
-	global.RedisDb.Set(consts.LiveRoom+strconv.Itoa(int(userId)), time.Now().Unix(), 0)
+	global.RedisDb.Set(consts.LiveRoom+strconv.Itoa(int(uid)), time.Now().Unix(), 0)
 
 	res := response.GetLiveRoomResponseStruct{
 		Address: "rtmp://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.RTMP + "/live",
@@ -50,10 +51,19 @@ func GetLiveRoom(data *receive.GetLiveRoomReceiveStruct, userId uint) (results i
 	return res, nil
 }
 
-func GetLiveRoomInfo(data *receive.GetLiveRoomInfoReceiveStruct) (results interface{}, err error) {
+func GetLiveRoomInfo(data *receive.GetLiveRoomInfoReceiveStruct, uid uint) (results interface{}, err error) {
 	userInfo := new(users.User)
 	userInfo.FindLiveInfo(data.RoomID)
 	flv := global.Config.LiveConfig.Agreement + "://" + global.Config.LiveConfig.IP + ":" + global.Config.LiveConfig.FLV + "/live/" + strconv.Itoa(int(data.RoomID)) + ".flv"
+
+	if uid > 0 {
+		//添加历史记录
+		rd := new(record.Record)
+		err = rd.AddLiveRecord(uid, data.RoomID)
+		if err != nil {
+			return nil, fmt.Errorf("添加历史记录失败")
+		}
+	}
 	return response.GetLiveRoomInfoResponse(userInfo, flv), nil
 }
 

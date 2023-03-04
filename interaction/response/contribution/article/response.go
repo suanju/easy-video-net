@@ -2,10 +2,12 @@ package response
 
 import (
 	"Go-Live/consts"
+	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/users"
 	"Go-Live/utils/conversion"
+	"encoding/json"
 	"github.com/dlclark/regexp2"
 	"time"
 )
@@ -155,6 +157,45 @@ func GetArticleContributionListByUserResponse(l *article.ArticlesContributionLis
 	return response
 }
 
+func GetArticleContributionListResponse(l *article.ArticlesContributionList) GetArticleContributionListByUserResponseList {
+	response := make(GetArticleContributionListByUserResponseList, 0)
+	for _, v := range *l {
+		coverSrc, _ := conversion.FormattingJsonSrc(v.Cover)
+
+		//正则替换首文内容
+		reg := regexp2.MustCompile(`<(\S*?)[^>]*>.*?|<.*? />`, 0)
+		match, _ := reg.Replace(v.Content, "", -1, -1)
+		matchRune := []rune(match)
+		if len(matchRune) > 100 {
+			v.Content = string(matchRune[:100]) + "..."
+		} else {
+			v.Content = match
+		}
+
+		//只显示一个标签
+		label := conversion.StringConversionMap(v.Label)
+		if len(label) >= 2 {
+			label = label[:1]
+		}
+
+		response = append(response, GetArticleContributionListByUserResponseStruct{
+			Id:             v.ID,
+			Uid:            v.Uid,
+			Title:          v.Title,
+			Cover:          coverSrc,
+			Label:          label,
+			Content:        v.Content,
+			Classification: v.Classification.Label,
+			IsComments:     conversion.Int8TurnBool(v.IsComments),
+			Heat:           v.Heat,
+			LikesNumber:    len(v.Likes),
+			CommentsNumber: len(v.Comments),
+			CreatedAt:      v.CreatedAt,
+		})
+	}
+	return response
+}
+
 func GetArticleContributionByIDResponse(vc *article.ArticlesContribution) GetArticleContributionByIDResponseStruct {
 	coverSrc, _ := conversion.FormattingJsonSrc(vc.Cover)
 
@@ -165,7 +206,9 @@ func GetArticleContributionByIDResponse(vc *article.ArticlesContribution) GetArt
 	vc.Content = match
 
 	label := conversion.StringConversionMap(vc.Label)
-
+	if len(label) >= 2 {
+		label = label[:1]
+	}
 	//评论
 	comments := commentsInfoList{}
 	for _, v := range vc.Comments {
@@ -342,4 +385,48 @@ func GetArticleTotalInfoResponse(cl *classification.ClassificationsList, article
 		ArticleNum:        *articleNum,
 		ClassificationNum: clNum,
 	}
+}
+
+type GetArticleManagementListItem struct {
+	ID               uint     `json:"id"`
+	ClassificationID uint     `json:"classification_id"`
+	Title            string   `json:"title"`
+	Cover            string   `json:"cover"`
+	CoverUrl         string   `json:"cover_url"`
+	CoverUploadType  string   `json:"cover_upload_type"`
+	Label            []string `json:"label"`
+	Content          string   `json:"content"`
+	IsComments       bool     `json:"is_comments" `
+	Heat             int      `json:"heat"`
+}
+
+type GetArticleManagementListResponseStruct []GetArticleManagementListItem
+
+func GetArticleManagementListResponse(al *article.ArticlesContributionList) (interface{}, error) {
+	list := make(GetArticleManagementListResponseStruct, 0)
+	for _, v := range *al {
+		coverJson := new(common.Img)
+		_ = json.Unmarshal(v.Cover, coverJson)
+		cover, _ := conversion.FormattingJsonSrc(v.Cover)
+		prefix, _ := conversion.SwitchTypeAsUrlPrefix(v.ContentStorageType)
+		//正则替换src
+		reg := regexp2.MustCompile(`(?<=(img[^>]*src="))[^"]*?`+consts.UrlPrefixSubstitutionEscape, 0)
+		match, _ := reg.Replace(v.Content, prefix, -1, -1)
+		v.Content = match
+
+		list = append(list, GetArticleManagementListItem{
+			ID:               v.ID,
+			ClassificationID: v.ClassificationID,
+			Title:            v.Title,
+			Cover:            cover,
+			CoverUrl:         coverJson.Src,
+			CoverUploadType:  coverJson.Tp,
+			Label:            conversion.StringConversionMap(v.Label),
+			Content:          v.Content,
+			IsComments:       conversion.Int8TurnBool(v.IsComments),
+			Heat:             v.Heat,
+		})
+	}
+
+	return list, nil
 }

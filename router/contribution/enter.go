@@ -4,4 +4,5 @@ package contribution
 type RouterGroup struct {
 	VideoRouter
 	ArticleRouter
+	DiscussRouter
 }

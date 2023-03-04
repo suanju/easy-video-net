@@ -12,6 +12,7 @@ import (
 	"Go-Live/models/users/collect"
 	"Go-Live/models/users/favorites"
 	"Go-Live/models/users/liveInfo"
+	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"Go-Live/utils/email"
 	"Go-Live/utils/jwt"
@@ -19,26 +20,27 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
-	"gorm.io/datatypes"
 	"math/rand"
 	"mime/multipart"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
+	"gorm.io/datatypes"
 )
 
-func GetUserInfo(userID uint) (results interface{}, err error) {
+func GetUserInfo(uid uint) (results interface{}, err error) {
 	user := new(users.User)
-	user.IsExistByField("id", userID)
+	user.IsExistByField("id", uid)
 	res := response.UserSetInfoResponse(user)
 	return res, nil
 }
 
-func SetUserInfo(data *receive.SetUserInfoReceiveStruct, userID uint) (results interface{}, err error) {
+func SetUserInfo(data *receive.SetUserInfoReceiveStruct, uid uint) (results interface{}, err error) {
 	user := &users.User{
-		PublicModel: common.PublicModel{ID: userID},
+		PublicModel: common.PublicModel{ID: uid},
 	}
 	update := map[string]interface{}{
 		"Username":  data.Username,
@@ -51,11 +53,11 @@ func SetUserInfo(data *receive.SetUserInfoReceiveStruct, userID uint) (results i
 	return user.UpdatePureZero(update), nil
 }
 
-func DetermineNameExists(data *receive.DetermineNameExistsStruct, userID uint) (results interface{}, err error) {
+func DetermineNameExists(data *receive.DetermineNameExistsStruct, uid uint) (results interface{}, err error) {
 	user := new(users.User)
 	is := user.IsExistByField("username", data.Username)
 	//判断是否未更改
-	if user.ID == userID {
+	if user.ID == uid {
 		return false, nil
 	} else if is {
 		return true, nil
@@ -64,7 +66,7 @@ func DetermineNameExists(data *receive.DetermineNameExistsStruct, userID uint) (
 	}
 }
 
-func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results interface{}, err error) {
+func Upload(file *multipart.FileHeader, uid uint, ctx *gin.Context) (results interface{}, err error) {
 	//如果文件大小超过maxMemory,则使用临时文件来存储multipart/form中文件数据
 	err = ctx.Request.ParseMultipartForm(128)
 	if err != nil {
@@ -104,22 +106,21 @@ func Upload(file *multipart.FileHeader, userID uint, ctx *gin.Context) (results 
 	dst := method.Path + "/" + fileName
 	err = ctx.SaveUploadedFile(fileHeader, dst)
 	if err != nil {
-		global.Logger.Warn("userid %d update headPortrait err", userID)
+		global.Logger.Warn("userid %d update headPortrait err", uid)
 		return nil, fmt.Errorf("上传失败")
 	} else {
 		return dst, nil
 	}
 	// 上传文件至指定的完整文件路径
-	return nil, fmt.Errorf("上传失败")
 
 }
 
-func UpdateAvatar(data *receive.UpdateAvatarStruct, userID uint) (results interface{}, err error) {
+func UpdateAvatar(data *receive.UpdateAvatarStruct, uid uint) (results interface{}, err error) {
 	photo, _ := json.Marshal(common.Img{
 		Src: data.ImgUrl,
 		Tp:  data.Tp,
 	})
-	user := &users.User{PublicModel: common.PublicModel{ID: userID}, Photo: photo}
+	user := &users.User{PublicModel: common.PublicModel{ID: uid}, Photo: photo}
 	if user.Update() {
 		return conversion.FormattingSrc(data.ImgUrl), nil
 	} else {
@@ -127,9 +128,9 @@ func UpdateAvatar(data *receive.UpdateAvatarStruct, userID uint) (results interf
 	}
 }
 
-func GetLiveData(userID uint) (results interface{}, err error) {
+func GetLiveData(uid uint) (results interface{}, err error) {
 	info := new(liveInfo.LiveInfo)
-	if info.IsExistByField("uid", userID) {
+	if info.IsExistByField("uid", uid) {
 		results, err = response.GetLiveDataResponse(info)
 		if err != nil {
 			return nil, fmt.Errorf("获取失败")
@@ -139,13 +140,13 @@ func GetLiveData(userID uint) (results interface{}, err error) {
 	return common.Img{}, nil
 }
 
-func SaveLiveData(data *receive.SaveLiveDataReceiveStruct, userID uint) (results interface{}, err error) {
+func SaveLiveData(data *receive.SaveLiveDataReceiveStruct, uid uint) (results interface{}, err error) {
 	img, _ := json.Marshal(common.Img{
 		Src: data.ImgUrl,
 		Tp:  data.Tp,
 	})
 	info := &liveInfo.LiveInfo{
-		Uid:   userID,
+		Uid:   uid,
 		Title: data.Title,
 		Img:   datatypes.JSON(img),
 	}
@@ -157,9 +158,9 @@ func SaveLiveData(data *receive.SaveLiveDataReceiveStruct, userID uint) (results
 
 }
 
-func SendEmailVerificationCodeByChangePassword(userID uint) (results interface{}, err error) {
+func SendEmailVerificationCodeByChangePassword(uid uint) (results interface{}, err error) {
 	user := new(users.User)
-	user.Find(userID)
+	user.Find(uid)
 	//发送方
 	mailTo := []string{user.Email}
 	// 邮件主题
@@ -176,13 +177,12 @@ func SendEmailVerificationCodeByChangePassword(userID uint) (results interface{}
 		return nil, err
 	}
 	return "发送成功", nil
-	return nil, nil
 
 }
 
-func ChangePassword(data *receive.ChangePasswordReceiveStruct, userID uint) (results interface{}, err error) {
+func ChangePassword(data *receive.ChangePasswordReceiveStruct, uid uint) (results interface{}, err error) {
 	user := new(users.User)
-	user.Find(userID)
+	user.Find(uid)
 
 	if data.Password != data.ConfirmPassword {
 		return nil, fmt.Errorf("两次密码不一致！")
@@ -215,10 +215,10 @@ func ChangePassword(data *receive.ChangePasswordReceiveStruct, userID uint) (res
 	return "修改成功", nil
 }
 
-func Attention(data *receive.AttentionReceiveStruct, userID uint) (results interface{}, err error) {
+func Attention(data *receive.AttentionReceiveStruct, uid uint) (results interface{}, err error) {
 	at := new(attention.Attention)
-	if at.Attention(userID, data.Uid) {
-		if data.Uid == userID {
+	if at.Attention(uid, data.Uid) {
+		if data.Uid == uid {
 			return nil, fmt.Errorf("操作失败")
 		}
 		return "操作成功", nil
@@ -226,7 +226,7 @@ func Attention(data *receive.AttentionReceiveStruct, userID uint) (results inter
 	return nil, fmt.Errorf("操作失败")
 }
 
-func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (results interface{}, err error) {
+func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, uid uint) (results interface{}, err error) {
 	if data.ID == 0 {
 		//插入模式
 		if len(data.Title) == 0 {
@@ -235,7 +235,7 @@ func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (r
 		//判断是否只有标题
 		if data.ID <= 0 && len(data.Tp) == 0 && len(data.Content) == 0 && len(data.Cover) == 0 {
 			//单标题创建
-			fs := &favorites.Favorites{Uid: userID, Title: data.Title, Max: 1000}
+			fs := &favorites.Favorites{Uid: uid, Title: data.Title, Max: 1000}
 			if !fs.Create() {
 				return nil, fmt.Errorf("创建失败")
 			}
@@ -247,7 +247,7 @@ func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (r
 				Tp:  data.Tp,
 			})
 			fs := &favorites.Favorites{
-				Uid:     userID,
+				Uid:     uid,
 				Title:   data.Title,
 				Content: data.Content,
 				Cover:   cover,
@@ -264,7 +264,7 @@ func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (r
 		if !fs.Find(data.ID) {
 			return nil, fmt.Errorf("查询失败")
 		}
-		if fs.Uid != userID {
+		if fs.Uid != uid {
 			return nil, fmt.Errorf("查询非法操作")
 		}
 		cover, _ := json.Marshal(common.Img{
@@ -281,9 +281,9 @@ func CreateFavorites(data *receive.CreateFavoritesReceiveStruct, userID uint) (r
 	}
 }
 
-func GetFavoritesList(userID uint) (results interface{}, err error) {
+func GetFavoritesList(uid uint) (results interface{}, err error) {
 	fl := new(favorites.FavoriteList)
-	err = fl.GetFavoritesList(userID)
+	err = fl.GetFavoritesList(uid)
 	if err != nil {
 		return nil, fmt.Errorf("查询失败")
 	}
@@ -294,20 +294,20 @@ func GetFavoritesList(userID uint) (results interface{}, err error) {
 	return res, nil
 }
 
-func DeleteFavorites(data *receive.DeleteFavoritesReceiveStruct, userID uint) (results interface{}, err error) {
+func DeleteFavorites(data *receive.DeleteFavoritesReceiveStruct, uid uint) (results interface{}, err error) {
 	fs := new(favorites.Favorites)
-	err = fs.Delete(data.ID, userID)
+	err = fs.Delete(data.ID, uid)
 	if err != nil {
 		return nil, err
 	}
 	return "删除成功", nil
 }
 
-func FavoriteVideo(data *receive.FavoriteVideoReceiveStruct, userID uint) (results interface{}, err error) {
+func FavoriteVideo(data *receive.FavoriteVideoReceiveStruct, uid uint) (results interface{}, err error) {
 	for _, k := range data.IDs {
 		fs := new(favorites.Favorites)
 		fs.Find(k)
-		if fs.Uid != userID {
+		if fs.Uid != uid {
 			return nil, fmt.Errorf("非法操作")
 		}
 		if len(fs.CollectList)+1 > fs.Max {
@@ -315,7 +315,7 @@ func FavoriteVideo(data *receive.FavoriteVideoReceiveStruct, userID uint) (resul
 		}
 
 		cl := &collect.Collect{
-			Uid:         userID,
+			Uid:         uid,
 			FavoritesID: k,
 			VideoID:     data.VideoID,
 		}
@@ -326,10 +326,10 @@ func FavoriteVideo(data *receive.FavoriteVideoReceiveStruct, userID uint) (resul
 	return "操作成功", nil
 }
 
-func GetFavoritesListByFavoriteVideo(data *receive.GetFavoritesListByFavoriteVideoReceiveStruct, userID uint) (results interface{}, err error) {
+func GetFavoritesListByFavoriteVideo(data *receive.GetFavoritesListByFavoriteVideoReceiveStruct, uid uint) (results interface{}, err error) {
 	//获取收藏夹列表
 	fl := new(favorites.FavoriteList)
-	err = fl.GetFavoritesList(userID)
+	err = fl.GetFavoritesList(uid)
 	if err != nil {
 		return nil, fmt.Errorf("查询失败")
 	}
@@ -349,4 +349,48 @@ func GetFavoritesListByFavoriteVideo(data *receive.GetFavoritesListByFavoriteVid
 		return nil, err
 	}
 	return res, nil
+}
+
+func GetFavoriteVideoList(data *receive.GetFavoriteVideoListReceiveStruct) (results interface{}, err error) {
+	cl := new(collect.CollectsList)
+	err = cl.GetVideoInfo(data.FavoriteID)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetFavoriteVideoListResponse(cl)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func GetRecordList(data *receive.GetRecordListReceiveStruct, uid uint) (results interface{}, err error) {
+	rl := new(record.RecordsList)
+	err = rl.GetRecordListByUid(uid, data.PageInfo)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetRecordListResponse(rl)
+	if err != nil {
+		return nil, fmt.Errorf("响应失败")
+	}
+	return res, nil
+}
+
+func ClearRecord(uid uint) (results interface{}, err error) {
+	rl := new(record.Record)
+	err = rl.ClearRecord(uid)
+	if err != nil {
+		return nil, fmt.Errorf("清空失败")
+	}
+	return "清空完成", nil
+}
+
+func DeleteRecordByID(data *receive.DeleteRecordByIDReceiveStruct, uid uint) (results interface{}, err error) {
+	rl := new(record.Record)
+	err = rl.DeleteRecordByID(data.ID, uid)
+	if err != nil {
+		return nil, fmt.Errorf("删除失败")
+	}
+	return "删除成功", nil
 }

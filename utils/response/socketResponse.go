@@ -2,8 +2,12 @@ package response
 
 import (
 	"Go-Live/consts"
+	"Go-Live/proto/pb"
 	"github.com/gorilla/websocket"
+	"google.golang.org/protobuf/proto"
 )
+
+/*json 交互*/
 
 type DataWs struct {
 	Code    MyCode      `json:"code"`
@@ -48,4 +52,15 @@ func ErrorWs(ws *websocket.Conn, msg string) {
 	if err != nil {
 		return
 	}
+}
+
+/*proto 交互*/
+
+func ErrorWsProto(ws *websocket.Conn, msg string) {
+	message := &pb.Message{
+		MsgType: consts.Error,
+		Data:    []byte(msg),
+	}
+	res, _ := proto.Marshal(message)
+	_ = ws.WriteMessage(websocket.BinaryMessage, res)
 }

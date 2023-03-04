@@ -4,9 +4,10 @@ import (
 	"Go-Live/models/users"
 	"Go-Live/utils/jwt"
 	"Go-Live/utils/response"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"net/http"
 )
 
 func VerificationTokenAsSocket() gin.HandlerFunc {
@@ -34,7 +35,7 @@ func VerificationTokenAsSocket() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Set("currentUserID", u.ID)
+		c.Set("uid", u.ID)
 		c.Set("conn", conn)
 		c.Set("currentUserName", u.Username)
 		c.Next()

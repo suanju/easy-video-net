@@ -32,7 +32,21 @@ func (c *Collect) Create() bool {
 	return true
 }
 
+//DetectByFavoritesID 删除收藏根据收藏夹id
+func (c *Collect) DetectByFavoritesID(id uint) bool {
+	err := global.Db.Where("favorites_id", id).Delete(c).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func (l *CollectsList) FindVideoExistWhere(videoID uint) error {
 	err := global.Db.Where("video_id", videoID).Find(l).Error
+	return err
+}
+
+func (l *CollectsList) GetVideoInfo(id uint) error {
+	err := global.Db.Where("favorites_id", id).Preload("VideoInfo").Find(l).Error
 	return err
 }

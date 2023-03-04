@@ -39,6 +39,7 @@ func InitRouter() {
 		RoutersGroupApp.Commonality.InitRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.ArticleRouter.InitArticleRouter(PrivateGroup)
+		RoutersGroupApp.Contribution.DiscussRouter.InitDiscussRouter(PrivateGroup)
 	}
 
 	err := router.Run()

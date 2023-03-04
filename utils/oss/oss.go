@@ -14,16 +14,16 @@ import (
 )
 
 // 请填写您的AccessKeyId。
-var accessKeyId string = global.Config.AliyunOss.AccessKeyId
+var accessKeyId = global.Config.AliyunOss.AccessKeyId
 
 // 请填写您的AccessKeySecret。
-var accessKeySecret string = global.Config.AliyunOss.AccessKeySecret
+var accessKeySecret = global.Config.AliyunOss.AccessKeySecret
 
 // host的格式为 bucket-name.endpoint ，请替换为您的真实信息。
-var host string = global.Config.AliyunOss.Host
+var host = global.Config.AliyunOss.Host
 
 // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
-var callbackUrl string = global.Config.AliyunOss.CallbackUrl
+var callbackUrl = global.Config.AliyunOss.CallbackUrl
 
 // 用户上传文件时指定的前缀。
 //var uploadDir string = "upload/img/user/liveCover/"
@@ -96,14 +96,11 @@ func GetPolicyToken(_interface string) (results interface{}, err error) {
 	policyToken.AccessKeyId = accessKeyId
 	policyToken.Host = host
 	policyToken.Expire = expireEnd
-	policyToken.Signature = string(signedStr)
+	policyToken.Signature = signedStr
 	policyToken.Directory = uploadDir
-	policyToken.Policy = string(debate)
-	policyToken.Callback = string(callbackBase64)
-	//response, err := json.Marshal(policyToken)
-	//if err != nil {
-	//	fmt.Println("json err:", err)
-	//}
+	policyToken.Policy = debate
+	policyToken.Callback = callbackBase64
+
 	return policyToken, nil
 }
 

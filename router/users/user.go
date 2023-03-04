@@ -28,5 +28,9 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/deleteFavorites", usersControllers.DeleteFavorites)
 		router.POST("/favoriteVideo", usersControllers.FavoriteVideo)
 		router.POST("/getFavoritesListByFavoriteVideo", usersControllers.GetFavoritesListByFavoriteVideo)
+		router.POST("/getFavoriteVideoList", usersControllers.GetFavoriteVideoList)
+		router.POST("/getRecordList", usersControllers.GetRecordList)
+		router.POST("/clearRecord", usersControllers.ClearRecord)
+		router.POST("/deleteRecordByID", usersControllers.DeleteRecordByID)
 	}
 }

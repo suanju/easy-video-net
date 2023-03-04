@@ -32,7 +32,10 @@ func (v *VideoRouter) InitVideoRouter(Router *gin.RouterGroup) {
 	contributionRouter := Router.Group("contribution").Use(middlewares.VerificationToken())
 	{
 		contributionRouter.POST("/createVideoContribution", contributionControllers.CreateVideoContribution)
+		contributionRouter.POST("/updateVideoContribution", contributionControllers.UpdateVideoContribution)
+		contributionRouter.POST("/deleteVideoByID", contributionControllers.DeleteVideoByID)
 		contributionRouter.POST("/videoPostComment", contributionControllers.VideoPostComment)
+		contributionRouter.POST("/getVideoManagementList", contributionControllers.GetVideoManagementList)
 	}
 
 }

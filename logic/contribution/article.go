@@ -8,13 +8,15 @@ import (
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/contribution/article/comments"
+	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"encoding/json"
 	"fmt"
+
 	"github.com/dlclark/regexp2"
 )
 
-func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStruct, userID uint) (results interface{}, err error) {
+func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStruct, uid uint) (results interface{}, err error) {
 	//进行内容判断
 	for _, v := range data.Label {
 		vRune := []rune(v) //避免中文占位问题
@@ -39,7 +41,7 @@ func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStr
 	data.Content = match
 	//插入数据
 	articlesContribution := article.ArticlesContribution{
-		Uid:                userID,
+		Uid:                uid,
 		ClassificationID:   data.ClassificationID,
 		Title:              data.Title,
 		Cover:              coverImg,
@@ -61,7 +63,51 @@ func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStr
 	return "保存成功", nil
 }
 
-func GetArticleContributionListByUser(data *receive.GetArticleContributionListByUserReceiveStruct, userID uint) (results interface{}, err error) {
+func UpdateArticleContribution(data *receive.UpdateArticleContributionReceiveStruct, uid uint) (results interface{}, err error) {
+	//更新专栏
+	articleInfo := new(article.ArticlesContribution)
+	if !articleInfo.GetInfoByID(data.ID) {
+		return nil, fmt.Errorf("操作视频不存在")
+	}
+	if articleInfo.Uid != uid {
+		return nil, fmt.Errorf("非法操作")
+	}
+	coverImg, _ := json.Marshal(common.Img{
+		Src: data.Cover,
+		Tp:  data.CoverUploadType,
+	})
+	updateList := map[string]interface{}{
+		"cover":             coverImg,
+		"title":             data.Title,
+		"label":             conversion.MapConversionString(data.Label),
+		"content":           data.Content,
+		"is_comments":       data.Comments,
+		"classification_id": data.ClassificationID,
+	}
+	//进行视频资料更新
+	if !articleInfo.Update(updateList) {
+		return nil, fmt.Errorf("更新数据失败")
+	}
+	return "更新成功", nil
+}
+
+func DeleteArticleByID(data *receive.DeleteArticleByIDReceiveStruct, uid uint) (results interface{}, err error) {
+	al := new(article.ArticlesContribution)
+	if !al.Delete(data.ID, uid) {
+		return nil, fmt.Errorf("删除失败")
+	}
+	return "删除成功", nil
+}
+
+func GetArticleContributionList(data *receive.GetArticleContributionListReceiveStruct) (results interface{}, err error) {
+	articlesContribution := new(article.ArticlesContributionList)
+	if !articlesContribution.GetList(data.PageInfo) {
+		return nil, fmt.Errorf("查询失败")
+	}
+	return response.GetArticleContributionListResponse(articlesContribution), nil
+}
+
+func GetArticleContributionListByUser(data *receive.GetArticleContributionListByUserReceiveStruct) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContributionList)
 	if !articlesContribution.GetListByUid(data.UserID) {
 		return nil, fmt.Errorf("查询失败")
@@ -69,15 +115,23 @@ func GetArticleContributionListByUser(data *receive.GetArticleContributionListBy
 	return response.GetArticleContributionListByUserResponse(articlesContribution), nil
 }
 
-func GetArticleContributionByID(data *receive.GetArticleContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
+func GetArticleContributionByID(data *receive.GetArticleContributionByIDReceiveStruct, uid uint) (results interface{}, err error) {
 	articlesContribution := new(article.ArticlesContribution)
 	if !articlesContribution.GetInfoByID(data.ArticleID) {
 		return nil, fmt.Errorf("查询失败")
 	}
+	if uid > 0 {
+		//添加历史记录
+		rd := new(record.Record)
+		err = rd.AddArticleRecord(uid, data.ArticleID)
+		if err != nil {
+			return nil, fmt.Errorf("添加历史记录失败")
+		}
+	}
 	return response.GetArticleContributionByIDResponse(articlesContribution), nil
 }
 
-func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, userID uint) (results interface{}, err error) {
+func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, uid uint) (results interface{}, err error) {
 	ct := comments.Comment{
 		PublicModel: common.PublicModel{ID: data.ContentID},
 	}
@@ -88,7 +142,7 @@ func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, userID u
 	}
 	CommentUserID := ctu.GetCommentUserID()
 	comment := comments.Comment{
-		Uid:            userID,
+		Uid:            uid,
 		ContributionID: data.ArticleID,
 		Context:        data.Content,
 		CommentID:      data.ContentID,
@@ -130,6 +184,19 @@ func GetArticleTotalInfo() (results interface{}, err error) {
 		return nil, fmt.Errorf("查询失败")
 	}
 	cnNum := int64(len(cn))
-
 	return response.GetArticleTotalInfoResponse(&cn, articleNm, cnNum), nil
+}
+
+func GetArticleManagementList(data *receive.GetArticleManagementListReceiveStruct, uid uint) (results interface{}, err error) {
+	//获取个人发布专栏信息
+	list := new(article.ArticlesContributionList)
+	err = list.GetArticleManagementList(data.PageInfo, uid)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetArticleManagementListResponse(list)
+	if err != nil {
+		return nil, fmt.Errorf("响应失败")
+	}
+	return res, nil
 }

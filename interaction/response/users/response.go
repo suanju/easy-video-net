@@ -1,12 +1,17 @@
 package response
 
 import (
+	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/video"
 	"Go-Live/models/users"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/collect"
+	"Go-Live/models/users/favorites"
 	"Go-Live/models/users/liveInfo"
+	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
+	"encoding/json"
 	"fmt"
 	"github.com/dlclark/regexp2"
 	"time"
@@ -45,7 +50,7 @@ func UserSetInfoResponse(us *users.User) UserSetInfoResponseStruct {
 	return UserSetInfoResponseStruct{
 		ID:        us.ID,
 		UserName:  us.Username,
-		Gender:    int8(us.Gender),
+		Gender:    us.Gender,
 		BirthDate: us.BirthDate,
 		IsVisible: conversion.IntTurnBool(int(us.IsVisible)),
 		Signature: us.Signature,
@@ -172,8 +177,8 @@ func GetReleaseInformationResponse(videoList *video.VideosContributionList, arti
 
 		//只显示两个标签
 		label := conversion.StringConversionMap(v.Label)
-		if len(label) >= 3 {
-			label = label[:2]
+		if len(label) >= 2 {
+			label = label[:1]
 		}
 		al = append(al, ReleaseInformationArticleInfo{
 			Id:             v.ID,
@@ -253,6 +258,187 @@ func GetVermicelliListResponse(al *attention.AttentionsList, arr []uint) (data i
 			Signature:   v.UserInfo.Signature,
 			Photo:       photo,
 			IsAttention: isAttention,
+		})
+	}
+	return list, nil
+}
+
+type GetFavoritesInfo struct {
+	ID       uint   `json:"id"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Cover    string `json:"cover"`
+	Tp       string `json:"type"`
+	Src      string `json:"src"`
+	Max      int    `json:"max"`
+	UsesInfo struct {
+		Username string `json:"username"`
+	} `json:"userInfo"`
+}
+
+type GetFavoritesInfoList []GetFavoritesInfo
+
+func GetFavoritesListResponse(al *favorites.FavoriteList) (data interface{}, err error) {
+	list := make(GetFavoritesInfoList, 0)
+	for _, v := range *al {
+		coverInfo := new(common.Img)
+		err = json.Unmarshal(v.Cover, coverInfo)
+
+		cover, _ := conversion.FormattingJsonSrc(v.Cover)
+		list = append(list, GetFavoritesInfo{
+			ID:      v.ID,
+			Title:   v.Title,
+			Content: v.Content,
+			Cover:   cover,
+			Tp:      coverInfo.Tp,
+			Src:     coverInfo.Src,
+			Max:     v.Max,
+			UsesInfo: struct {
+				Username string `json:"username"`
+			}{
+				Username: v.UserInfo.Username,
+			},
+		})
+	}
+	return list, nil
+}
+
+type GetFavoritesListByFavoriteVideoInfo struct {
+	ID       uint   `json:"id"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	Cover    string `json:"cover"`
+	Tp       string `json:"type"`
+	Src      string `json:"src"`
+	Max      int    `json:"max"`
+	Selected bool   `json:"selected"`
+	Present  int    `json:"present"`
+	UsesInfo struct {
+		Username string `json:"username"`
+	} `json:"userInfo"`
+}
+
+type GetFavoritesListByFavoriteVideoInfoList []GetFavoritesListByFavoriteVideoInfo
+
+func GetFavoritesListByFavoriteVideoResponse(al *favorites.FavoriteList, ids []uint) (data interface{}, err error) {
+	list := make(GetFavoritesListByFavoriteVideoInfoList, 0)
+	for _, v := range *al {
+		coverInfo := new(common.Img)
+		err = json.Unmarshal(v.Cover, coverInfo)
+		cover, _ := conversion.FormattingJsonSrc(v.Cover)
+		//判断是否已选
+		selected := false
+		for _, vv := range ids {
+			if vv == v.ID {
+				selected = true
+			}
+		}
+
+		list = append(list, GetFavoritesListByFavoriteVideoInfo{
+			ID:       v.ID,
+			Title:    v.Title,
+			Content:  v.Content,
+			Cover:    cover,
+			Tp:       coverInfo.Tp,
+			Src:      coverInfo.Src,
+			Max:      v.Max,
+			Selected: selected,
+			Present:  len(v.CollectList),
+			UsesInfo: struct {
+				Username string `json:"username"`
+			}{
+				Username: v.UserInfo.Username,
+			},
+		})
+	}
+	return list, nil
+}
+
+type GetFavoriteVideoListItem struct {
+	ID            uint      `json:"id"`
+	Uid           uint      `json:"uid"`
+	Title         string    `json:"title"`
+	Video         string    `json:"video"`
+	Cover         string    `json:"cover"`
+	VideoDuration int64     `json:"video_duration"`
+	CreatedAt     time.Time `json:"created_at"`
+}
+
+type GetFavoriteVideoList []GetFavoriteVideoListItem
+
+type GetFavoriteVideoListResponseStruct struct {
+	VideoList GetFavoriteVideoList `json:"videoList"`
+}
+
+func GetFavoriteVideoListResponse(cl *collect.CollectsList) (data interface{}, err error) {
+	//处理视频
+	vl := make(GetFavoriteVideoList, 0)
+	for _, ck := range *cl {
+		lk := ck.VideoInfo
+		cover, _ := conversion.FormattingJsonSrc(lk.Cover)
+		videoSrc, _ := conversion.FormattingJsonSrc(lk.Video)
+		vl = append(vl, GetFavoriteVideoListItem{
+			ID:            lk.ID,
+			Uid:           lk.Uid,
+			Title:         lk.Title,
+			VideoDuration: lk.VideoDuration,
+			Video:         videoSrc,
+			Cover:         cover,
+			CreatedAt:     ck.CreatedAt,
+		})
+	}
+	return GetFavoriteVideoListResponseStruct{VideoList: vl}, nil
+}
+
+type GetRecordListItem struct {
+	ID        uint      `json:"id"`
+	ToID      uint      `json:"to_id"`
+	Title     string    `json:"title"`
+	Cover     string    `json:"cover"`
+	Username  string    `json:"username"`
+	Photo     string    `json:"photo"`
+	Type      string    `json:"type"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type GetRecordListItemList []GetRecordListItem
+
+func GetRecordListResponse(rl *record.RecordsList) (data interface{}, err error) {
+	list := make(GetRecordListItemList, 0)
+	for _, v := range *rl {
+		var cover string
+		var photo string
+		var title string
+		var username string
+		var tp string
+		if v.Type == "video" {
+			cover, _ = conversion.FormattingJsonSrc(v.VideoInfo.Cover)
+			photo, _ = conversion.FormattingJsonSrc(v.VideoInfo.UserInfo.Photo)
+			title = v.VideoInfo.Title
+			username = v.VideoInfo.UserInfo.Username
+			tp = "视频"
+		} else if v.Type == "article" {
+			cover, _ = conversion.FormattingJsonSrc(v.ArticleInfo.Cover)
+			photo, _ = conversion.FormattingJsonSrc(v.ArticleInfo.UserInfo.Photo)
+			title = v.ArticleInfo.Title
+			username = v.ArticleInfo.UserInfo.Username
+			tp = "专栏"
+		} else {
+			cover, _ = conversion.FormattingJsonSrc(v.Userinfo.LiveInfo.Img)
+			photo, _ = conversion.FormattingJsonSrc(v.Userinfo.Photo)
+			title = v.Userinfo.LiveInfo.Title
+			username = v.Userinfo.Username
+			tp = "直播"
+		}
+		list = append(list, GetRecordListItem{
+			ID:        v.ID,
+			ToID:      v.ToId,
+			Title:     title,
+			Cover:     cover,
+			Username:  username,
+			Photo:     photo,
+			Type:      tp,
+			UpdatedAt: v.UpdatedAt,
 		})
 	}
 	return list, nil

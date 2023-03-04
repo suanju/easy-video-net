@@ -5,6 +5,7 @@ import (
 	"Go-Live/logic/live"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,13 +14,13 @@ type LivesControllers struct {
 
 //GetLiveRoom 获取直播房间
 func (lv LivesControllers) GetLiveRoom(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
+	uid := ctx.GetUint("uid")
 	GetLiveRoomReceive := new(receive.GetLiveRoomReceiveStruct)
 	if err := ctx.ShouldBind(GetLiveRoomReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := live.GetLiveRoom(GetLiveRoomReceive, userID)
+	results, err := live.GetLiveRoom(uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -29,12 +30,13 @@ func (lv LivesControllers) GetLiveRoom(ctx *gin.Context) {
 
 //GetLiveRoomInfo 获取直播房间信息
 func (lv LivesControllers) GetLiveRoomInfo(ctx *gin.Context) {
+	uid := ctx.GetUint("uid")
 	GetLiveRoomInfoReceive := new(receive.GetLiveRoomInfoReceiveStruct)
 	if err := ctx.ShouldBind(GetLiveRoomInfoReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := live.GetLiveRoomInfo(GetLiveRoomInfoReceive)
+	results, err := live.GetLiveRoomInfo(GetLiveRoomInfoReceive, uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

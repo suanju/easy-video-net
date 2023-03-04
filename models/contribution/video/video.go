@@ -47,6 +47,29 @@ func (vc *VideosContribution) Create() bool {
 	return true
 }
 
+//Delete 删除数据
+func (vc *VideosContribution) Delete(id uint, uid uint) bool {
+	if global.Db.Where("id", id).Find(&vc).Error != nil {
+		return false
+	}
+	if vc.Uid != uid {
+		return false
+	}
+	if global.Db.Delete(&vc).Error != nil {
+		return false
+	}
+	return true
+}
+
+//Update 更新数据
+func (vc *VideosContribution) Update(info map[string]interface{}) bool {
+	err := global.Db.Model(vc).Updates(info).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func (vl *VideosContributionList) GetHoneVideoList(info common.PageInfo) error {
 	//首页加载13个铺满后续15个
 	var offset int
@@ -97,5 +120,16 @@ func (vc *VideosContribution) Watch(id uint) error {
 //GetVideoListBySpace 获取个人空间视频列表
 func (vl *VideosContributionList) GetVideoListBySpace(id uint) error {
 	err := global.Db.Where("uid", id).Preload("Likes").Preload("Comments").Preload("Barrage").Order("created_at desc").Find(&vl).Error
+	return err
+}
+
+//GetDiscussVideoCommentList 获取个人发布的视频和评论信息
+func (vl *VideosContributionList) GetDiscussVideoCommentList(id uint) error {
+	err := global.Db.Where("uid", id).Preload("Comments").Find(&vl).Error
+	return err
+}
+
+func (vl *VideosContributionList) GetVideoManagementList(info common.PageInfo, uid uint) error {
+	err := global.Db.Where("uid", uid).Preload("Likes").Preload("Comments").Preload("Barrage").Limit(info.Size).Offset((info.Page - 1) * info.Size).Order("created_at desc").Find(&vl).Error
 	return err
 }

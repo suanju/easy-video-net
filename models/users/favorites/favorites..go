@@ -76,6 +76,11 @@ func (f *Favorites) Delete(id uint, uid uint) error {
 	if f.Uid != uid {
 		return fmt.Errorf("非创建者不可删除")
 	}
+	//删除收藏记录
+	cl := new(collect.Collect)
+	if !cl.DetectByFavoritesID(id) {
+		return fmt.Errorf("删除收藏记录失败")
+	}
 	if err != nil {
 		return fmt.Errorf("删除失败")
 	}

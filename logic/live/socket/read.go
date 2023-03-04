@@ -1,9 +1,9 @@
 package socket
 
 import (
+	"Go-Live/consts"
 	"Go-Live/proto/pb"
 	"Go-Live/utils/response"
-	"fmt"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -29,19 +29,20 @@ func (lre LiveRoomEvent) Read() {
 		}
 		data := &pb.Message{}
 		if err := proto.Unmarshal(text, data); err != nil {
-			response.ErrorWs(lre.Channel.Socket, "消息格式错误")
-			fmt.Println("消息格式错误")
+			response.ErrorWsProto(lre.Channel.Socket, "消息格式错误")
 		}
 		//得到标准格式进行转发
 		err = getTypeCorrespondingFunc(lre, data)
 		if err != nil {
-			response.ErrorWs(lre.Channel.Socket, err.Error())
+			response.ErrorWsProto(lre.Channel.Socket, err.Error())
 		}
 	}
 }
 func getTypeCorrespondingFunc(lre LiveRoomEvent, data *pb.Message) error {
 	switch data.MsgType {
-
+	case consts.WebClientBarrageReq:
+		return serviceSendBarrage(lre, data.Data)
 	}
-	return fmt.Errorf("消息类型未定义")
+	response.ErrorWsProto(lre.Channel.Socket, "未定义的消息格式")
+	return nil
 }

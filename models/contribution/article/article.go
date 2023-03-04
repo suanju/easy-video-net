@@ -6,9 +6,11 @@ import (
 	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/contribution/article/comments"
 	"Go-Live/models/contribution/article/like"
+	"Go-Live/models/users"
+	"time"
+
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
-	"time"
 )
 
 type ArticlesContribution struct {
@@ -26,6 +28,8 @@ type ArticlesContribution struct {
 	Heat               int            `json:"heat" gorm:"heat"`
 
 	//光联表
+
+	UserInfo       users.User                    `json:"user_info" gorm:"foreignKey:Uid"`
 	Likes          []like.Likes                  `json:"likes" gorm:"foreignKey:ContributionID" `
 	Comments       []comments.Comment            `json:"comments" gorm:"foreignKey:ContributionID"`
 	Classification classification.Classification `json:"classification"  gorm:"foreignKey:ClassificationID"`
@@ -46,9 +50,26 @@ func (vc *ArticlesContribution) Create() bool {
 	return true
 }
 
+//GetList 查询数据类型
+func (l *ArticlesContributionList) GetList(info common.PageInfo) bool {
+	err := global.Db.Preload("Likes").Preload("Classification").Preload("Comments").Limit(info.Size).Offset((info.Page - 1) * info.Size).Order("created_at desc").Find(l).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func (vc *ArticlesContribution) Update(info map[string]interface{}) bool {
+	err := global.Db.Model(vc).Updates(info).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 //GetListByUid 查询单个用户
-func (l *ArticlesContributionList) GetListByUid(userID uint) bool {
-	err := global.Db.Where("uid", userID).Preload("Likes").Preload("Classification").Preload("Comments").Order("created_at desc").Find(l).Error
+func (l *ArticlesContributionList) GetListByUid(uid uint) bool {
+	err := global.Db.Where("uid", uid).Preload("Likes").Preload("Classification").Preload("Comments").Order("created_at desc").Find(l).Error
 	if err != nil {
 		return false
 	}
@@ -93,4 +114,28 @@ func (l *ArticlesContributionList) GetArticleBySpace(id uint) error {
 		return err
 	}
 	return nil
+}
+
+//GetArticleManagementList 创作空间获取个人发布专栏
+func (l *ArticlesContributionList) GetArticleManagementList(info common.PageInfo, id uint) error {
+	err := global.Db.Where("uid", id).Preload("Likes").Preload("Classification").Preload("Comments").Limit(info.Size).Offset((info.Page - 1) * info.Size).Order("created_at desc").Find(l).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (vc *ArticlesContribution) Delete(id uint, uid uint) bool {
+	err := global.Db.Where("id", id).Find(vc).Error
+	if err != nil {
+		return false
+	}
+	if vc.Uid != uid {
+		return false
+	}
+	err = global.Db.Delete(vc).Error
+	if err != nil {
+		return false
+	}
+	return true
 }

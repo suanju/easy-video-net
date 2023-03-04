@@ -11,13 +11,15 @@ import (
 	"Go-Live/models/contribution/video/barrage"
 	"Go-Live/models/contribution/video/comments"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"encoding/json"
 	"fmt"
 	"strconv"
 )
 
-func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct, userID uint) (results interface{}, err error) {
+func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct, uid uint) (results interface{}, err error) {
+	//发布视频
 	videoSrc, _ := json.Marshal(common.Img{
 		Src: data.Video,
 		Tp:  data.VideoUploadType,
@@ -27,7 +29,7 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 		Tp:  data.CoverUploadType,
 	})
 	videoContribution := video.VideosContribution{
-		Uid:           userID,
+		Uid:           uid,
 		Title:         data.Title,
 		Video:         videoSrc,
 		Cover:         coverImg,
@@ -48,27 +50,70 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 	return "保存成功", nil
 }
 
-func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct, userID uint) (results interface{}, err error) {
+func UpdateVideoContribution(data *receive.UpdateVideoContributionReceiveStruct, uid uint) (results interface{}, err error) {
+	//更新视频
+	videoInfo := new(video.VideosContribution)
+	err = videoInfo.FindByID(data.ID)
+	if err != nil {
+		return nil, fmt.Errorf("操作视频不存在")
+	}
+	if videoInfo.Uid != uid {
+		return nil, fmt.Errorf("非法操作")
+	}
+	coverImg, _ := json.Marshal(common.Img{
+		Src: data.Cover,
+		Tp:  data.CoverUploadType,
+	})
+	updateList := map[string]interface{}{
+		"cover":     coverImg,
+		"title":     data.Title,
+		"label":     conversion.MapConversionString(data.Label),
+		"reprinted": conversion.BoolTurnInt8(*data.Reprinted),
+		"introduce": data.Introduce,
+	}
+	//进行视频资料更新
+	if !videoInfo.Update(updateList) {
+		return nil, fmt.Errorf("更新数据失败")
+	}
+	return "更新成功", nil
+}
+
+func DeleteVideoByID(data *receive.DeleteVideoByIDReceiveStruct, uid uint) (results interface{}, err error) {
+	vo := new(video.VideosContribution)
+	if !vo.Delete(data.ID, uid) {
+		return nil, fmt.Errorf("删除失败")
+	}
+	return "删除成功", nil
+}
+
+func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruct, uid uint) (results interface{}, err error) {
 	videoInfo := new(video.VideosContribution)
 	//获取视频信息
 	err = videoInfo.FindByID(data.VideoID)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("查询信息失败")
 	}
-
 	isAttention := false
-	if userID != 0 {
+	if uid != 0 {
 		//进行视频播放增加
-		if !global.RedisDb.SIsMember(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), userID).Val() {
+		if !global.RedisDb.SIsMember(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), uid).Val() {
 			//最近无播放
-			global.RedisDb.SAdd(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), userID)
+			global.RedisDb.SAdd(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), uid)
 			if videoInfo.Watch(data.VideoID) != nil {
 				global.Logger.Error("添加播放量错误", videoInfo.Watch(data.VideoID))
 			}
 		}
 		//获取是否关注
 		at := new(attention.Attention)
-		isAttention = at.IsAttention(userID, videoInfo.UserInfo.ID)
+		isAttention = at.IsAttention(uid, videoInfo.UserInfo.ID)
+
+		//添加历史记录
+		rd := new(record.Record)
+		err = rd.AddVideoRecord(uid, data.VideoID)
+		if err != nil {
+			return nil, fmt.Errorf("添加历史记录失败")
+		}
+
 	}
 	//获取推荐列表
 	recommendList := new(video.VideosContributionList)
@@ -129,7 +174,7 @@ func GetVideoBarrageList(data *receive.GetVideoBarrageListReceiveStruct) (result
 	return res, nil
 }
 
-func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, userID uint) (results interface{}, err error) {
+func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, uid uint) (results interface{}, err error) {
 	ct := comments.Comment{
 		PublicModel: common.PublicModel{ID: data.ContentID},
 	}
@@ -140,7 +185,7 @@ func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, userID uint)
 	}
 	CommentUserID := ctu.GetCommentUserID()
 	comment := comments.Comment{
-		Uid:            userID,
+		Uid:            uid,
 		VideoID:        data.VideoID,
 		Context:        data.Content,
 		CommentID:      data.ContentID,
@@ -159,4 +204,18 @@ func GetVideoComment(data *receive.GetVideoCommentReceiveStruct) (results interf
 		return nil, fmt.Errorf("查询失败")
 	}
 	return response.GetVideoContributionCommentsResponse(videosContribution), nil
+}
+
+func GetVideoManagementList(data *receive.GetVideoManagementListReceiveStruct, uid uint) (results interface{}, err error) {
+	//获取个人发布视频信息
+	list := new(video.VideosContributionList)
+	err = list.GetVideoManagementList(data.PageInfo, uid)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetVideoManagementListResponse(list)
+	if err != nil {
+		return nil, fmt.Errorf("响应失败")
+	}
+	return res, nil
 }

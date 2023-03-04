@@ -5,14 +5,15 @@ import (
 	"Go-Live/logic/live/socket"
 	"Go-Live/proto/pb"
 	"Go-Live/utils/response"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
-	"strconv"
 )
 
 func (lv LivesControllers) LiveSocket(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
+	uid := ctx.GetUint("uid")
 	conn, _ := ctx.Get("conn")
 	ws := conn.(*websocket.Conn)
 
@@ -29,7 +30,7 @@ func (lv LivesControllers) LiveSocket(ctx *gin.Context) {
 		return
 	}
 
-	err := socket.CreateSocket(ctx, userID, liveRoomID, ws)
+	err := socket.CreateSocket(ctx, uid, liveRoomID, ws)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

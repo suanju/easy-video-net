@@ -5,6 +5,7 @@ import (
 	"Go-Live/utils/jwt"
 	ControllersCommon "Go-Live/utils/response"
 	"Go-Live/utils/validator"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 )
@@ -26,7 +27,7 @@ func VerificationToken() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Set("currentUserID", u.ID)
+		c.Set("uid", u.ID)
 		c.Set("currentUserName", u.Username)
 		c.Next()
 	}
@@ -57,7 +58,7 @@ func VerificationTokenAsParameter() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Set("currentUserID", u.ID)
+		c.Set("uid", u.ID)
 		c.Set("currentUserName", u.Username)
 		c.Next()
 	}
@@ -67,19 +68,25 @@ func VerificationTokenAsParameter() gin.HandlerFunc {
 func VerificationTokenNotNecessary() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Request.Header.Get("token")
-		claim, err := jwt.ParseToken(token)
-		if err != nil {
+		if len(token) == 0 {
+			//用户未登入时不验证
+			c.Next()
+		} else {
+			//用户登入情况
+			claim, err := jwt.ParseToken(token)
+			if err != nil {
+				c.Next()
+			}
+			u := new(users.User)
+			if !u.IsExistByField("id", claim.UserID) {
+				//没有改用户的情况下
+				ControllersCommon.NotLogin(c, "用户异常")
+				c.Abort()
+				return
+			}
+			c.Set("uid", u.ID)
+			c.Set("currentUserName", u.Username)
 			c.Next()
 		}
-		u := new(users.User)
-		if !u.IsExistByField("id", claim.UserID) {
-			//没有改用户的情况下
-			ControllersCommon.NotLogin(c, "用户异常")
-			c.Abort()
-			return
-		}
-		c.Set("currentUserID", u.ID)
-		c.Set("currentUserName", u.Username)
-		c.Next()
 	}
 }

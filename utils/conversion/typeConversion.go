@@ -8,9 +8,11 @@ import (
 
 // StringConversionMap 字符串转数组
 func StringConversionMap(s string) []string {
+	s = strings.TrimSpace(s)
 	list := strings.Split(s, ",")
-	if len(list) == 0 {
-		return nil
+	//只有一项且为空返回空数组
+	if len(list) == 1 && list[0] == "" {
+		return make([]string, 0)
 	}
 	return list
 }

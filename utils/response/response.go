@@ -46,7 +46,7 @@ func Default(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rd)
 }
 
-func ErrorWithMsg(ctx *gin.Context, code MyCode, data interface{}) {
+func ErrorWithMsg(ctx *gin.Context, code MyCode) {
 	rd := &Data{
 		Code:    code,
 		Message: code.Msg(),

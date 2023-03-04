@@ -115,5 +115,4 @@ func CreateSocket(ctx *gin.Context, userId uint, roomID uint, conn *websocket.Co
 	go userLiveEvent.Read()
 	go userLiveEvent.Writer()
 	return nil
-
 }

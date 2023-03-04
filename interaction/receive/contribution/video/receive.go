@@ -7,16 +7,26 @@ import (
 
 type CreateVideoContributionReceiveStruct struct {
 	Video           string    `json:"video" binding:"required"`
-	VideoUploadType string    `json:"videoUploadType"  binding:"required"`
+	VideoUploadType string    `json:"videoUploadType" binding:"required"`
 	Cover           string    `json:"cover" binding:"required"`
 	CoverUploadType string    `json:"coverUploadType" binding:"required"`
 	Title           string    `json:"title" binding:"required"`
 	Reprinted       *bool     `json:"reprinted" binding:"required"`
 	Timing          *bool     `json:"timing" binding:"required"`
 	TimingTime      time.Time `json:"timingTime"`
-	Label           []string  `json:"label" binding:"required"`
+	Label           []string  `json:"label"`
 	Introduce       string    `json:"introduce" binding:"required"`
 	VideoDuration   int64     `json:"videoDuration" binding:"required"`
+}
+
+type UpdateVideoContributionReceiveStruct struct {
+	ID              uint     `json:"id" binding:"required"`
+	Cover           string   `json:"cover" binding:"required"`
+	CoverUploadType string   `json:"coverUploadType" binding:"required"`
+	Title           string   `json:"title" binding:"required"`
+	Reprinted       *bool    `json:"reprinted" binding:"required"`
+	Label           []string `json:"label"`
+	Introduce       string   `json:"introduce" binding:"required"`
 }
 
 type GetVideoContributionByIDReceiveStruct struct {
@@ -50,4 +60,12 @@ type VideosPostCommentReceiveStruct struct {
 type GetVideoCommentReceiveStruct struct {
 	PageInfo common.PageInfo `json:"pageInfo"`
 	VideoID  uint            `json:"video_id" binding:"required"`
+}
+
+type GetVideoManagementListReceiveStruct struct {
+	PageInfo common.PageInfo `json:"page_info"`
+}
+
+type DeleteVideoByIDReceiveStruct struct {
+	ID uint `json:"id"`
 }

@@ -3,8 +3,9 @@ package jwt
 import (
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // Hotkey 密钥
@@ -20,11 +21,11 @@ type Claims struct {
 }
 
 // NextToken 登录以后签发jwt
-func NextToken(userID uint) string {
-	fmt.Printf("传入JWT的id:%v/n", userID)
+func NextToken(uid uint) string {
+	fmt.Printf("传入JWT的id:%v/n", uid)
 	expireTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
-		UserID: userID,
+		UserID: uid,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(), //过期时间
 			IssuedAt:  time.Now().Unix(),

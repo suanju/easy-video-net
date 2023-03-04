@@ -10,15 +10,15 @@ import (
 	"fmt"
 )
 
-func GetSpaceIndividual(data *receive.GetSpaceIndividualReceiveStruct, userID uint) (results interface{}, err error) {
+func GetSpaceIndividual(data *receive.GetSpaceIndividualReceiveStruct, uid uint) (results interface{}, err error) {
 	//获取游戏信息
 	user := new(users.User)
 	user.Find(data.ID)
 	isAttention := false
 	at := new(attention.Attention)
-	if userID != 0 {
+	if uid != 0 {
 		//获取是否关注
-		isAttention = at.IsAttention(userID, data.ID)
+		isAttention = at.IsAttention(uid, data.ID)
 	}
 	//获取关注和粉丝
 	attentionNum, err := at.GetAttentionNum(data.ID)

@@ -6,6 +6,7 @@ import (
 	"Go-Live/logic/users"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,13 +16,13 @@ type SpaceControllers struct {
 
 //GetSpaceIndividual 获取个人空间
 func (sp SpaceControllers) GetSpaceIndividual(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
+	uid := ctx.GetUint("uid")
 	GetSpaceIndividualReceive := new(receive.GetSpaceIndividualReceiveStruct)
 	if err := ctx.ShouldBind(GetSpaceIndividualReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := users.GetSpaceIndividual(GetSpaceIndividualReceive, userID)
+	results, err := users.GetSpaceIndividual(GetSpaceIndividualReceive, uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -46,13 +47,13 @@ func (sp SpaceControllers) GetReleaseInformation(ctx *gin.Context) {
 
 //GetAttentionList 获取关注列表
 func (sp SpaceControllers) GetAttentionList(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
+	uid := ctx.GetUint("uid")
 	GetAttentionListReceive := new(receive.GetAttentionListReceiveStruct)
 	if err := ctx.ShouldBind(GetAttentionListReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := users.GetAttentionList(GetAttentionListReceive, userID)
+	results, err := users.GetAttentionList(GetAttentionListReceive, uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -62,13 +63,13 @@ func (sp SpaceControllers) GetAttentionList(ctx *gin.Context) {
 
 //GetVermicelliList 获取粉丝列表
 func (sp SpaceControllers) GetVermicelliList(ctx *gin.Context) {
-	userID := ctx.GetUint("currentUserID")
+	uid := ctx.GetUint("uid")
 	GetVermicelliListReceive := new(receive.GetVermicelliListReceiveStruct)
 	if err := ctx.ShouldBind(GetVermicelliListReceive); err != nil {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := users.GetVermicelliList(GetVermicelliListReceive, userID)
+	results, err := users.GetVermicelliList(GetVermicelliListReceive, uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
