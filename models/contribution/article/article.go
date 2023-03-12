@@ -30,8 +30,8 @@ type ArticlesContribution struct {
 	//光联表
 
 	UserInfo       users.User                    `json:"user_info" gorm:"foreignKey:Uid"`
-	Likes          []like.Likes                  `json:"likes" gorm:"foreignKey:ContributionID" `
-	Comments       []comments.Comment            `json:"comments" gorm:"foreignKey:ContributionID"`
+	Likes          like.LikesList                `json:"likes" gorm:"foreignKey:ArticleID" `
+	Comments       comments.CommentList          `json:"comments" gorm:"foreignKey:ArticleID"`
 	Classification classification.Classification `json:"classification"  gorm:"foreignKey:ClassificationID"`
 }
 
@@ -52,7 +52,7 @@ func (vc *ArticlesContribution) Create() bool {
 
 //GetList 查询数据类型
 func (l *ArticlesContributionList) GetList(info common.PageInfo) bool {
-	err := global.Db.Preload("Likes").Preload("Classification").Preload("Comments").Limit(info.Size).Offset((info.Page - 1) * info.Size).Order("created_at desc").Find(l).Error
+	err := global.Db.Preload("Likes").Preload("Classification").Preload("UserInfo").Preload("Comments").Limit(info.Size).Offset((info.Page - 1) * info.Size).Order("created_at desc").Find(l).Error
 	if err != nil {
 		return false
 	}
@@ -87,7 +87,7 @@ func (l *ArticlesContributionList) GetAllCount(cu *int64) bool {
 
 //GetInfoByID 查询单个文章
 func (vc *ArticlesContribution) GetInfoByID(ID uint) bool {
-	err := global.Db.Where("id", ID).Preload("Likes").Preload("Classification").Preload("Comments", func(db *gorm.DB) *gorm.DB {
+	err := global.Db.Where("id", ID).Preload("Likes").Preload("UserInfo").Preload("Classification").Preload("Comments", func(db *gorm.DB) *gorm.DB {
 		return db.Preload("UserInfo").Order("created_at desc")
 	}).Find(vc).Error
 	if err != nil {
@@ -138,4 +138,10 @@ func (vc *ArticlesContribution) Delete(id uint, uid uint) bool {
 		return false
 	}
 	return true
+}
+
+//GetDiscussArticleCommentList 创作空间获取个人发布专栏
+func (l *ArticlesContributionList) GetDiscussArticleCommentList(id uint) error {
+	err := global.Db.Where("uid", id).Preload("Comments").Find(&l).Error
+	return err
 }

@@ -50,3 +50,19 @@ func (l *CollectsList) GetVideoInfo(id uint) error {
 	err := global.Db.Where("favorites_id", id).Preload("VideoInfo").Find(l).Error
 	return err
 }
+
+//FindIsCollectByFavorites 判断收藏夹列表内是否收藏该视频
+func (l *CollectsList) FindIsCollectByFavorites(videoID uint, ids []uint) bool {
+	//没创建收藏夹情况直接false
+	if len(ids) == 0 {
+		return false
+	}
+	err := global.Db.Where("video_id", videoID).Where("favorites_id", ids).Find(l).Error
+	if err != nil {
+		return false
+	}
+	if len(*l) == 0 {
+		return false
+	}
+	return true
+}

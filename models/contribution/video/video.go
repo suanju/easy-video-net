@@ -26,10 +26,10 @@ type VideosContribution struct {
 	Introduce     string         `json:"introduce" gorm:"introduce"`
 	Heat          int            `json:"heat" gorm:"heat"`
 
-	UserInfo users.User         `json:"user_info" gorm:"foreignKey:Uid"`
-	Likes    []like.Likes       `json:"likes" gorm:"foreignKey:VideoID" `
-	Comments []comments.Comment `json:"comments" gorm:"foreignKey:VideoID"`
-	Barrage  []barrage.Barrage  `json:"barrage" gorm:"foreignKey:VideoID"`
+	UserInfo users.User           `json:"user_info" gorm:"foreignKey:Uid"`
+	Likes    like.LikesList       `json:"likes" gorm:"foreignKey:VideoID" `
+	Comments comments.CommentList `json:"comments" gorm:"foreignKey:VideoID"`
+	Barrage  barrage.BarragesList `json:"barrage" gorm:"foreignKey:VideoID"`
 }
 
 type VideosContributionList []VideosContribution

@@ -16,7 +16,7 @@ type Record struct {
 	ToId uint   `json:"to_id" gorm:"to_id"`
 
 	VideoInfo   video.VideosContribution     `json:"videoInfo" gorm:"foreignKey:to_id"`
-	Userinfo    users.User                   `json:"users.User"  gorm:"foreignKey:to_id"`
+	Userinfo    users.User                   `json:"users.User"  gorm:"foreignKey:uid"`
 	ArticleInfo article.ArticlesContribution `json:"articleInfo" gorm:"foreignKey:to_id"`
 }
 
