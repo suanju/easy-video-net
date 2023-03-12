@@ -11,4 +11,6 @@ const (
 	VideoSocketTypeSendBarrage = "sendBarrage"
 	//VideoSocketTypeResponseBarrageNum 发送弹幕
 	VideoSocketTypeResponseBarrageNum = "responseBarrageNum"
+	//NoticeSocketTypeMessage 消息通知
+	NoticeSocketTypeMessage = "messageNotice"
 )
