@@ -242,7 +242,7 @@ type WebClientHistoricalBarrageRes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*WebClientSendBarrageRes `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*WebClientSendBarrageRes `protobuf:"bytes,1,rep,name=chatList,proto3" json:"chatList,omitempty"`
 }
 
 func (x *WebClientHistoricalBarrageRes) Reset() {
@@ -357,7 +357,7 @@ type WebClientEnterLiveRoomRes struct {
 	Username string           `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
 	Avatar   string           `protobuf:"bytes,3,opt,name=avatar,proto3" json:"avatar,omitempty"`
 	Type     bool             `protobuf:"varint,4,opt,name=type,proto3" json:"type,omitempty"`
-	List     []*EnterLiveRoom `protobuf:"bytes,5,rep,name=list,proto3" json:"list,omitempty"`
+	List     []*EnterLiveRoom `protobuf:"bytes,5,rep,name=chatList,proto3" json:"chatList,omitempty"`
 }
 
 func (x *WebClientEnterLiveRoomRes) Reset() {
@@ -500,13 +500,13 @@ var file_live_proto_goTypes = []interface{}{
 	(*WebClientEnterLiveRoomRes)(nil),     // 5: barrage.WebClientEnterLiveRoomRes
 }
 var file_live_proto_depIdxs = []int32{
-	2, // 0: barrage.WebClientHistoricalBarrageRes.list:type_name -> barrage.WebClientSendBarrageRes
-	4, // 1: barrage.WebClientEnterLiveRoomRes.list:type_name -> barrage.EnterLiveRoom
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: barrage.WebClientHistoricalBarrageRes.chatList:type_name -> barrage.WebClientSendBarrageRes
+	4, // 1: barrage.WebClientEnterLiveRoomRes.chatList:type_name -> barrage.EnterLiveRoom
+	2, // [2:2] is the sub-chatList for method output_type
+	2, // [2:2] is the sub-chatList for method input_type
+	2, // [2:2] is the sub-chatList for extension type_name
+	2, // [2:2] is the sub-chatList for extension extendee
+	0, // [0:2] is the sub-chatList for field type_name
 }
 
 func init() { file_live_proto_init() }
