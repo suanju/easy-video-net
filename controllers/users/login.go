@@ -4,8 +4,6 @@ import (
 	"Go-Live/controllers"
 	receive "Go-Live/interaction/receive/users"
 	"Go-Live/logic/users"
-	"Go-Live/utils/response"
-	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,91 +13,48 @@ type LoginControllers struct {
 
 //WxAuthorization 微信快捷登入
 func (lg LoginControllers) WxAuthorization(ctx *gin.Context) {
-	WxAuthorizationReceive := new(receive.WxAuthorizationReceiveStruct)
-	if err := ctx.ShouldBind(WxAuthorizationReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.WxAuthorizationReceiveStruct)); err == nil {
+		results, err := users.WxAuthorization(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.WxAuthorization(WxAuthorizationReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //Login 登入
 func (lg LoginControllers) Login(ctx *gin.Context) {
-	LoginReceive := new(receive.LoginReceiveStruct)
-	if err := ctx.ShouldBind(LoginReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.LoginReceiveStruct)); err == nil {
+		results, err := users.Login(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.Login(LoginReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //Register 注册
 func (lg LoginControllers) Register(ctx *gin.Context) {
-	RegisterReceive := new(receive.RegisterReceiveStruct)
-	if err := ctx.ShouldBind(RegisterReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.RegisterReceiveStruct)); err == nil {
+		results, err := users.Register(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.Register(RegisterReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //SendEmailVerCode 获取验证码(注册)
 func (lg LoginControllers) SendEmailVerCode(ctx *gin.Context) {
-	SendEmailVerCodeReceive := new(receive.SendEmailVerCodeReceiveStruct)
-	if err := ctx.ShouldBind(SendEmailVerCodeReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.SendEmailVerCodeReceiveStruct)); err == nil {
+		results, err := users.SendEmailVerCode(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.SendEmailVerCode(SendEmailVerCodeReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //SendEmailVerCodeByForget 获取邮箱验证码(忘记密码)
 func (lg LoginControllers) SendEmailVerCodeByForget(ctx *gin.Context) {
-	SendEmailVerCodeReceive := new(receive.SendEmailVerCodeReceiveStruct)
-	if err := ctx.ShouldBind(SendEmailVerCodeReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.SendEmailVerCodeReceiveStruct)); err == nil {
+		results, err := users.SendEmailVerCodeByForget(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.SendEmailVerCodeByForget(SendEmailVerCodeReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //Forget 找回密码
 func (lg LoginControllers) Forget(ctx *gin.Context) {
-
-	ForgetReceive := new(receive.ForgetReceiveStruct)
-	if err := ctx.ShouldBind(ForgetReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.ForgetReceiveStruct)); err == nil {
+		results, err := users.Forget(rec)
+		lg.Response(ctx, results, err)
 	}
-	results, err := users.Forget(ForgetReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }

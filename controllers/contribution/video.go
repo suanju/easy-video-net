@@ -3,14 +3,10 @@ package contribution
 import (
 	receive "Go-Live/interaction/receive/contribution/video"
 	"Go-Live/logic/contribution"
-	"Go-Live/logic/contribution/socket"
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/gorilla/websocket"
 )
 
 type Controllers struct {
@@ -104,25 +100,6 @@ func (C Controllers) GetVideoBarrageList(ctx *gin.Context) {
 	response.BarrageSuccess(ctx, results)
 }
 
-// VideoSocket  观看视频建立的socket
-func (C Controllers) VideoSocket(ctx *gin.Context) {
-	uid := ctx.GetUint("uid")
-	conn, _ := ctx.Get("conn")
-	ws := conn.(*websocket.Conn)
-
-	//判断是否创建视频socket房间
-	id, _ := strconv.Atoi(ctx.Query("videoID"))
-	videoID := uint(id)
-	if socket.Severe.VideoRoom[videoID] == nil {
-		//无人观看主动创建
-		socket.Severe.VideoRoom[videoID] = make(socket.UserMapChannel, 10)
-	}
-	err := socket.CreateVideoSocket(uid, videoID, ws)
-	if err != nil {
-		response.ErrorWs(ws, "创建socket失败")
-	}
-}
-
 //VideoPostComment 视频评论
 func (C Controllers) VideoPostComment(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
@@ -179,6 +156,22 @@ func (C Controllers) DeleteVideoByID(ctx *gin.Context) {
 		return
 	}
 	results, err := contribution.DeleteVideoByID(DeleteVideoByIDReceive, uid)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//LikeVideo 给视频点赞
+func (C Controllers) LikeVideo(ctx *gin.Context) {
+	uid := ctx.GetUint("uid")
+	LikeVideoReceive := new(receive.LikeVideoReceiveStruct)
+	if err := ctx.ShouldBind(LikeVideoReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := contribution.LikeVideo(LikeVideoReceive, uid)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

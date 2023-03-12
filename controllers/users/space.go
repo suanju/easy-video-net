@@ -4,9 +4,6 @@ import (
 	"Go-Live/controllers"
 	receive "Go-Live/interaction/receive/users"
 	"Go-Live/logic/users"
-	"Go-Live/utils/response"
-	"Go-Live/utils/validator"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,62 +14,34 @@ type SpaceControllers struct {
 //GetSpaceIndividual 获取个人空间
 func (sp SpaceControllers) GetSpaceIndividual(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetSpaceIndividualReceive := new(receive.GetSpaceIndividualReceiveStruct)
-	if err := ctx.ShouldBind(GetSpaceIndividualReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetSpaceIndividualReceiveStruct)); err == nil {
+		results, err := users.GetSpaceIndividual(rec, uid)
+		sp.Response(ctx, results, err)
 	}
-	results, err := users.GetSpaceIndividual(GetSpaceIndividualReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //GetReleaseInformation 获取发布信息（视频and专栏）
 func (sp SpaceControllers) GetReleaseInformation(ctx *gin.Context) {
-	GetReleaseInformationReceive := new(receive.GetReleaseInformationReceiveStruct)
-	if err := ctx.ShouldBind(GetReleaseInformationReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetReleaseInformationReceiveStruct)); err == nil {
+		results, err := users.GetReleaseInformation(rec)
+		sp.Response(ctx, results, err)
 	}
-	results, err := users.GetReleaseInformation(GetReleaseInformationReceive)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //GetAttentionList 获取关注列表
 func (sp SpaceControllers) GetAttentionList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetAttentionListReceive := new(receive.GetAttentionListReceiveStruct)
-	if err := ctx.ShouldBind(GetAttentionListReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetAttentionListReceiveStruct)); err == nil {
+		results, err := users.GetAttentionList(rec, uid)
+		sp.Response(ctx, results, err)
 	}
-	results, err := users.GetAttentionList(GetAttentionListReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //GetVermicelliList 获取粉丝列表
 func (sp SpaceControllers) GetVermicelliList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetVermicelliListReceive := new(receive.GetVermicelliListReceiveStruct)
-	if err := ctx.ShouldBind(GetVermicelliListReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetVermicelliListReceiveStruct)); err == nil {
+		results, err := users.GetVermicelliList(rec, uid)
+		sp.Response(ctx, results, err)
 	}
-	results, err := users.GetVermicelliList(GetVermicelliListReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }

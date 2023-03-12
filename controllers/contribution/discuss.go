@@ -24,3 +24,35 @@ func (C Controllers) GetDiscussVideoList(ctx *gin.Context) {
 	}
 	response.Success(ctx, results)
 }
+
+//GetDiscussArticleList 获取专栏评论列表
+func (C Controllers) GetDiscussArticleList(ctx *gin.Context) {
+	uid := ctx.GetUint("uid")
+	GetDiscussArticleListReceive := new(receive.GetDiscussArticleListReceiveStruct)
+	if err := ctx.ShouldBind(GetDiscussArticleListReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := contribution.GetDiscussArticleList(GetDiscussArticleListReceive, uid)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
+
+//GetDiscussBarrageList 获取视频弹幕列表
+func (C Controllers) GetDiscussBarrageList(ctx *gin.Context) {
+	uid := ctx.GetUint("uid")
+	GetDiscussBarrageListReceive := new(receive.GetDiscussBarrageListReceiveStruct)
+	if err := ctx.ShouldBind(GetDiscussBarrageListReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := contribution.GetDiscussBarrageList(GetDiscussBarrageListReceive, uid)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
