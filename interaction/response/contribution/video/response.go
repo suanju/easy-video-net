@@ -23,6 +23,8 @@ type Info struct {
 	Heat           int              `json:"heat"`
 	BarrageNumber  int              `json:"barrageNumber"`
 	Comments       commentsInfoList `json:"comments"`
+	IsLike         bool             `json:"is_like"`
+	IsCollect      bool             `json:"is_collect"`
 	CommentsNumber int              `json:"comments_number"`
 	CreatorInfo    creatorInfo      `json:"creatorInfo"`
 	CreatedAt      time.Time        `json:"created_at"`
@@ -59,7 +61,7 @@ type Response struct {
 	RecommendList RecommendList `json:"recommendList"`
 }
 
-func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVideoList *video.VideosContributionList, isAttention bool) Response {
+func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVideoList *video.VideosContributionList, isAttention bool, isLike bool, isCollect bool) Response {
 	//处理视频主要信息
 	creatorAvatar, _ := conversion.FormattingJsonSrc(vc.UserInfo.Photo)
 	cover, _ := conversion.FormattingJsonSrc(vc.Cover)
@@ -101,6 +103,8 @@ func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVid
 			BarrageNumber:  len(vc.Barrage),
 			Comments:       commentsList,
 			CommentsNumber: len(commentsList),
+			IsLike:         isLike,
+			IsCollect:      isCollect,
 			CreatorInfo: creatorInfo{
 				ID:          vc.UserInfo.ID,
 				Username:    vc.UserInfo.Username,

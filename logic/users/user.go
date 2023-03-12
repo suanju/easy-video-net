@@ -9,9 +9,12 @@ import (
 	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/chat/chatList"
+	"Go-Live/models/users/chat/chatMsg"
 	"Go-Live/models/users/collect"
 	"Go-Live/models/users/favorites"
 	"Go-Live/models/users/liveInfo"
+	"Go-Live/models/users/notice"
 	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"Go-Live/utils/email"
@@ -393,4 +396,90 @@ func DeleteRecordByID(data *receive.DeleteRecordByIDReceiveStruct, uid uint) (re
 		return nil, fmt.Errorf("删除失败")
 	}
 	return "删除成功", nil
+}
+
+func GetNoticeList(data *receive.GetNoticeListReceiveStruct, uid uint) (results interface{}, err error) {
+	//获取用户通知
+	messageType := make([]string, 0)
+	nl := new(notice.NoticesList)
+	switch data.Type {
+	case "comment":
+		messageType = append(messageType, notice.VideoComment, notice.ArticleComment)
+		break
+	case "like":
+		messageType = append(messageType, notice.VideoLike, notice.ArticleLike)
+	}
+
+	err = nl.GetNoticeList(data.PageInfo, messageType, uid)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	//记录全部已读
+	n := new(notice.Notice)
+	err = n.ReadAll(uid)
+	if err != nil {
+		return nil, fmt.Errorf("已读消息失败")
+	}
+	res, err := response.GetNoticeListResponse(nl)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func GetChatList(uid uint) (results interface{}, err error) {
+	//获取消息列表
+	cList := new(chatList.ChatList)
+	err = cList.GetListByIO(uid)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	ids := make([]uint, 0)
+	for _, v := range *cList {
+		ids = append(ids, v.Tid)
+	}
+	msgList := make(map[uint]*chatMsg.MsgList, 0)
+	for _, v := range ids {
+		ml := new(chatMsg.MsgList)
+		err = ml.FindList(uid, v)
+		if err != nil {
+			break
+		}
+		msgList[v] = ml
+	}
+	res, err := response.GetChatListResponse(cList, msgList)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func PersonalLetter(data *receive.PersonalLetterReceiveStruct, uid uint) (results interface{}, err error) {
+	//获取消息列表
+	cm := new(chatMsg.Msg)
+	err = cm.GetLastMessage(data.ID, uid)
+	if err != nil {
+		return nil, fmt.Errorf("操作失败")
+	}
+
+	ci := &chatList.ChatsListInfo{
+		Uid:         uid,
+		Tid:         data.ID,
+		LastMessage: cm.Message,
+	}
+	err = ci.AddChat()
+	if err != nil {
+		return nil, fmt.Errorf("操作失败")
+	}
+	return cm, nil
+}
+
+func DeleteChatItem(data *receive.DeleteChatItemReceiveStruct, uid uint) (results interface{}, err error) {
+	ci := new(chatList.ChatsListInfo)
+	fmt.Println("执行了")
+	err = ci.DeleteChat(data.ID, uid)
+	if err != nil {
+		return nil, fmt.Errorf("删除失败")
+	}
+	return "操作成功", nil
 }

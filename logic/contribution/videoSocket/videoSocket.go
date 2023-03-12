@@ -1,7 +1,8 @@
-package socket
+package videoSocket
 
 import (
 	"Go-Live/consts"
+	receive "Go-Live/interaction/receive/socket"
 	userModel "Go-Live/models/users"
 	"Go-Live/utils/response"
 	"encoding/json"
@@ -17,6 +18,7 @@ type Engine struct {
 }
 
 type UserMapChannel map[uint]*UserChannel
+
 type ChanInfo struct {
 	Type string
 	Data interface{}
@@ -136,7 +138,7 @@ func (lre VideoRoomEvent) Read() {
 		if err != nil {
 			return
 		}
-		info := new(Receive)
+		info := new(receive.Receive)
 		if err = json.Unmarshal(text, info); err != nil {
 			response.ErrorWs(lre.Channel.Socket, "消息格式错误")
 		}

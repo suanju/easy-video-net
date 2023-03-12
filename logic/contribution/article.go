@@ -4,10 +4,12 @@ import (
 	"Go-Live/consts"
 	receive "Go-Live/interaction/receive/contribution/article"
 	response "Go-Live/interaction/response/contribution/article"
+	"Go-Live/logic/users/noticeSocket"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/article"
 	"Go-Live/models/contribution/article/classification"
 	"Go-Live/models/contribution/article/comments"
+	"Go-Live/models/users/notice"
 	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"encoding/json"
@@ -132,6 +134,10 @@ func GetArticleContributionByID(data *receive.GetArticleContributionByIDReceiveS
 }
 
 func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, uid uint) (results interface{}, err error) {
+	articleInfo := new(article.ArticlesContribution)
+	if !articleInfo.GetInfoByID(data.ArticleID) {
+		return nil, fmt.Errorf("评论文章不存在")
+	}
 	ct := comments.Comment{
 		PublicModel: common.PublicModel{ID: data.ContentID},
 	}
@@ -143,7 +149,7 @@ func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, uid uint
 	CommentUserID := ctu.GetCommentUserID()
 	comment := comments.Comment{
 		Uid:            uid,
-		ContributionID: data.ArticleID,
+		ArticleID:      data.ArticleID,
 		Context:        data.Content,
 		CommentID:      data.ContentID,
 		CommentUserID:  CommentUserID,
@@ -152,6 +158,13 @@ func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, uid uint
 	if !comment.Create() {
 		return nil, fmt.Errorf("发布失败")
 	}
+
+	//socket推送(在线的情况下)
+	if _, ok := noticeSocket.Severe.UserMapChannel[articleInfo.UserInfo.ID]; ok {
+		userChannel := noticeSocket.Severe.UserMapChannel[articleInfo.UserInfo.ID]
+		userChannel.NoticeMessage(notice.ArticleComment)
+	}
+
 	return "发布成功", nil
 }
 

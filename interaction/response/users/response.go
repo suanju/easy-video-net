@@ -6,9 +6,12 @@ import (
 	"Go-Live/models/contribution/video"
 	"Go-Live/models/users"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/chat/chatList"
+	"Go-Live/models/users/chat/chatMsg"
 	"Go-Live/models/users/collect"
 	"Go-Live/models/users/favorites"
 	"Go-Live/models/users/liveInfo"
+	"Go-Live/models/users/notice"
 	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"encoding/json"
@@ -18,10 +21,11 @@ import (
 )
 
 type UserInfoResponseStruct struct {
-	ID       uint   `json:"id"`
-	UserName string `json:"username"`
-	Photo    string `json:"photo"`
-	Token    string `json:"token"`
+	ID        uint      `json:"id"`
+	UserName  string    `json:"username"`
+	Photo     string    `json:"photo"`
+	Token     string    `json:"token"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 //UserInfoResponse  生成返回用用户信息结构体
@@ -29,10 +33,11 @@ func UserInfoResponse(us *users.User, token string) UserInfoResponseStruct {
 	//判断用户是否为微信用户进行图片处理
 	photo, _ := conversion.FormattingJsonSrc(us.Photo)
 	return UserInfoResponseStruct{
-		ID:       us.ID,
-		UserName: us.Username,
-		Photo:    photo,
-		Token:    token,
+		ID:        us.ID,
+		UserName:  us.Username,
+		Photo:     photo,
+		Token:     token,
+		CreatedAt: us.CreatedAt,
 	}
 }
 
@@ -439,6 +444,119 @@ func GetRecordListResponse(rl *record.RecordsList) (data interface{}, err error)
 			Photo:     photo,
 			Type:      tp,
 			UpdatedAt: v.UpdatedAt,
+		})
+	}
+	return list, nil
+}
+
+type GetNoticeListItem struct {
+	ID        uint      `json:"id"`
+	Username  string    `json:"username"`
+	Type      string    `json:"type"`
+	ToID      uint      `json:"to_id"`
+	Photo     string    `json:"photo"`
+	Comment   string    `json:"comment"`
+	Cover     string    `json:"cover"`
+	Title     string    `json:"title"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type GetNoticeListStruct []GetNoticeListItem
+
+func GetNoticeListResponse(nl *notice.NoticesList) (data interface{}, err error) {
+	list := make(GetNoticeListStruct, 0)
+	for _, v := range *nl {
+		photo, _ := conversion.FormattingJsonSrc(v.UserInfo.Photo)
+		var cover string
+		var title string
+
+		//判断类型确定标题和封面
+		switch v.Type {
+		case notice.VideoComment:
+			cover, _ = conversion.FormattingJsonSrc(v.VideoInfo.Cover)
+			title = v.VideoInfo.Title
+			break
+		case notice.VideoLike:
+			cover, _ = conversion.FormattingJsonSrc(v.VideoInfo.Cover)
+			title = v.VideoInfo.Title
+			break
+		case notice.ArticleComment:
+			cover, _ = conversion.FormattingJsonSrc(v.ArticleInfo.Cover)
+			title = v.ArticleInfo.Title
+			break
+		case notice.ArticleLike:
+			cover, _ = conversion.FormattingJsonSrc(v.ArticleInfo.Cover)
+			title = v.ArticleInfo.Title
+			break
+		}
+
+		list = append(list, GetNoticeListItem{
+			ID:        v.ID,
+			Type:      v.Type,
+			ToID:      v.ToID,
+			Username:  v.UserInfo.Username,
+			Photo:     photo,
+			Comment:   v.Content,
+			Cover:     cover,
+			Title:     title,
+			CreatedAt: v.CreatedAt,
+		})
+
+	}
+
+	return list, nil
+}
+
+type ChatMessageInfo struct {
+	ID        uint      `json:"id"`
+	Uid       uint      `json:"uid"`
+	Username  string    `json:"username"`
+	Photo     string    `json:"photo"`
+	Tid       uint      `json:"tid"`
+	TUsername string    `json:"t_username"`
+	TPhoto    string    `json:"t_photo"`
+	Message   string    `json:"message"`
+	Type      string    `json:"type"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type GetChatListItem struct {
+	ToID        uint              `json:"to_id"`
+	Username    string            `json:"username"`
+	Photo       string            `json:"photo"`
+	LastMessage string            `json:"last_message"`
+	MessageList []ChatMessageInfo `json:"message_list"`
+	UpdatedAt   time.Time         `json:"updated_at"`
+}
+
+type GetChatListResponseStruct []GetChatListItem
+
+func GetChatListResponse(chatList *chatList.ChatList, msgList map[uint]*chatMsg.MsgList) (data interface{}, err error) {
+	list := make(GetChatListResponseStruct, 0)
+	for _, v := range *chatList {
+		photo, _ := conversion.FormattingJsonSrc(v.ToUserInfo.Photo)
+		messageList := make([]ChatMessageInfo, 0)
+		for _, vv := range *msgList[v.Tid] {
+			uPhoto, _ := conversion.FormattingJsonSrc(vv.UInfo.Photo)
+			messageList = append(messageList, ChatMessageInfo{
+				ID:        vv.ID,
+				Uid:       vv.Uid,
+				Username:  vv.UInfo.Username,
+				Photo:     uPhoto,
+				Tid:       vv.Tid,
+				Message:   vv.Message,
+				Type:      vv.Type,
+				CreatedAt: vv.CreatedAt,
+			})
+		}
+
+		list = append(list, GetChatListItem{
+			ToID:        v.Tid,
+			Username:    v.ToUserInfo.Username,
+			Photo:       photo,
+			LastMessage: v.LastMessage,
+			MessageList: messageList,
+			UpdatedAt:   v.UpdatedAt,
 		})
 	}
 	return list, nil

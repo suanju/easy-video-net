@@ -10,6 +10,13 @@ type GetLiveRoomResponseStruct struct {
 	Key     string `json:"key"`
 }
 
+func GetLiveRoomResponse(address string, key string) interface{} {
+	return GetLiveRoomResponseStruct{
+		Address: address,
+		Key:     key,
+	}
+}
+
 type GetLiveRoomInfoResponseStruct struct {
 	Username  string `json:"username"`
 	Photo     string `json:"photo"`

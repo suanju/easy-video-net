@@ -122,3 +122,16 @@ type GetRecordListReceiveStruct struct {
 type DeleteRecordByIDReceiveStruct struct {
 	ID uint `json:"id"`
 }
+
+type GetNoticeListReceiveStruct struct {
+	Type     string          `json:"type"`
+	PageInfo common.PageInfo `json:"page_info" binding:"required"`
+}
+
+type PersonalLetterReceiveStruct struct {
+	ID uint `json:"id" binding:"required"`
+}
+
+type DeleteChatItemReceiveStruct struct {
+	ID uint `json:"id" binding:"required"`
+}

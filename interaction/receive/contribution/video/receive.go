@@ -69,3 +69,7 @@ type GetVideoManagementListReceiveStruct struct {
 type DeleteVideoByIDReceiveStruct struct {
 	ID uint `json:"id"`
 }
+
+type LikeVideoReceiveStruct struct {
+	VideoID uint `json:"video_id"`
+}

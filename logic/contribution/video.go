@@ -5,12 +5,17 @@ import (
 	"Go-Live/global"
 	receive "Go-Live/interaction/receive/contribution/video"
 	response "Go-Live/interaction/response/contribution/video"
-	"Go-Live/logic/contribution/socket"
+	"Go-Live/logic/contribution/videoSocket"
+	"Go-Live/logic/users/noticeSocket"
 	"Go-Live/models/common"
 	"Go-Live/models/contribution/video"
 	"Go-Live/models/contribution/video/barrage"
 	"Go-Live/models/contribution/video/comments"
+	"Go-Live/models/contribution/video/like"
 	"Go-Live/models/users/attention"
+	"Go-Live/models/users/collect"
+	"Go-Live/models/users/favorites"
+	"Go-Live/models/users/notice"
 	"Go-Live/models/users/record"
 	"Go-Live/utils/conversion"
 	"encoding/json"
@@ -94,6 +99,8 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 		return nil, fmt.Errorf("查询信息失败")
 	}
 	isAttention := false
+	isLike := false
+	isCollect := false
 	if uid != 0 {
 		//进行视频播放增加
 		if !global.RedisDb.SIsMember(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), uid).Val() {
@@ -106,6 +113,24 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 		//获取是否关注
 		at := new(attention.Attention)
 		isAttention = at.IsAttention(uid, videoInfo.UserInfo.ID)
+
+		//获取是否关注
+		lk := new(like.Likes)
+		isLike = lk.IsLike(uid, videoInfo.ID)
+
+		//判断是否已经收藏
+		fl := new(favorites.FavoriteList)
+		err = fl.GetFavoritesList(uid)
+		if err != nil {
+			return nil, fmt.Errorf("查询失败")
+		}
+		flIDs := make([]uint, 0)
+		for _, v := range *fl {
+			flIDs = append(flIDs, v.ID)
+		}
+		//判断是否在收藏夹内
+		cl := new(collect.CollectsList)
+		isCollect = cl.FindIsCollectByFavorites(data.VideoID, flIDs)
 
 		//添加历史记录
 		rd := new(record.Record)
@@ -121,7 +146,7 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 	if err != nil {
 		return nil, err
 	}
-	res := response.GetVideoContributionByIDResponse(videoInfo, recommendList, isAttention)
+	res := response.GetVideoContributionByIDResponse(videoInfo, recommendList, isAttention, isLike, isCollect)
 	return res, nil
 }
 
@@ -141,11 +166,11 @@ func SendVideoBarrage(data *receive.SendVideoBarrageReceiveStruct, uid uint) (re
 		return data, fmt.Errorf("发送弹幕失败")
 	}
 	//socket消息通知
-	res := socket.ChanInfo{
+	res := videoSocket.ChanInfo{
 		Type: consts.VideoSocketTypeResponseBarrageNum,
 		Data: nil,
 	}
-	for _, v := range socket.Severe.VideoRoom[uint(videoID)] {
+	for _, v := range videoSocket.Severe.VideoRoom[uint(videoID)] {
 		v.MsgList <- res
 	}
 
@@ -175,6 +200,12 @@ func GetVideoBarrageList(data *receive.GetVideoBarrageListReceiveStruct) (result
 }
 
 func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, uid uint) (results interface{}, err error) {
+	videoInfo := new(video.VideosContribution)
+	err = videoInfo.FindByID(data.VideoID)
+	if err != nil {
+		return nil, fmt.Errorf("视频不存在")
+	}
+
 	ct := comments.Comment{
 		PublicModel: common.PublicModel{ID: data.ContentID},
 	}
@@ -195,6 +226,13 @@ func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, uid uint) (r
 	if !comment.Create() {
 		return nil, fmt.Errorf("发布失败")
 	}
+
+	//socket推送(在线的情况下)
+	if _, ok := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
+		userChannel := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]
+		userChannel.NoticeMessage(notice.VideoComment)
+	}
+
 	return "发布成功", nil
 }
 
@@ -218,4 +256,26 @@ func GetVideoManagementList(data *receive.GetVideoManagementListReceiveStruct, u
 		return nil, fmt.Errorf("响应失败")
 	}
 	return res, nil
+}
+
+func LikeVideo(data *receive.LikeVideoReceiveStruct, uid uint) (results interface{}, err error) {
+	//点赞视频
+	videoInfo := new(video.VideosContribution)
+	err = videoInfo.FindByID(data.VideoID)
+	if err != nil {
+		return nil, fmt.Errorf("视频不存在")
+	}
+	lk := new(like.Likes)
+	err = lk.Like(uid, data.VideoID, videoInfo.UserInfo.ID)
+	if err != nil {
+		return nil, fmt.Errorf("操作失败")
+	}
+
+	//socket推送(在线的情况下)
+	if _, ok := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
+		userChannel := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]
+		userChannel.NoticeMessage(notice.VideoLike)
+	}
+
+	return "操作成功", nil
 }
