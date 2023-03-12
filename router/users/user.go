@@ -32,5 +32,9 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/getRecordList", usersControllers.GetRecordList)
 		router.POST("/clearRecord", usersControllers.ClearRecord)
 		router.POST("/deleteRecordByID", usersControllers.DeleteRecordByID)
+		router.POST("/getNoticeList", usersControllers.GetNoticeList)
+		router.POST("/getChatList", usersControllers.GetChatList)
+		router.POST("/personalLetter", usersControllers.PersonalLetter)
+		router.POST("/deleteChatItem", usersControllers.DeleteChatItem)
 	}
 }

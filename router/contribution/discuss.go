@@ -15,6 +15,8 @@ func (v *DiscussRouter) InitDiscussRouter(Router *gin.RouterGroup) {
 	contributionRouter := Router.Group("contribution").Use(middlewares.VerificationToken())
 	{
 		contributionRouter.POST("/getDiscussVideoList", contributionControllers.GetDiscussVideoList)
+		contributionRouter.POST("/getDiscussArticleList", contributionControllers.GetDiscussArticleList)
+		contributionRouter.POST("/getDiscussBarrageList", contributionControllers.GetDiscussBarrageList)
 	}
 
 }

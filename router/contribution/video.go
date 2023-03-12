@@ -36,6 +36,7 @@ func (v *VideoRouter) InitVideoRouter(Router *gin.RouterGroup) {
 		contributionRouter.POST("/deleteVideoByID", contributionControllers.DeleteVideoByID)
 		contributionRouter.POST("/videoPostComment", contributionControllers.VideoPostComment)
 		contributionRouter.POST("/getVideoManagementList", contributionControllers.GetVideoManagementList)
+		contributionRouter.POST("/likeVideo", contributionControllers.LikeVideo)
 	}
 
 }
