@@ -32,7 +32,7 @@ func (lv LivesControllers) LiveSocket(ctx *gin.Context) {
 
 	err := socket.CreateSocket(ctx, uid, liveRoomID, ws)
 	if err != nil {
-		response.Error(ctx, err.Error())
+		response.ErrorWs(ws, err.Error())
 		return
 	}
 }

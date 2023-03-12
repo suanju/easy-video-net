@@ -9,11 +9,10 @@ import (
 )
 
 // VideoSocket  观看视频建立的socket
-func (C Controllers) VideoSocket(ctx *gin.Context) {
+func (c Controllers) VideoSocket(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
 	conn, _ := ctx.Get("conn")
 	ws := conn.(*websocket.Conn)
-
 	//判断是否创建视频socket房间
 	id, _ := strconv.Atoi(ctx.Query("videoID"))
 	videoID := uint(id)

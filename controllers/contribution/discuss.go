@@ -1,58 +1,35 @@
 package contribution
 
 import (
+	"Go-Live/controllers"
 	receive "Go-Live/interaction/receive/contribution/discuss"
 	"Go-Live/logic/contribution"
-	"Go-Live/utils/response"
-	"Go-Live/utils/validator"
-
 	"github.com/gin-gonic/gin"
 )
 
 //GetDiscussVideoList 获取视频评论列表
-func (C Controllers) GetDiscussVideoList(ctx *gin.Context) {
+func (c Controllers) GetDiscussVideoList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetDiscussVideoListReceive := new(receive.GetDiscussVideoListReceiveStruct)
-	if err := ctx.ShouldBind(GetDiscussVideoListReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetDiscussVideoListReceiveStruct)); err == nil {
+		results, err := contribution.GetDiscussVideoList(rec, uid)
+		c.Response(ctx, results, err)
 	}
-	results, err := contribution.GetDiscussVideoList(GetDiscussVideoListReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //GetDiscussArticleList 获取专栏评论列表
-func (C Controllers) GetDiscussArticleList(ctx *gin.Context) {
+func (c Controllers) GetDiscussArticleList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetDiscussArticleListReceive := new(receive.GetDiscussArticleListReceiveStruct)
-	if err := ctx.ShouldBind(GetDiscussArticleListReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetDiscussArticleListReceiveStruct)); err == nil {
+		results, err := contribution.GetDiscussArticleList(rec, uid)
+		c.Response(ctx, results, err)
 	}
-	results, err := contribution.GetDiscussArticleList(GetDiscussArticleListReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
 
 //GetDiscussBarrageList 获取视频弹幕列表
-func (C Controllers) GetDiscussBarrageList(ctx *gin.Context) {
+func (c Controllers) GetDiscussBarrageList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	GetDiscussBarrageListReceive := new(receive.GetDiscussBarrageListReceiveStruct)
-	if err := ctx.ShouldBind(GetDiscussBarrageListReceive); err != nil {
-		validator.CheckParams(ctx, err)
-		return
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetDiscussBarrageListReceiveStruct)); err == nil {
+		results, err := contribution.GetDiscussBarrageList(rec, uid)
+		c.Response(ctx, results, err)
 	}
-	results, err := contribution.GetDiscussBarrageList(GetDiscussBarrageListReceive, uid)
-	if err != nil {
-		response.Error(ctx, err.Error())
-		return
-	}
-	response.Success(ctx, results)
 }
