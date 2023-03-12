@@ -40,11 +40,11 @@ type RConfigStruct struct {
 }
 type LiveConfigStruct struct {
 	IP        string `ini:"ip"`
-	GetRoom   string `ini:"getRoom"`
 	Agreement string `ini:"agreement"`
 	RTMP      string `ini:"rtmp"`
 	FLV       string `ini:"flv"`
 	HLS       string `ini:"hls"`
+	Api       string `ini:"api"`
 }
 
 type ProjectConfigStruct struct {
@@ -106,5 +106,6 @@ func ReturnsInstance() *ConfigStruct {
 	} else {
 		Config.ProjectUrl = Config.ProjectConfig.UrlTest
 	}
+
 	return Config
 }
