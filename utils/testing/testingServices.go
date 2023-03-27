@@ -2,7 +2,7 @@ package testing
 
 import (
 	"Go-Live/global"
-	"Go-Live/global/configRead"
+	"Go-Live/global/config"
 	"Go-Live/global/live"
 	"net"
 	"time"
@@ -11,7 +11,7 @@ import (
 // LiveSeverTesting 检测直播服务端口
 func LiveSeverTesting() {
 	//获取直播服务端口地址
-	var liveConfig = configRead.Config.LiveConfig
+	var liveConfig = config.Config.LiveConfig
 
 	ipPort := CheckPortsAsLocalHost(liveConfig.IP, []string{"8090", "7001"})
 	if len(ipPort) == 0 {

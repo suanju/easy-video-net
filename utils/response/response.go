@@ -23,7 +23,7 @@ func Error(ctx *gin.Context, msg string) {
 func TypeError(ctx *gin.Context, msg string) {
 	rd := &Data{
 		Code:    CodeTypeError,
-		Message: msg,
+		Message: CodeTypeError.Msg(),
 		Data:    nil,
 	}
 	ctx.JSON(http.StatusOK, rd)
