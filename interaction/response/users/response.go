@@ -513,20 +513,21 @@ type ChatMessageInfo struct {
 	Username  string    `json:"username"`
 	Photo     string    `json:"photo"`
 	Tid       uint      `json:"tid"`
-	TUsername string    `json:"t_username"`
-	TPhoto    string    `json:"t_photo"`
 	Message   string    `json:"message"`
 	Type      string    `json:"type"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
 type GetChatListItem struct {
-	ToID        uint              `json:"to_id"`
-	Username    string            `json:"username"`
-	Photo       string            `json:"photo"`
-	LastMessage string            `json:"last_message"`
-	MessageList []ChatMessageInfo `json:"message_list"`
-	UpdatedAt   time.Time         `json:"updated_at"`
+	ToID            uint              `json:"to_id"`
+	Username        string            `json:"username"`
+	Photo           string            `json:"photo"`
+	Unread          int               `json:"unread" gorm:"unread"`
+	LastMessage     string            `json:"last_message"`
+	LastMessagePage int               `json:"last_message_page"`
+	MessageList     []ChatMessageInfo `json:"message_list"`
+	LastAt          time.Time         `json:"last_at"`
+	UpdatedAt       time.Time         `json:"updated_at"`
 }
 
 type GetChatListResponseStruct []GetChatListItem
@@ -549,15 +550,35 @@ func GetChatListResponse(chatList *chatList.ChatList, msgList map[uint]*chatMsg.
 				CreatedAt: vv.CreatedAt,
 			})
 		}
-
+		fmt.Println(v.UpdatedAt)
 		list = append(list, GetChatListItem{
 			ToID:        v.Tid,
 			Username:    v.ToUserInfo.Username,
 			Photo:       photo,
+			Unread:      v.Unread,
 			LastMessage: v.LastMessage,
 			MessageList: messageList,
+			LastAt:      v.LastAt,
 			UpdatedAt:   v.UpdatedAt,
 		})
 	}
 	return list, nil
+}
+
+func GetChatHistoryMsgResponse(list *chatMsg.MsgList) (data interface{}, err error) {
+	messageList := make([]ChatMessageInfo, 0)
+	for _, v := range *list {
+		photo, _ := conversion.FormattingJsonSrc(v.UInfo.Photo)
+		messageList = append(messageList, ChatMessageInfo{
+			ID:        v.ID,
+			Uid:       v.Uid,
+			Username:  v.UInfo.Username,
+			Photo:     photo,
+			Tid:       v.Tid,
+			Message:   v.Message,
+			Type:      v.Type,
+			CreatedAt: v.CreatedAt,
+		})
+	}
+	return messageList, nil
 }

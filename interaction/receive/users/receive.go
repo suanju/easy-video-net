@@ -128,6 +128,11 @@ type GetNoticeListReceiveStruct struct {
 	PageInfo common.PageInfo `json:"page_info" binding:"required"`
 }
 
+type GetChatHistoryMsgStruct struct {
+	Tid      uint      `json:"tid"`
+	LastTime time.Time `json:"last_time"`
+}
+
 type PersonalLetterReceiveStruct struct {
 	ID uint `json:"id" binding:"required"`
 }

@@ -17,8 +17,7 @@ type rotographInfo struct {
 }
 type rotographInfoList []rotographInfo
 
-//首页视频
-
+//VideoInfo 首页视频
 type VideoInfo struct {
 	ID            uint      `json:"id"`
 	Uid           uint      `json:"uid" `

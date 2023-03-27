@@ -35,12 +35,12 @@ type GetVideoContributionByIDReceiveStruct struct {
 
 type SendVideoBarrageReceiveStruct struct {
 	Author string  `json:"author"`
-	Color  uint    `json:"color"`
-	ID     string  `json:"id"`
-	Text   string  `json:"text"`
+	Color  uint    `json:"color" binding:"required"`
+	ID     string  `json:"id" binding:"required"`
+	Text   string  `json:"text" binding:"required"`
 	Time   float64 `json:"time"`
 	Type   uint    `json:"type"`
-	Token  string  `json:"token"`
+	Token  string  `json:"token" binding:"required"`
 }
 
 type GetVideoBarrageReceiveStruct struct {
