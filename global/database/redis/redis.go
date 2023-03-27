@@ -1,14 +1,14 @@
 package redis
 
 import (
-	"Go-Live/global/configRead"
+	"Go-Live/global/config"
 	"fmt"
 	"github.com/go-redis/redis"
 )
 
 func ReturnsInstance() *redis.Client {
 	var err error
-	var redisConfig = configRead.Config.RConfig
+	var redisConfig = config.Config.RConfig
 
 	// 创建链接
 	Db := redis.NewClient(&redis.Options{

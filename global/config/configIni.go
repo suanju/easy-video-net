@@ -1,4 +1,4 @@
-package configRead
+package config
 
 import (
 	"fmt"
@@ -54,10 +54,16 @@ type ProjectConfigStruct struct {
 }
 
 type AliyunOss struct {
+	Region          string `ini:"region"`
+	Bucket          string `ini:"bucket"`
 	AccessKeyId     string `ini:"accessKeyId"`
 	AccessKeySecret string `ini:"accessKeySecret"`
 	Host            string `ini:"host"`
 	CallbackUrl     string `ini:"callbackUrl"`
+	Endpoint        string `ini:"endpoint"`
+	RoleArn         string `ini:"roleArn"`
+	RoleSessionName string `ini:"roleSessionName"`
+	DurationSeconds int    `ini:"durationSeconds"`
 }
 
 func ReturnsInstance() *ConfigStruct {

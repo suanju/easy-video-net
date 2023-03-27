@@ -1,9 +1,9 @@
 package global
 
 import (
-	"Go-Live/global/configRead"
-	"Go-Live/global/dataBases/mysql"
-	RedisDbFun "Go-Live/global/dataBases/redis"
+	"Go-Live/global/config"
+	"Go-Live/global/database/mysql"
+	RedisDbFun "Go-Live/global/database/redis"
 	log "Go-Live/global/logrus"
 	"github.com/go-redis/redis"
 	"github.com/sirupsen/logrus"
@@ -14,13 +14,13 @@ func init() {
 	Logger = log.ReturnsInstance()
 	RedisDb = RedisDbFun.ReturnsInstance()
 	Db = mysql.ReturnsInstance()
-	Config = configRead.ReturnsInstance()
+	Config = config.ReturnsInstance()
 
 }
 
 var (
 	Logger  *logrus.Logger
-	Config  *configRead.ConfigStruct
+	Config  *config.ConfigStruct
 	Db      *gorm.DB
 	RedisDb *redis.Client
 )
