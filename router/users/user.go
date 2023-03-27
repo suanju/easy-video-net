@@ -17,7 +17,6 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/setUserInfo", usersControllers.SetUserInfo)
 		router.POST("/determineNameExists", usersControllers.DetermineNameExists)
 		router.POST("/updateAvatar", usersControllers.UpdateAvatar)
-		router.POST("/upload", usersControllers.Upload)
 		router.POST("/getLiveData", usersControllers.GetLiveData)
 		router.POST("/saveLiveData", usersControllers.SaveLiveData)
 		router.POST("/sendEmailVerificationCodeByChangePassword", usersControllers.SendEmailVerificationCodeByChangePassword)
@@ -34,6 +33,7 @@ func (s *LoginRouter) InitRouter(Router *gin.RouterGroup) {
 		router.POST("/deleteRecordByID", usersControllers.DeleteRecordByID)
 		router.POST("/getNoticeList", usersControllers.GetNoticeList)
 		router.POST("/getChatList", usersControllers.GetChatList)
+		router.POST("/getChatHistoryMsg", usersControllers.GetChatHistoryMsg)
 		router.POST("/personalLetter", usersControllers.PersonalLetter)
 		router.POST("/deleteChatItem", usersControllers.DeleteChatItem)
 	}

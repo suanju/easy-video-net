@@ -18,6 +18,8 @@ func (r *Router) InitSocketRouter(Router *gin.RouterGroup) {
 		liveControllers := new(live.LivesControllers)
 		contributionControllers := new(contribution.Controllers)
 		socketRouter.GET("/noticeSocket", userControllers.NoticeSocket)
+		socketRouter.GET("/chatSocket", userControllers.ChatSocket)
+		socketRouter.GET("/chatByUserSocket", userControllers.ChatByUserSocket)
 		socketRouter.GET("/liveSocket", liveControllers.LiveSocket)
 		socketRouter.GET("/videoSocket", contributionControllers.VideoSocket)
 	}
