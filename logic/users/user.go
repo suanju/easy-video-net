@@ -6,7 +6,6 @@ import (
 	receive "Go-Live/interaction/receive/users"
 	response "Go-Live/interaction/response/users"
 	"Go-Live/models/common"
-	"Go-Live/models/config/uploadMethod"
 	"Go-Live/models/users"
 	"Go-Live/models/users/attention"
 	"Go-Live/models/users/chat/chatList"
@@ -19,17 +18,12 @@ import (
 	"Go-Live/utils/conversion"
 	"Go-Live/utils/email"
 	"Go-Live/utils/jwt"
-	"Go-Live/utils/location"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"math/rand"
-	"mime/multipart"
-	"os"
-	"strings"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	"gorm.io/datatypes"
 )
@@ -67,55 +61,6 @@ func DetermineNameExists(data *receive.DetermineNameExistsStruct, uid uint) (res
 	} else {
 		return false, nil
 	}
-}
-
-func Upload(file *multipart.FileHeader, uid uint, ctx *gin.Context) (results interface{}, err error) {
-	//如果文件大小超过maxMemory,则使用临时文件来存储multipart/form中文件数据
-	err = ctx.Request.ParseMultipartForm(128)
-	if err != nil {
-		return
-	}
-	mForm := ctx.Request.MultipartForm
-	//上传文件明
-	fileNameSlice := mForm.Value["name"]
-	var fileName string
-	fileName = strings.Join(fileNameSlice, fileName)
-
-	fileInterfaceSlice := mForm.Value["interface"]
-	var fileInterface string
-	fileInterface = strings.Join(fileInterfaceSlice, fileInterface)
-
-	method := new(uploadMethod.UploadMethod)
-	if !method.IsExistByField("interface", fileInterface) {
-		return nil, fmt.Errorf("上传接口不存在")
-	}
-	if len(method.Path) == 0 {
-		return nil, fmt.Errorf("请联系管理员设置接口保存路径")
-	}
-	//取出文件
-	_, fileHeader, err := ctx.Request.FormFile("file")
-	index := strings.LastIndex(fileHeader.Filename, ".")
-	suffix := fileHeader.Filename[index:]
-	switch suffix {
-	case ".jpg", ".jpeg", ".png", ".ico", ".gif", ".wbmp", ".bmp", ".svg", ".webp", ".mp4":
-	default:
-		return nil, fmt.Errorf("非法后缀！")
-	}
-	if !location.IsDir(method.Path) {
-		if err = os.MkdirAll(method.Path, 077); err != nil {
-			return nil, fmt.Errorf("创建保存路径失败")
-		}
-	}
-	dst := method.Path + "/" + fileName
-	err = ctx.SaveUploadedFile(fileHeader, dst)
-	if err != nil {
-		global.Logger.Warn("userid %d update headPortrait err", uid)
-		return nil, fmt.Errorf("上传失败")
-	} else {
-		return dst, nil
-	}
-	// 上传文件至指定的完整文件路径
-
 }
 
 func UpdateAvatar(data *receive.UpdateAvatarStruct, uid uint) (results interface{}, err error) {
@@ -454,29 +399,47 @@ func GetChatList(uid uint) (results interface{}, err error) {
 	return res, nil
 }
 
+func GetChatHistoryMsg(data *receive.GetChatHistoryMsgStruct, uid uint) (results interface{}, err error) {
+	//查询历史消息
+	cm := new(chatMsg.MsgList)
+	err = cm.FindHistoryMsg(uid, data.Tid, data.LastTime)
+	if err != nil {
+		return nil, fmt.Errorf("查询失败")
+	}
+	res, err := response.GetChatHistoryMsgResponse(cm)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
 func PersonalLetter(data *receive.PersonalLetterReceiveStruct, uid uint) (results interface{}, err error) {
-	//获取消息列表
 	cm := new(chatMsg.Msg)
-	err = cm.GetLastMessage(data.ID, uid)
+	err = cm.GetLastMessage(uid, data.ID)
 	if err != nil {
 		return nil, fmt.Errorf("操作失败")
 	}
-
+	var lastTime time.Time
+	if cm.ID > 0 {
+		lastTime = cm.CreatedAt
+	} else {
+		lastTime = time.Now()
+	}
 	ci := &chatList.ChatsListInfo{
 		Uid:         uid,
 		Tid:         data.ID,
 		LastMessage: cm.Message,
+		LastAt:      lastTime,
 	}
 	err = ci.AddChat()
 	if err != nil {
 		return nil, fmt.Errorf("操作失败")
 	}
-	return cm, nil
+	return "操作成功", nil
 }
 
 func DeleteChatItem(data *receive.DeleteChatItemReceiveStruct, uid uint) (results interface{}, err error) {
 	ci := new(chatList.ChatsListInfo)
-	fmt.Println("执行了")
 	err = ci.DeleteChat(data.ID, uid)
 	if err != nil {
 		return nil, fmt.Errorf("删除失败")
