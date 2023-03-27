@@ -3,6 +3,7 @@ package controllers
 import (
 	"Go-Live/utils/response"
 	"Go-Live/utils/validator"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +22,7 @@ func (c BaseControllers) Response(ctx *gin.Context, results interface{}, err err
 //ShouldBind 结构体方法无法使用泛型
 func ShouldBind[T interface{}](ctx *gin.Context, data T) (t T, err error) {
 	if err := ctx.ShouldBind(data); err != nil {
+		fmt.Println(err)
 		validator.CheckParams(ctx, err)
 		return t, err
 	}

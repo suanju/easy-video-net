@@ -5,7 +5,9 @@ import (
 	receive "Go-Live/interaction/receive/contribution/video"
 	"Go-Live/logic/contribution"
 	"Go-Live/utils/response"
+	"Go-Live/utils/validator"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 type Controllers struct {
@@ -43,9 +45,17 @@ func (c Controllers) GetVideoContributionByID(ctx *gin.Context) {
 // SendVideoBarrage  发送视频弹幕
 func (c Controllers) SendVideoBarrage(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
-	if rec, err := controllers.ShouldBind(ctx, new(receive.SendVideoBarrageReceiveStruct)); err == nil {
-		results, err := contribution.SendVideoBarrage(rec, uid)
-		c.Response(ctx, results, err)
+	SendVideoBarrageReceive := new(receive.SendVideoBarrageReceiveStruct)
+	//使用ShouldBindBodyWith解决重复bind问题
+	if err := ctx.ShouldBindBodyWith(SendVideoBarrageReceive, binding.JSON); err == nil {
+		results, err := contribution.SendVideoBarrage(SendVideoBarrageReceive, uid)
+		if err != nil {
+			response.Error(ctx, err.Error())
+			return
+		}
+		response.BarrageSuccess(ctx, results)
+	} else {
+		validator.CheckParams(ctx, err)
 	}
 }
 

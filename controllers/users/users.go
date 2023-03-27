@@ -36,14 +36,6 @@ func (us UserControllers) DetermineNameExists(ctx *gin.Context) {
 	}
 }
 
-//Upload  文件上传
-func (us UserControllers) Upload(ctx *gin.Context) {
-	uid := ctx.GetUint("uid")
-	file, _ := ctx.FormFile("file")
-	results, err := users.Upload(file, uid, ctx)
-	us.Response(ctx, results, err)
-}
-
 //UpdateAvatar 修改头像
 func (us UserControllers) UpdateAvatar(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
@@ -184,6 +176,15 @@ func (us UserControllers) GetChatList(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
 	results, err := users.GetChatList(uid)
 	us.Response(ctx, results, err)
+}
+
+//GetChatHistoryMsg 获取历史聊天记录
+func (us UserControllers) GetChatHistoryMsg(ctx *gin.Context) {
+	uid := ctx.GetUint("uid")
+	if rec, err := controllers.ShouldBind(ctx, new(receive.GetChatHistoryMsgStruct)); err == nil {
+		results, err := users.GetChatHistoryMsg(rec, uid)
+		us.Response(ctx, results, err)
+	}
 }
 
 //PersonalLetter 点击私信时触发
