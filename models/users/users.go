@@ -93,9 +93,9 @@ func (us *User) FindLiveInfo(id uint) {
 }
 
 func (l *UserList) GetBeLiveList(ids []uint) error {
-	err := global.Db.Where("id", ids).Preload("LiveInfo").Find(&l).Error
-	if err != nil {
-		return err
-	}
-	return nil
+	return global.Db.Where("id", ids).Preload("LiveInfo").Find(&l).Error
+}
+
+func (l *UserList) Search(info common.PageInfo) error {
+	return global.Db.Where("`username` LIKE ?", "%"+info.Keyword+"%").Find(&l).Error
 }
