@@ -8,6 +8,10 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	openapi "github.com/alibabacloud-go/darabonba-openapi/v2/client"
+	sts20150401 "github.com/alibabacloud-go/sts-20150401/v2/client"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
+	"github.com/alibabacloud-go/tea/tea"
 	"hash"
 	"io"
 	"time"
@@ -24,6 +28,14 @@ var host = global.Config.AliyunOss.Host
 
 // callbackUrl为 上传回调服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
 var callbackUrl = global.Config.AliyunOss.CallbackUrl
+
+var roleArn = global.Config.AliyunOss.RoleArn
+
+var roleSessionName = global.Config.AliyunOss.RoleSessionName
+
+var durationSeconds = global.Config.AliyunOss.DurationSeconds
+
+var endpoint = global.Config.AliyunOss.Endpoint
 
 // 用户上传文件时指定的前缀。
 //var uploadDir string = "upload/img/user/liveCover/"
@@ -102,6 +114,53 @@ func GetPolicyToken(_interface string) (results interface{}, err error) {
 	policyToken.Callback = callbackBase64
 
 	return policyToken, nil
+}
+
+// CreateClient
+// * 使用AK&SK初始化账号Client
+// * @param accessKeyId
+// * @param accessKeySecret
+// * @return Client
+// * @throws Exception
+///**
+func CreateClient(accessKeyId *string, accessKeySecret *string) (_result *sts20150401.Client, _err error) {
+	config := &openapi.Config{
+		// 必填，您的 AccessKey ID
+		AccessKeyId: accessKeyId,
+		// 必填，您的 AccessKey Secret
+		AccessKeySecret: accessKeySecret,
+	}
+	// 访问的域名
+	config.Endpoint = tea.String(endpoint)
+	_result = &sts20150401.Client{}
+	_result, _err = sts20150401.NewClient(config)
+	return _result, _err
+}
+
+func GteStsInfo() (*sts20150401.AssumeRoleResponseBodyCredentials, error) {
+	client, err := CreateClient(tea.String(accessKeyId), tea.String(accessKeySecret))
+	if err != nil {
+		return nil, err
+	}
+	assumeRoleRequest := &sts20150401.AssumeRoleRequest{
+		RoleArn:         tea.String(roleArn),
+		RoleSessionName: tea.String(roleSessionName),
+		DurationSeconds: tea.Int64(int64(durationSeconds)),
+	}
+	runtime := &util.RuntimeOptions{}
+	defer func() {
+		if r := tea.Recover(recover()); r != nil {
+		}
+	}()
+	// 复制代码运行请自行打印 API 的返回值
+	res, err := client.AssumeRoleWithOptions(assumeRoleRequest, runtime)
+	if err != nil {
+		return nil, err
+	}
+	if *res.StatusCode != 200 {
+		return nil, fmt.Errorf("错误的状态码: %d", res.StatusCode)
+	}
+	return res.Body.Credentials, nil
 }
 
 func getGmtIso8601(expireEnd int64) string {
