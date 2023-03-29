@@ -1,10 +1,10 @@
 package users
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/users/liveInfo"
 	"crypto/md5"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/users/liveInfo"
 	"fmt"
 	"gorm.io/datatypes"
 	"time"

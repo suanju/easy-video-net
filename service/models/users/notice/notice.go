@@ -1,9 +1,9 @@
 package notice
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/users"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/users"
 	"fmt"
 	"gorm.io/datatypes"
 )

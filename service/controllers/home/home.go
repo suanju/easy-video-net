@@ -1,9 +1,9 @@
 package home
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/home"
-	"Go-Live/logic/home"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/home"
+	"easy-video-net/logic/home"
 	"github.com/gin-gonic/gin"
 )
 

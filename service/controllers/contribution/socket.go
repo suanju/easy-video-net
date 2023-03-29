@@ -1,8 +1,8 @@
 package contribution
 
 import (
-	"Go-Live/logic/contribution/videoSocket"
-	"Go-Live/utils/response"
+	"easy-video-net/logic/contribution/videoSocket"
+	"easy-video-net/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"strconv"

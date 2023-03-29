@@ -1,10 +1,10 @@
 package global
 
 import (
-	"Go-Live/global/config"
-	"Go-Live/global/database/mysql"
-	RedisDbFun "Go-Live/global/database/redis"
-	log "Go-Live/global/logrus"
+	"easy-video-net/global/config"
+	"easy-video-net/global/database/mysql"
+	RedisDbFun "easy-video-net/global/database/redis"
+	log "easy-video-net/global/logrus"
 	"github.com/go-redis/redis"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"

@@ -1,8 +1,8 @@
 package classification
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
 )
 
 type Classification struct {

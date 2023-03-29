@@ -1,8 +1,8 @@
 package response
 
 import (
-	"Go-Live/consts"
-	"Go-Live/proto/pb"
+	"easy-video-net/consts"
+	"easy-video-net/proto/pb"
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
 )

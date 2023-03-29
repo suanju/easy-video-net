@@ -1,4 +1,4 @@
-module Go-Live
+module easy-video-net
 
 go 1.18
 

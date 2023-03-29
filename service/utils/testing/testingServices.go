@@ -1,9 +1,9 @@
 package testing
 
 import (
-	"Go-Live/global"
-	"Go-Live/global/config"
-	"Go-Live/global/live"
+	"easy-video-net/global"
+	"easy-video-net/global/config"
+	"easy-video-net/global/live"
 	"net"
 	"time"
 )

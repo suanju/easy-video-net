@@ -1,17 +1,17 @@
 package contribution
 
 import (
-	"Go-Live/consts"
-	receive "Go-Live/interaction/receive/contribution/article"
-	response "Go-Live/interaction/response/contribution/article"
-	"Go-Live/logic/users/noticeSocket"
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/article"
-	"Go-Live/models/contribution/article/classification"
-	"Go-Live/models/contribution/article/comments"
-	"Go-Live/models/users/notice"
-	"Go-Live/models/users/record"
-	"Go-Live/utils/conversion"
+	"easy-video-net/consts"
+	receive "easy-video-net/interaction/receive/contribution/article"
+	response "easy-video-net/interaction/response/contribution/article"
+	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/article"
+	"easy-video-net/models/contribution/article/classification"
+	"easy-video-net/models/contribution/article/comments"
+	"easy-video-net/models/users/notice"
+	"easy-video-net/models/users/record"
+	"easy-video-net/utils/conversion"
 	"encoding/json"
 	"fmt"
 

@@ -1,9 +1,9 @@
 package contribution
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/contribution/article"
-	"Go-Live/logic/contribution"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/contribution/article"
+	"easy-video-net/logic/contribution"
 	"github.com/gin-gonic/gin"
 )
 

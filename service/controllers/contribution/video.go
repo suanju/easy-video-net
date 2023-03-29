@@ -1,11 +1,11 @@
 package contribution
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/contribution/video"
-	"Go-Live/logic/contribution"
-	"Go-Live/utils/response"
-	"Go-Live/utils/validator"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/contribution/video"
+	"easy-video-net/logic/contribution"
+	"easy-video-net/utils/response"
+	"easy-video-net/utils/validator"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 )

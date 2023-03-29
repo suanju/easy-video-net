@@ -1,9 +1,9 @@
 package commonality
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/commonality"
-	"Go-Live/logic/commonality"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/commonality"
+	"easy-video-net/logic/commonality"
 	"github.com/gin-gonic/gin"
 )
 

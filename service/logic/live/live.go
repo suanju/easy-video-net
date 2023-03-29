@@ -1,11 +1,11 @@
 package live
 
 import (
-	"Go-Live/global"
-	receive "Go-Live/interaction/receive/live"
-	response "Go-Live/interaction/response/live"
-	"Go-Live/models/users"
-	"Go-Live/models/users/record"
+	"easy-video-net/global"
+	receive "easy-video-net/interaction/receive/live"
+	response "easy-video-net/interaction/response/live"
+	"easy-video-net/models/users"
+	"easy-video-net/models/users/record"
 	"encoding/json"
 	"fmt"
 	"io"

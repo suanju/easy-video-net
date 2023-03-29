@@ -1,9 +1,9 @@
 package users
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/users"
-	"Go-Live/logic/users"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/users"
+	"easy-video-net/logic/users"
 	"github.com/gin-gonic/gin"
 )
 

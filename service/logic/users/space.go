@@ -1,12 +1,12 @@
 package users
 
 import (
-	receive "Go-Live/interaction/receive/users"
-	response "Go-Live/interaction/response/users"
-	"Go-Live/models/contribution/article"
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/users"
-	"Go-Live/models/users/attention"
+	receive "easy-video-net/interaction/receive/users"
+	response "easy-video-net/interaction/response/users"
+	"easy-video-net/models/contribution/article"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/users"
+	"easy-video-net/models/users/attention"
 	"fmt"
 )
 

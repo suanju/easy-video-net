@@ -1,12 +1,12 @@
 package response
 
 import (
-	"Go-Live/consts"
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/article"
-	"Go-Live/models/contribution/article/classification"
-	"Go-Live/models/users"
-	"Go-Live/utils/conversion"
+	"easy-video-net/consts"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/article"
+	"easy-video-net/models/contribution/article/classification"
+	"easy-video-net/models/users"
+	"easy-video-net/utils/conversion"
 	"encoding/json"
 	"github.com/dlclark/regexp2"
 	"time"

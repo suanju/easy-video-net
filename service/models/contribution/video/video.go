@@ -1,12 +1,12 @@
 package video
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/video/barrage"
-	"Go-Live/models/contribution/video/comments"
-	"Go-Live/models/contribution/video/like"
-	"Go-Live/models/users"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/video/barrage"
+	"easy-video-net/models/contribution/video/comments"
+	"easy-video-net/models/contribution/video/like"
+	"easy-video-net/models/users"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 	"time"

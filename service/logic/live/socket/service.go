@@ -1,10 +1,10 @@
 package socket
 
 import (
-	"Go-Live/consts"
-	"Go-Live/global"
-	"Go-Live/proto/pb"
-	"Go-Live/utils/conversion"
+	"easy-video-net/consts"
+	"easy-video-net/global"
+	"easy-video-net/proto/pb"
+	"easy-video-net/utils/conversion"
 	"fmt"
 	"google.golang.org/protobuf/proto"
 	"strconv"

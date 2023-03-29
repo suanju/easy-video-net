@@ -1,10 +1,10 @@
 package videoSocket
 
 import (
-	"Go-Live/consts"
-	receive "Go-Live/interaction/receive/socket"
-	userModel "Go-Live/models/users"
-	"Go-Live/utils/response"
+	"easy-video-net/consts"
+	receive "easy-video-net/interaction/receive/socket"
+	userModel "easy-video-net/models/users"
+	"easy-video-net/utils/response"
 	"encoding/json"
 	"github.com/gorilla/websocket"
 )

@@ -1,11 +1,11 @@
 package response
 
 import (
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/contribution/video/barrage"
-	"Go-Live/models/users"
-	"Go-Live/utils/conversion"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/contribution/video/barrage"
+	"easy-video-net/models/users"
+	"easy-video-net/utils/conversion"
 	"encoding/json"
 	"time"
 )

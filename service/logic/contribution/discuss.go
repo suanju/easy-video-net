@@ -1,13 +1,13 @@
 package contribution
 
 import (
-	receive "Go-Live/interaction/receive/contribution/discuss"
-	response "Go-Live/interaction/response/contribution/discuss"
-	"Go-Live/models/contribution/article"
-	articleComments "Go-Live/models/contribution/article/comments"
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/contribution/video/barrage"
-	videoComments "Go-Live/models/contribution/video/comments"
+	receive "easy-video-net/interaction/receive/contribution/discuss"
+	response "easy-video-net/interaction/response/contribution/discuss"
+	"easy-video-net/models/contribution/article"
+	articleComments "easy-video-net/models/contribution/article/comments"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/contribution/video/barrage"
+	videoComments "easy-video-net/models/contribution/video/comments"
 	"fmt"
 )
 

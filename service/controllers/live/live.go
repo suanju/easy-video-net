@@ -1,9 +1,9 @@
 package live
 
 import (
-	"Go-Live/controllers"
-	receive "Go-Live/interaction/receive/live"
-	"Go-Live/logic/live"
+	"easy-video-net/controllers"
+	receive "easy-video-net/interaction/receive/live"
+	"easy-video-net/logic/live"
 	"github.com/gin-gonic/gin"
 )
 

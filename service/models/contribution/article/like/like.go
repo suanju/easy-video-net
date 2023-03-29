@@ -1,6 +1,6 @@
 package like
 
-import "Go-Live/models/common"
+import "easy-video-net/models/common"
 
 type Likes struct {
 	common.PublicModel

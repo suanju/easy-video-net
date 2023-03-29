@@ -1,12 +1,12 @@
 package commonality
 
 import (
-	"Go-Live/global"
-	receive "Go-Live/interaction/receive/commonality"
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/users"
-	"Go-Live/utils/calculate"
-	"Go-Live/utils/conversion"
+	"easy-video-net/global"
+	receive "easy-video-net/interaction/receive/commonality"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/users"
+	"easy-video-net/utils/calculate"
+	"easy-video-net/utils/conversion"
 	sts20150401 "github.com/alibabacloud-go/sts-20150401/v2/client"
 	"time"
 )

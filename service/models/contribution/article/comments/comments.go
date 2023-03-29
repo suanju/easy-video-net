@@ -1,10 +1,10 @@
 package comments
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/users"
-	"Go-Live/models/users/notice"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/users"
+	"easy-video-net/models/users/notice"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )

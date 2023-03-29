@@ -1,11 +1,11 @@
 package middlewares
 
 import (
-	"Go-Live/models/users"
-	"Go-Live/utils/jwt"
-	ControllersCommon "Go-Live/utils/response"
-	Response "Go-Live/utils/response"
-	"Go-Live/utils/validator"
+	"easy-video-net/models/users"
+	"easy-video-net/utils/jwt"
+	ControllersCommon "easy-video-net/utils/response"
+	Response "easy-video-net/utils/response"
+	"easy-video-net/utils/validator"
 	"github.com/gorilla/websocket"
 	"net/http"
 

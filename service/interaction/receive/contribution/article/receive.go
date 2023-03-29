@@ -1,7 +1,7 @@
 package article
 
 import (
-	"Go-Live/models/common"
+	"easy-video-net/models/common"
 	"time"
 )
 

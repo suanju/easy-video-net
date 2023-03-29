@@ -1,12 +1,12 @@
 package article
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/article/classification"
-	"Go-Live/models/contribution/article/comments"
-	"Go-Live/models/contribution/article/like"
-	"Go-Live/models/users"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/article/classification"
+	"easy-video-net/models/contribution/article/comments"
+	"easy-video-net/models/contribution/article/like"
+	"easy-video-net/models/users"
 	"time"
 
 	"gorm.io/datatypes"

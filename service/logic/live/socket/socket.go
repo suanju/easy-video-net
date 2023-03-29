@@ -1,11 +1,11 @@
 package socket
 
 import (
-	"Go-Live/consts"
-	"Go-Live/global"
-	userModel "Go-Live/models/users"
-	"Go-Live/proto/pb"
-	"Go-Live/utils/response"
+	"easy-video-net/consts"
+	"easy-video-net/global"
+	userModel "easy-video-net/models/users"
+	"easy-video-net/proto/pb"
+	"easy-video-net/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"

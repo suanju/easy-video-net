@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"Go-Live/utils/response"
-	"Go-Live/utils/validator"
+	"easy-video-net/utils/response"
+	"easy-video-net/utils/validator"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )

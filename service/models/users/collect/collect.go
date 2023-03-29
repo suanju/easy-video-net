@@ -1,10 +1,10 @@
 package collect
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/users"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/users"
 )
 
 type Collect struct {

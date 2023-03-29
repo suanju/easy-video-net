@@ -1,15 +1,15 @@
 package main
 
 import (
-	_ "Go-Live/global/database/mysql"
-	_ "Go-Live/global/database/redis"
-	videoSocket "Go-Live/logic/contribution/videoSocket"
-	liveSocket "Go-Live/logic/live/socket"
-	"Go-Live/logic/users/chatByUserSocket"
-	"Go-Live/logic/users/chatSocket"
-	"Go-Live/logic/users/noticeSocket"
-	"Go-Live/router"
-	"Go-Live/utils/testing"
+	_ "easy-video-net/global/database/mysql"
+	_ "easy-video-net/global/database/redis"
+	"easy-video-net/logic/contribution/videoSocket"
+	liveSocket "easy-video-net/logic/live/socket"
+	"easy-video-net/logic/users/chatByUserSocket"
+	"easy-video-net/logic/users/chatSocket"
+	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/router"
+	"easy-video-net/utils/testing"
 )
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 	go noticeSocket.Severe.Start()
 	go chatSocket.Severe.Start()
 	go chatByUserSocket.Severe.Start()
-
+	//ces
 	router.InitRouter()
 
 }

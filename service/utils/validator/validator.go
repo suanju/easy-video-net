@@ -5,7 +5,7 @@ package validator
 //将验证器错误翻译成中文
 
 import (
-	"Go-Live/utils/response"
+	"easy-video-net/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/locales/en"
 	"github.com/go-playground/locales/zh"

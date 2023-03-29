@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"Go-Live/global/config"
+	"easy-video-net/global/config"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

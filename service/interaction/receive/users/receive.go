@@ -1,7 +1,7 @@
 package receive
 
 import (
-	"Go-Live/models/common"
+	"easy-video-net/models/common"
 	"time"
 )
 

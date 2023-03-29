@@ -1,8 +1,8 @@
 package live
 
 import (
-	"Go-Live/global"
-	"Go-Live/utils/location"
+	"easy-video-net/global"
+	"easy-video-net/utils/location"
 	"io"
 	"io/ioutil"
 	"log"

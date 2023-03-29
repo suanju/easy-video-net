@@ -1,13 +1,13 @@
 package noticeSocket
 
 import (
-	"Go-Live/consts"
-	"Go-Live/global"
-	receive "Go-Live/interaction/receive/socket"
-	socketResponse "Go-Live/interaction/response/socket"
-	userModel "Go-Live/models/users"
-	"Go-Live/models/users/notice"
-	"Go-Live/utils/response"
+	"easy-video-net/consts"
+	"easy-video-net/global"
+	receive "easy-video-net/interaction/receive/socket"
+	socketResponse "easy-video-net/interaction/response/socket"
+	userModel "easy-video-net/models/users"
+	"easy-video-net/models/users/notice"
+	"easy-video-net/utils/response"
 	"encoding/json"
 	"github.com/gorilla/websocket"
 )

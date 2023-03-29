@@ -1,10 +1,10 @@
 package users
 
 import (
-	"Go-Live/logic/users/chatByUserSocket"
-	"Go-Live/logic/users/chatSocket"
-	"Go-Live/logic/users/noticeSocket"
-	"Go-Live/utils/response"
+	"easy-video-net/logic/users/chatByUserSocket"
+	"easy-video-net/logic/users/chatSocket"
+	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"strconv"

@@ -1,9 +1,9 @@
 package response
 
 import (
-	"Go-Live/models/contribution/video"
-	"Go-Live/models/home/rotograph"
-	"Go-Live/utils/conversion"
+	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/home/rotograph"
+	"easy-video-net/utils/conversion"
 	"time"
 )
 

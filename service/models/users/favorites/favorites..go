@@ -1,10 +1,10 @@
 package favorites
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/common"
-	"Go-Live/models/users"
-	"Go-Live/models/users/collect"
+	"easy-video-net/global"
+	"easy-video-net/models/common"
+	"easy-video-net/models/users"
+	"easy-video-net/models/users/collect"
 	"fmt"
 	"gorm.io/datatypes"
 )

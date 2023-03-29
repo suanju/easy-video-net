@@ -1,9 +1,9 @@
 package socket
 
 import (
-	"Go-Live/consts"
-	"Go-Live/proto/pb"
-	"Go-Live/utils/response"
+	"easy-video-net/consts"
+	"easy-video-net/proto/pb"
+	"easy-video-net/utils/response"
 	"google.golang.org/protobuf/proto"
 )
 

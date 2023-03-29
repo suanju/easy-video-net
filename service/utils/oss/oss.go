@@ -1,10 +1,10 @@
 package oss
 
 import (
-	"Go-Live/global"
-	"Go-Live/models/config/uploadMethod"
 	"crypto/hmac"
 	"crypto/sha1"
+	"easy-video-net/global"
+	"easy-video-net/models/config/uploadMethod"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
