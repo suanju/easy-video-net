@@ -1,0 +1,68 @@
+.overall {
+    .form-box {
+        margin: 22px;
+
+        .input-name {
+            width: 218px;
+        }
+
+        .input-hobby {
+            width: 60%;
+        }
+
+        :deep(.el-input__wrapper) {
+            border-radius: 30px;
+        }
+
+    }
+
+    .figure-box {
+        overflow: hidden;
+        padding: 80px;
+
+        .figure {
+            width: 94%;
+            height: 340px;
+            background-image: url("@/assets/img/personal/charector.png");
+            background-position: 0px 0px;
+            animation: k 0.8s step-end infinite;
+
+
+        }
+
+        @keyframes k {
+            0% {
+                background-position: 0px 0px;
+            }
+
+            14.3% {
+                background-position: -180px 0px;
+            }
+
+            28.6% {
+                background-position: -360px 0px;
+            }
+
+            42.9% {
+                background-position: -540px 0px;
+            }
+
+            57.2% {
+                background-position: -720px 0px;
+            }
+
+            71.5% {
+                background-position: -900px 0px;
+            }
+
+            85.8% {
+                background-position: -1080px 0px;
+            }
+
+            100% {
+                background-position: -1260px 0px;
+            }
+
+        }
+    }
+}

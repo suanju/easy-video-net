@@ -1,0 +1,82 @@
+.comment-box {
+  margin: 0px 0px 10px 20px;
+  text-align: start;
+  overflow: scroll;
+}
+.comment-box .comment-item {
+  margin-right: 20px;
+  border-bottom: 1px solid #e7e7e7;
+  display: flex;
+  align-items: center;
+  height: 120px;
+}
+.comment-box .comment-item .item-left {
+  display: flex;
+  width: 60%;
+  text-align: start;
+}
+.comment-box .comment-item .item-left .avatar {
+  margin-right: 20px;
+}
+.comment-box .comment-item .item-left .info {
+  height: 60px;
+  line-height: 27px;
+  width: 100%;
+  font-size: 14px;
+}
+.comment-box .comment-item .item-left .info .top {
+  display: flex;
+}
+.comment-box .comment-item .item-left .info .top .username {
+  margin-bottom: 6px;
+  margin-right: 16px;
+  color: #757575;
+  font-weight: 100;
+}
+.comment-box .comment-item .item-left .info .top .time {
+  font-size: 12px;
+  color: #757575;
+}
+.comment-box .comment-item .item-left .info .comment-text {
+  display: flex;
+  margin-bottom: 6px;
+  color: #0f0f0f;
+}
+.comment-box .comment-item .item-left .info .comment-text .comment-content {
+  max-width: 20%;
+}
+.comment-box .comment-item .item-left .info .comment-text :deep(.vue-ellipsis-native) {
+  max-width: 80%;
+}
+.comment-box .comment-item .item-left .info .comment-text :deep(.vue-ellipsis) {
+  width: 80%;
+}
+.comment-box .comment-item .item-right {
+  width: 40%;
+  text-align: end;
+}
+.comment-box .comment-item .item-right .video-info {
+  max-width: 170px;
+  float: right;
+}
+.comment-box .comment-item .item-right .video-info :deep(.el-image) {
+  width: 170px;
+  height: 90px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.comment-box .comment-item .item-right .video-info .title {
+  text-align: end;
+  font-size: 12px;
+  color: #757575;
+}
+.comment-box .load-more {
+  height: 8%;
+  width: 100%;
+}
+.comment-box .spread-bottom {
+  height: 4%;
+  width: 100%;
+}
+
+/*# sourceMappingURL=barrage.css.map */

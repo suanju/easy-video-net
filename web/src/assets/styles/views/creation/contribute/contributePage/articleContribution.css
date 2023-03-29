@@ -1,0 +1,66 @@
+.article-contribution {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100%;
+  max-width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.article-contribution .form-box {
+  min-width: 70%;
+  text-align: initial;
+}
+.article-contribution .form-box .form-item-middle {
+  align-items: center;
+}
+.article-contribution .form-box .cover-uploader {
+  padding-right: 30px;
+  max-height: 320px;
+  max-width: 230px;
+}
+.article-contribution .form-box .cover-uploader .cover {
+  width: 180px;
+  height: 110px;
+  display: block;
+}
+.article-contribution .form-box .cover-uploader :deep(.el-upload) {
+  border: 1px dashed #8c939d;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+.article-contribution .form-box .cover-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+.article-contribution .form-box .cover-uploader .el-icon.cover-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 180px;
+  height: 110px;
+  text-align: center;
+}
+.article-contribution .form-box .label-box .label-item {
+  margin-right: 6px;
+  margin-top: 6px;
+}
+.article-contribution .form-box .label-box .label-input {
+  margin-top: 6px;
+  width: 8rem;
+}
+.article-contribution .form-box .label-box .label-btn {
+  margin-top: 6px;
+  width: 8rem;
+}
+.article-contribution .quill-box {
+  max-width: 80%;
+  width: 100%;
+  height: 80%;
+}
+.article-contribution .quill-box .page-header {
+  margin-bottom: 1rem;
+}
+
+/*# sourceMappingURL=articleContribution.css.map */

@@ -1,0 +1,19 @@
+.main {
+    .middle {
+
+        text-align: center;
+        width: 100%;
+        padding-top: 24px;
+        padding: 20px 90px 0px 90px;
+        display: grid;
+        grid-gap: 20px;
+        grid-column: span 3;
+        grid-template-columns: repeat(3, 1fr);
+
+        .user-card {
+            width: 100%;
+            height: 160px;
+
+        }
+    }
+}

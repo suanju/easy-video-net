@@ -1,0 +1,57 @@
+      .user-card {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          transition: 0.3s;
+          border-radius: 5px;
+
+          .card-left {
+              margin: 14px;
+          }
+
+          .card-right {
+              margin: 10px 0 10px 8px;
+              width: 240px;
+
+              .username {
+                  color: rgb(0, 174, 236);
+                  display: flex;
+                  align-items: center;
+
+                  .private-letter {
+                      margin-left: 12px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 13px;
+                      color: #61666D;
+
+                      .icon {
+                          margin-right: 6px;
+                          width: 16px;
+                          height: 16px;
+                      }
+                  }
+
+              }
+
+              .signature {
+                  text-align: start;
+                  margin: 6px 0 10px 0;
+                  font-size: 12px;
+                  line-height: 16px;
+                  height: 16px;
+                  color: #61666D;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+              }
+
+              .btn-list {
+                  text-align: start;
+
+                  .attention {
+                      width: 60%;
+                  }
+              }
+          }
+      }

@@ -1,0 +1,30 @@
+.main {
+    .middle {
+        text-align: center;
+        width: 100%;
+        padding-top: 24px;
+        padding: 20px 90px 0px 90px;
+        display: grid;
+        grid-gap: 20px;
+        grid-column: span 6;
+        grid-template-columns: repeat(6, 1fr);
+
+        .video-card {
+            width: 100%;
+            height: 240px;
+        }
+    }
+
+    // .pagination {
+    //     :deep(.el-pagination) {
+    //         margin-top: 50px;
+    //         padding-bottom: 20px;
+    //         text-align: center;
+    //         display: flex;
+    //         align-items: center;
+    //         justify-content: center;
+    //     }
+    // }
+
+
+}

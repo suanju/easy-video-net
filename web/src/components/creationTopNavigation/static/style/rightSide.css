@@ -1,0 +1,39 @@
+.info {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info .avatar {
+  margin-right: 20px;
+}
+.info .tips-calendar-wrap {
+  background: rgba(250, 142, 87, 0.1);
+  border: 1px solid rgba(250, 142, 87, 0.43);
+  border-radius: 14px;
+  padding: 5px 12px 5px 16px;
+  font-size: 12px;
+  color: #fa8e57;
+  text-align: center;
+  margin-right: 32px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+.info .line-divid {
+  width: 1px;
+  height: 16px;
+  background: #e7e7e7;
+  margin-right: 32px;
+}
+.info .icon {
+  margin-right: 10px;
+  width: 26px;
+  height: 24px;
+  color: #18191C;
+  margin: 0 0 0 0px;
+}
+.info .left-icon {
+  padding-right: 30px;
+}
+
+/*# sourceMappingURL=rightSide.css.map */

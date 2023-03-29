@@ -1,0 +1,117 @@
+.mian {
+  height: 100%;
+  text-align: centers;
+}
+.mian .head {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+}
+.mian .cover-picture {
+  width: 100%;
+  height: 12rem;
+  color: #fff;
+  background-image: url("@/assets/img/home/background.png");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background-position: center center;
+  background-size: cover;
+  transform: translate3d(0px, 0px, 0px);
+}
+.mian .middle {
+  text-align: center;
+  width: 100%;
+  padding-top: 24px;
+  padding: 20px 140px 0px 140px;
+  display: grid;
+  grid-gap: 20px;
+  grid-column: span 5;
+  grid-template-columns: repeat(5, 1fr);
+}
+.mian .middle .rotograph-skeleton {
+  position: relative;
+  grid-column: 1/3;
+  grid-row: 1/3;
+}
+.mian .middle .carousel {
+  position: relative;
+  grid-column: 1/3;
+  grid-row: 1/3;
+}
+.mian .middle .carousel :deep(.el-carousel) {
+  border-radius: 6px;
+}
+.mian .middle .carousel .carousel-item {
+  width: 100%;
+  height: 400px;
+}
+.mian .middle .carousel .carousel-item .carousel-img-box {
+  width: 100%;
+  height: 100%;
+}
+.mian .middle .carousel .carousel-item .carousel-img-box .carousel-img {
+  width: 100%;
+  height: 100%;
+}
+.mian .middle .carousel .carousel-bottom {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  padding: 0;
+  margin-top: -6px;
+  border-radius: 0px 0px 6px 6px;
+  width: 100%;
+  height: 120px;
+  background-color: rgb(91, 79, 84);
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+.mian .middle .carousel .carousel-bottom .carousel-title {
+  margin-left: 20px;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+}
+.mian .middle .carousel .carousel-bottom .toggle-button {
+  display: flex;
+}
+.mian .middle .carousel .carousel-bottom .toggle-button .button-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  margin-right: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  flex: 1;
+}
+.mian .middle .carousel .carousel-bottom .toggle-button .button-item .arrow-icon {
+  width: 12px;
+  height: 12px;
+}
+.mian .middle .carousel .carousel-bottom .toggle-button .button-item .rotation {
+  transform: rotate(180deg);
+}
+.mian .middle .carousel .carousel-bottom::after {
+  display: inline-block;
+  content: "";
+  height: 93.5%;
+  background: linear-gradient(to bottom, #f2f3f5, rgba(0, 0, 0, 0) 0%);
+}
+.mian .middle .video-card {
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/*# sourceMappingURL=home.css.map */

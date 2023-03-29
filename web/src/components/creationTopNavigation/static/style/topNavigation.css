@@ -1,0 +1,31 @@
+.row :deep(.el-menu--horizontal) {
+  border-bottom: none;
+}
+.row .center-for-creators {
+  width: 180px;
+}
+.row .left {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.row .middle {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.row .middle .info {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-left: 30px;
+}
+.row .middle .icon {
+  margin-right: 10px;
+  width: 26px;
+  height: 24px;
+  color: #18191C;
+  margin: 0 0 0 0px;
+}
+
+/*# sourceMappingURL=topNavigation.css.map */

@@ -1,0 +1,18 @@
+.content-box {
+  height: 100%;
+  width: 100%;
+}
+.content-box :deep(.el-tabs__nav) {
+  padding: 1rem 1rem 1rem 4rem;
+}
+.content-box :deep(.el-tabs) {
+  height: 100%;
+}
+.content-box :deep(.el-tabs__content) {
+  height: 100%;
+}
+.content-box :deep(.el-tab-pane) {
+  height: 100%;
+}
+
+/*# sourceMappingURL=contribute.css.map */

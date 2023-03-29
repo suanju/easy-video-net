@@ -1,0 +1,18 @@
+//颜色定义
+$color-theme: rgba(64, 158, 255, 1);
+//灰色背景
+$color-gray-background : rgba(241, 242, 243, 0.8);
+//文字黑色
+$color-gray-text : rgba(123, 127, 130, 0.8);
+//主题按钮颜色
+$color-button-theme :#409eff;
+//顶部导航高度
+$top-navigation-height : 60px;
+
+:export {
+  colorTheme: $color-theme;
+  colorGrayBackground: $color-gray-background ;
+  colorGrayText: $color-gray-text;
+  colorButtonTheme: $color-button-theme ;
+  top-navigation-height: $top-navigation-height;
+}

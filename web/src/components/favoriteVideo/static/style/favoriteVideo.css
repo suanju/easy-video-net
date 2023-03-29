@@ -1,0 +1,30 @@
+.favorite-video .checkbox {
+  min-height: 200px;
+  max-height: 400px;
+  overflow: scroll;
+  margin-right: -25px;
+}
+.favorite-video .checkbox .check-item {
+  margin-right: 25px;
+}
+.favorite-video .checkbox .check-item :deep(.el-checkbox) {
+  width: 100%;
+}
+.favorite-video .checkbox .check-item :deep(.el-checkbox__label) {
+  width: 100%;
+  display: flex;
+  margin-left: 20px;
+}
+.favorite-video .checkbox .check-item .title {
+  flex: 1;
+}
+.favorite-video .create {
+  margin-top: 20px;
+}
+.favorite-video .function {
+  margin-top: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+/*# sourceMappingURL=favoriteVideo.css.map */

@@ -1,0 +1,77 @@
+.overall {
+    height: 100%;
+    width: 100%;
+
+    .content {
+        height: 100%;
+        width: 100%;
+        margin: 20px 20px 20px 0px;
+        overflow: scroll;
+
+        .article-list {
+            :deep(.el-timeline-item__wrapper) {
+                text-align: start;
+            }
+
+            margin: 10px 0px 20px 20px;
+
+            .article-item {
+                display: flex;
+                margin-bottom: 20px;
+
+                .item-left {
+                    .item-img {
+                        width: 220px;
+                        height: 130px;
+                        border-radius: 6px;
+                        overflow: hidden;
+                    }
+                }
+
+                .item-right {
+                    width: 100%;
+                    margin-left: 2.4rem;
+                    border-bottom: 1px solid #e5e9ef;
+                    float: left;
+                    display: flex;
+                    align-items: center;
+
+                    .data {
+                        width: 88%;
+                        text-align: start;
+
+                        .item-title {
+                            max-width: 80%;
+                            font-size: 16px;
+                            font-weight: 500;
+                        }
+
+                        .item-info {
+                            display: flex;
+                            align-items: center;
+                            margin-top: 1.4rem;
+                            display: flex;
+                            font-size: 12px;
+                            
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .record-empty {
+            margin-top: 28%;
+        }
+
+        .load-more {
+            height: 8%;
+            width: 100%;
+        }
+
+        .spread-bottom {
+            height: 8%;
+            width: 100%;
+        }
+    }
+}

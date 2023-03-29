@@ -1,0 +1,35 @@
+.favorite-video {
+
+    .checkbox {
+        min-height: 200px;
+        max-height: 400px;
+        overflow: scroll;
+        margin-right: -25px;
+
+        .check-item {
+            margin-right: 25px;
+            :deep(.el-checkbox){
+                width: 100%;
+            }
+            :deep(.el-checkbox__label) {
+                width: 100%;
+                display: flex;
+                margin-left: 20px;
+            }
+
+            .title{
+                flex: 1;
+            }
+        }
+    }
+
+    .create {
+        margin-top: 20px;
+    }
+
+    .function{
+        margin-top: 14px;
+        width: 100%;
+        text-align: center;
+    }
+}

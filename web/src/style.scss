@@ -1,0 +1,63 @@
+html,
+body,
+#app {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+* {
+	font-family: 'ZhuZiAWan2';
+	box-sizing: border-box;
+}
+
+/**修改全局的滚动条*/
+/**滚动条的宽度*/
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+	border-radius: 80px;
+	background-color: rgba(21, 32, 235, 0.3);
+	-webkit-transition: 0.3s background-color;
+	transition: 0.3s background-color;
+}
+
+/*表格*/
+.el-table__body-wrapper::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+	background-color: #a1a3a9;
+	border-radius: 3px;
+}
+
+.parcel {
+	height: 100%;
+	background-color: $color-gray-background;
+
+	.global-loading {
+		height: 100%;
+		width: 100%;
+		min-height: 100vh;
+		margin: 0 auto;
+		max-width: 100%;
+		background-color: #fff;
+
+	}
+
+
+}
+
+
+@font-face {
+	font-family: 'ZhuZiAWan2';
+	src: url('@/assets/font/ZhuZiAWan2.woff2');
+	font-weight: normal;
+	font-style: normal;
+}

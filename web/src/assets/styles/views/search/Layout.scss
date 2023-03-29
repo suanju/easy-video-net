@@ -1,0 +1,24 @@
+.main {
+    .head {
+        height: 56px;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        :deep(.el-input) {
+            width: 30%;
+        }
+    }
+
+    .menu {
+        margin: 20px;
+
+        :deep(.el-menu) {
+            padding-left: 30px;
+        }
+    }
+}

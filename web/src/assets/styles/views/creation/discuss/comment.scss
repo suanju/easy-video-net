@@ -1,0 +1,26 @@
+.overall{
+
+    .content{
+        
+        .tabs {
+
+            :deep(.el-tabs__nav-wrap){
+                height: 60px;
+                text-align: center;
+                line-height: 60px;
+            }
+
+            :deep(.el-tabs__nav-scroll){
+                margin-left: 12px;
+            }
+
+            :deep(.el-tabs__active-bar){
+                margin-left: 12px;
+            }
+
+            :deep(.el-tabs__header){
+                margin: 0;
+            }
+        }
+    }
+}

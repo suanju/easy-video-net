@@ -1,0 +1,192 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: #f6f5f7;
+  background-size:cover;
+  background-image: url("@/assets/img/login/background.svg");
+
+
+   
+        
+
+  .container {
+    position: relative;
+    width: 768px;
+    height: 480px;
+    background-color: white;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .form-container {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background-color: white;
+      transition: all 0.6s ease-in-out;
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 0 50px;
+
+        .form-item{
+          width: 100%;
+
+          :deep(.el-input-group__append) {
+            :deep(.el-button){
+               width: 60px;
+            }
+          }
+
+        }
+        .forget{
+          font-size: 12px;
+          color: rgba(50,50,50,0.6);
+          position: relative;
+          top: 50px;
+        }
+       
+        :deep(.el-input__wrapper) {
+         border-radius: 30px;
+        }
+        :deep(.el-input-group__append){
+          border-radius: 20px;
+          margin-left: 10px;
+          background: $color-theme;
+          color: #fafafa;
+        }
+
+      }
+
+      .forget-password {
+        display: inline-block;
+        height: 20px;
+        text-decoration: none;
+        color: #bbb;
+        text-transform: capitalize;
+        font-size: 12px;
+      }
+
+      .forget-password:hover {
+        color: lightslategray;
+        border-bottom: 2px solid #ff4b2b;
+      }
+    }
+
+
+    .container-title {
+      margin-bottom: 10px;
+      font-size: 32px;
+      text-transform: capitalize;
+    }
+
+    .overlay_container {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      z-index: 100;
+      right: 0;
+      overflow: hidden;
+      transition: all 0.6s ease-in-out;
+
+      .overlay {
+        position: absolute;
+        width: 200%;
+        height: 100%;
+        left: -100%;
+        background-color: $color-theme;
+
+        .overlay_panel {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 50%;
+          height: 100%;
+          color: white;
+          padding: 0 0px;
+          text-align: center;
+        }
+
+        .overlay_panel button {
+          background-color: transparent;
+          border: 1px solid white;
+        }
+
+        .overlay_panel p {
+          font-size: 12px;
+          margin: 10px 0 15px 0;
+        }
+        .overlay_right_container {
+          right: 0;
+        }
+      }
+    }
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  .container.active .sign-up-container {
+    transform: translateX(100%);
+    z-index: 5;
+  }
+
+  .container.active .sign-in-container {
+    transform: translateX(100%);
+  }
+
+  .container.active .overlay_container {
+    transform: translateX(-100%);
+  }
+
+  .container.active .overlay {
+    transform: translateX(50%);
+  }
+
+  .theme-button {
+    background: rgba(64,158,255,0.7);
+    padding: 10px 50px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 10px;
+    outline: none;
+    transition: transform 80;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

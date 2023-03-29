@@ -1,0 +1,22 @@
+
+.content-box {
+    height: 100%;
+    width: 100%;
+
+    :deep(.el-tabs__nav) {
+        padding: 1rem 1rem 1rem 4rem;
+    }
+
+    :deep(.el-tabs) {
+        height: 100%;
+    }
+
+    :deep(.el-tabs__content) {
+        height: 100%;
+    }
+
+    :deep(.el-tab-pane) {
+        height: 100%;
+    }
+
+}

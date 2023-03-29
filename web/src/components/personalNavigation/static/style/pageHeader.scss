@@ -1,0 +1,30 @@
+.page-header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .icon {
+    margin-right: 10px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .whiteWhale{
+    width: 66px;
+    position: absolute;
+    right: 30px;
+    height: 28px;
+    background-size: 100% 100%;
+    background-image: url("@/assets/img/personal/whiteWhale.png");
+  }
+
+  padding: 14px;
+  font-size: 24px;
+  font-family: "Lucida Calligraphy",
+  cursive,
+  serif,
+  sans-serif;
+  border-bottom: solid 1px var(--el-menu-border-color);
+}

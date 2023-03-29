@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/*
+
+该文件用于修改 element 样式问题
+
+*/
+.el-button-primary-focus :hover {
+  background: rgb(64, 158, 255);
+  color: #fff;
+  border-color: #3f9eff;
+}
+
+/*# sourceMappingURL=el-style.css.map */

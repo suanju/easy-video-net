@@ -1,0 +1,38 @@
+
+.title{
+    margin-top: 1rem;
+    
+}
+.list {
+    margin: 20px 2rem 0px 2rem;
+    .border{
+        height: 1px;
+        border-top: 1px solid #eee;
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        margin: 10px 0px 10px 0px;
+
+        .info {
+            line-height: 100%;
+            text-align: start;
+            margin-left: 12px;
+            flex: 1;
+
+            .username {
+                font-weight: 100;
+                font-size: 16px;
+                line-height: 19px;
+                margin-bottom: 12px;
+            }
+
+            .signature {
+                color: #6d757a;
+                font-size: 12px;
+            }
+
+        }
+    }
+}

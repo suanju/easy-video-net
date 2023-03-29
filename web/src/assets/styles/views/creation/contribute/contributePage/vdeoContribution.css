@@ -1,0 +1,85 @@
+.vdeo-contribution {
+  margin: 0 auto;
+  max-width: 70%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.vdeo-contribution .upload-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vdeo-contribution .upload-box .upload {
+  width: 100%;
+}
+.vdeo-contribution .upload-box .upload .upload-btn {
+  margin-top: 2rem;
+}
+.vdeo-contribution .upload-box .upload .upload-audit {
+  margin-top: 1.4rem;
+  font-size: 14px;
+  color: #999;
+}
+.vdeo-contribution .upload-box .upload .upload-audit .tag {
+  margin-left: 6px;
+}
+.vdeo-contribution .form-box {
+  text-align: initial;
+}
+.vdeo-contribution .form-box :deep(.el-progress-bar__innerText) {
+  margin-right: 20px;
+}
+.vdeo-contribution .form-box .video-preview {
+  display: none;
+}
+.vdeo-contribution .form-box .video-preview .video {
+  width: 100%;
+  height: 300px;
+}
+.vdeo-contribution .form-box .form-item-middle {
+  align-items: center;
+}
+.vdeo-contribution .form-box .cover-uploader {
+  padding-right: 30px;
+  max-height: 320px;
+  max-width: 230px;
+}
+.vdeo-contribution .form-box .cover-uploader .cover {
+  width: 180px;
+  height: 110px;
+  display: block;
+}
+.vdeo-contribution .form-box .cover-uploader :deep(.el-upload) {
+  border: 1px dashed #8c939d;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+.vdeo-contribution .form-box .cover-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+.vdeo-contribution .form-box .cover-uploader .el-icon.cover-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 180px;
+  height: 110px;
+  text-align: center;
+}
+.vdeo-contribution .form-box .label-box .label-item {
+  margin-right: 6px;
+  margin-top: 6px;
+}
+.vdeo-contribution .form-box .label-box .label-input {
+  margin-top: 6px;
+  width: 8rem;
+}
+.vdeo-contribution .form-box .label-box .label-btn {
+  margin-top: 6px;
+  width: 8rem;
+}
+
+/*# sourceMappingURL=vdeoContribution.css.map */

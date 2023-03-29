@@ -1,0 +1,53 @@
+@charset "UTF-8";
+.row {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+}
+.row .menu-choose :deep(.el-menu-item) {
+  border-bottom: none;
+  color: #fff;
+}
+.row :deep(.el-menu--horizontal) {
+  border-bottom: none;
+}
+.row :deep(.el-menu-item:hover) {
+  background-color: rgba(0, 0, 0, 0);
+}
+.row :deep(.el-menu) {
+  background-color: transparent;
+}
+.row .menu-item-white {
+  color: #fff;
+}
+.row .menu-item-black {
+  color: #18191C;
+}
+.row .search {
+  height: 100%;
+  display: flex;
+  /*实现垂直居中*/
+  align-items: center;
+  /*实现水平居中*/
+  justify-content: center;
+}
+.row .search :deep(.el-input) {
+  max-width: 520px;
+}
+.row .search :deep(.el-input__wrapper) {
+  border-radius: 12px;
+}
+
+.bgColorBlack {
+  background-color: transparent;
+}
+
+.boxShadow {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.bgColorWhite {
+  background-color: #fff;
+}
+
+/*# sourceMappingURL=topNavigation.css.map */

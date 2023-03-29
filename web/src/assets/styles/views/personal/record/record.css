@@ -1,0 +1,70 @@
+.overall {
+  height: 100%;
+  width: 100%;
+}
+.overall .content {
+  height: 100%;
+  width: 100%;
+  margin: 20px 20px 20px 0px;
+  overflow: scroll;
+}
+.overall .content .timeline :deep(.el-timeline-item__wrapper) {
+  text-align: start;
+}
+.overall .content .timeline .timeline-item {
+  display: flex;
+}
+.overall .content .timeline .timeline-item .item-left .item-img {
+  width: 220px;
+  height: 130px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.overall .content .timeline .timeline-item .item-right {
+  width: 100%;
+  margin-left: 2.4rem;
+  border-bottom: 1px solid #e5e9ef;
+  float: left;
+  display: flex;
+  align-items: center;
+}
+.overall .content .timeline .timeline-item .item-right .data {
+  width: 88%;
+}
+.overall .content .timeline .timeline-item .item-right .data .item-title {
+  max-width: 80%;
+  font-size: 16px;
+  font-weight: 500;
+}
+.overall .content .timeline .timeline-item .item-right .data .item-info {
+  display: flex;
+  align-items: center;
+  margin-top: 1.4rem;
+  display: flex;
+  font-size: 12px;
+}
+.overall .content .timeline .timeline-item .item-right .data .item-info .username {
+  margin-left: 8px;
+  color: #6d757a;
+}
+.overall .content .timeline .timeline-item .item-right .data .item-info .partition {
+  margin-left: 8px;
+  color: #6d757a;
+}
+.overall .content .timeline .timeline-item .item-right .data .item-info .type {
+  margin-left: 8px;
+  color: #6d757a;
+}
+.overall .content .record-empty {
+  margin-top: 28%;
+}
+.overall .content .load-more {
+  height: 8%;
+  width: 100%;
+}
+.overall .content .spread-bottom {
+  height: 8%;
+  width: 100%;
+}
+
+/*# sourceMappingURL=record.css.map */

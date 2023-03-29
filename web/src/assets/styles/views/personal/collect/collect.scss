@@ -1,0 +1,103 @@
+.overall {
+    height: 100%;
+
+    .collect-list {
+        margin: 6px 0px 20px 20px;
+
+
+        .collect-item {
+            height: 8rem;
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e5e9ef;
+            padding-bottom: 10px;
+
+            .cover {
+                width: 200px;
+                position: sticky;
+                border-radius: 8px;
+
+                :deep(.el-image) {
+                    border-radius: 8px;
+                }
+
+                .shadow-first {
+                    position: absolute;
+                    width: 64%;
+                    height: 88px;
+                    opacity: .8;
+                    background: #e7e7e7;
+                    border-radius: 8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    top: -12px;
+                    z-index: -10;
+                }
+
+                .shadow-second {
+                    position: absolute;
+                    width: 76%;
+                    height: 100px;
+                    opacity: .8;
+                    background: #d4d4d4;
+                    border-radius: 8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    top: -6px;
+                    z-index: -5;
+                }
+            }
+
+            .info {
+                margin-left: 20px;
+                margin-top: 20px;
+                text-align: start;
+                flex: 1;
+
+                .title {
+                    font-size: 14px;
+                    color: #212121;
+                    letter-spacing: 0;
+                    line-height: 17px;
+                }
+
+                .creator {
+                    color: #99a2aa;
+                    font-size: 12px;
+                    margin-top: 12px;
+                }
+
+                .btn {
+                    margin-top: 12px;
+                }
+            }
+
+            .function {
+                display: flex;
+                align-items: center;
+
+                .more-filled {
+                    margin-right: 60px;
+                    transform: rotate(90deg);
+                }
+            }
+
+            :deep(.el-popper) {
+                text-align: center;
+            }
+
+
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 43px;
+        }
+    }
+
+    .collect-empty {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+}

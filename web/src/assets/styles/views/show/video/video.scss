@@ -1,0 +1,352 @@
+.video-page {
+
+    .head {
+        height: 60px;
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .video-content {
+        display: flex;
+        justify-content: center;
+        padding: 2vh 60px 2vh 60px;
+
+        .content-left {
+            width: 75%;
+
+            .vidoe-info {
+                .vidoe-title {
+                    line-height: 34px;
+                    font-size: 22px;
+                }
+
+                .video-data {
+
+                    .video-data-list {
+
+                        margin-top: 8px;
+                        display: flex;
+
+                        .data-item {
+                            display: flex;
+                            align-items: center;
+                            font-size: 12px;
+                            line-height: 20px;
+                            color: #61666D;
+                            margin-right: 12px;
+
+                            .icon {
+                                margin-right: 6px;
+                                width: 20px;
+                                height: 20px;
+                            }
+
+                            .forbid-icon {
+                                margin-right: 6px;
+                                width: 15px;
+                                height: 15px;
+                            }
+                        }
+                    }
+
+                    .info-right {
+
+                        flex: 1;
+                        text-align: end;
+                        margin-right: 6px;
+
+                        .giveLike {
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+
+                            .icon {
+                                width: 14px;
+                                height: 14px;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .video-box {
+                margin-top: 20px;
+                width: 100%;
+                box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%);
+
+                .player {
+                    width: 100%;
+                    height: 76vh;
+
+                }
+
+                .dplayer-comment-show {
+                    :deep(.dplayer-comment) {
+                        display: none;
+                    }
+                }
+
+                .video-sending {
+                    margin: 0 8px 0 8px;
+                    height: 56px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    font-size: 14px;
+                    line-height: 14px;
+
+                    .live-info {
+                        color: #61666D;
+                    }
+
+                    .barrage-set {
+                        display: flex;
+                        flex: auto;
+                        align-items: center;
+                        margin-left: 24px;
+                        margin-right: 24px;
+
+                        .barrage-icon {
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        .barrage-input {
+                            margin-left: 14px;
+                            width: 100%;
+
+                            :deep(.el-input__wrapper) {
+                                border-radius: 30px;
+                            }
+
+                            :deep(.el-input-group__append) {
+                                margin-left: 12px;
+                                border-radius: 30px;
+                                background-color: $color-theme;
+                                color: aliceblue;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .comments-box {
+                padding: 12px 15px;
+
+                .comments-head {
+                    display: flex;
+                    align-items: center;
+                    color: #3f9eff;
+                    font-size: 28px;
+
+
+                    .icon-edit {
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 6px;
+                    }
+                }
+
+                .comments-main {
+                    margin-top: 14px;
+                }
+
+                .comments-show {
+                    padding-top: 30px;
+
+                    .comments-show-titel {
+                        color: #797979;
+                        font-size: 18px;
+                    }
+
+                    .comments-show-info {
+                        padding-top: 20px;
+
+                        .comment-info-detail-box {
+                            margin-top: 10px;
+
+                            .comment-info-detail {
+                                display: flex;
+                                width: 100%;
+
+                                .comment-info-content {
+                                    padding-left: 14px;
+                                    width: 100%;
+
+                                    .content-head {
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-between;
+
+                                        .comment-info-username {
+                                            color: $color-theme;
+                                            ;
+                                            font-size: 14px;
+                                            font-weight: 200;
+                                            margin-right: 5px;
+                                        }
+
+                                        .comment-info-other {
+                                            font-size: 12px;
+                                            color: #797979;
+                                        }
+                                    }
+
+                                    .content-info {
+                                        margin: 8px 0 14px;
+                                        padding: 6px 20px;
+                                        border-radius: 12px;
+                                        color: #000;
+                                        word-break: break-word;
+
+
+                                        .at-user {
+                                            color: #03a9f4;
+                                        }
+                                    }
+
+                                    //评论的子评论
+                                    .comment-info-detail-child {
+                                        display: flex;
+                                        width: 100%;
+                                    }
+
+
+                                }
+                            }
+
+                            //分割先
+                            .comment-partition {
+                                border-bottom: 1px solid #E3E5E7;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .content-right {
+            padding-left: 30px;
+            width: 25%;
+
+            .user-card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                // box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+                transition: 0.3s;
+                border-radius: 5px;
+
+                .card-left {
+                    margin: 14px;
+                }
+
+                .card-right {
+                    margin: 10px 0 10px 8px;
+                    width: 240px;
+
+                    .username {
+                        color: rgb(0, 174, 236);
+                        display: flex;
+                        align-items: center;
+
+                        .private-letter {
+                            margin-left: 12px;
+                            display: flex;
+                            align-items: center;
+                            font-size: 13px;
+                            color: #61666D;
+
+                            .icon {
+                                margin-right: 6px;
+                                width: 16px;
+                                height: 16px;
+                            }
+                        }
+
+                    }
+
+                    .signature {
+
+                        margin: 6px 0 10px 0;
+                        font-size: 12px;
+                        line-height: 16px;
+                        height: 16px;
+                        color: #61666D;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    .btn-list {
+                        .attention {
+                            width: 60%;
+                        }
+                    }
+                }
+            }
+
+            .barrage-box {
+                margin-top: 10px;
+
+                .barrage-top-navigation {
+                    width: 100%;
+                    height: 44px;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: center;
+                    background-color: #F1F2F3;
+
+                    .box-left {
+                        width: 100%;
+                        margin-left: 16px;
+                        display: flex;
+                        align-items: center;
+
+                        .icon {
+                            margin-left: 8px;
+                            width: 14px;
+                            height: 14px;
+                        }
+                    }
+
+                    .arrow {
+                        width: 14px;
+                        height: 14px;
+                        position: relative;
+                        right: 16px;
+                        top: 0;
+                        bottom: 0;
+                        transform: rotate(90deg);
+
+                    }
+
+                }
+
+                .barrage-list {
+                    transition: height .3s;
+                    height: 700px;
+                    overflow: scroll;
+
+                    :deep(.el-table--fit) {
+                        font-size: 12px;
+                    }
+
+                }
+
+                .recommend-lsit {
+                    margin-top: 14px;
+                }
+            }
+
+        }
+    }
+}
+

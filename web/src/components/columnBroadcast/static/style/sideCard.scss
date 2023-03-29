@@ -1,0 +1,131 @@
+.card-list {
+    width: 300px;
+
+    .author-card {
+        @keyframes gradientBG {
+            0% {
+                background-position: 0 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            to {
+                background-position: 0 50%
+            }
+        }
+
+        background: linear-gradient(-45deg, #e8d8b9, #eccec5, #a3e9eb, #bdbdf0, #eec1ea);
+        background-size: 400% 400%;
+        width: 300px;
+        height: 350px;
+        animation: gradientBG 10s ease infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 0.5);
+        transition: all .3s ease;
+
+        .avatar {
+            margin: 16px;
+        }
+
+        .author-name {
+            font-size: 24px;
+            color: aliceblue;
+        }
+
+        .column-info {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            margin-top: 40px;
+
+            .column-info-item {
+                color: aliceblue;
+                margin-left: 40px;
+                margin-right: 40px;
+                text-align: center;
+
+                .info-num {
+                    margin-top: 8px;
+                }
+            }
+
+        }
+
+        .fo-github {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 12px;
+            background: #39c5bb;
+            cursor: pointer;
+            width: 65%;
+            height: 35px;
+            border-radius: 1rem;
+            text-align: center;
+            line-height: 35px;
+            color: #fff;
+            overflow: hidden;
+            z-index: 0;
+            margin-bottom: 25px;
+
+            .icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 20px;
+            }
+
+        }
+
+    }
+
+
+    .classification-card {
+        width: 300px;
+        padding: 25px 25px 25px;
+        border-radius: 10px;
+        animation: 1s ease-in-out 0s 1 normal none running hideToShow;
+        visibility: visible;
+        box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 0.2);
+        transition: all .3s ease;
+
+        .card-title {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 18px;
+
+            .icon {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+            }
+        }
+
+        .classification-item {
+            font-weight: 300;
+            border-radius: 1rem;
+            margin-bottom: 15px;
+            line-height: 30px;
+            transition: all .3s;
+        }
+
+        :deep(.el-tree-node__label) {
+            margin-top: 4px;
+        }
+
+        :deep(.el-tree-node__content) {
+            margin-top: 4px;
+        }
+    }
+
+
+}

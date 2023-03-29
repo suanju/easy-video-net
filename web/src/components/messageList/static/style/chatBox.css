@@ -1,0 +1,17 @@
+/* Error: Undefined variable.
+ *    ,
+ * 34 |                       border: 1px solid $color-button-theme ;
+ *    |                                         ^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   chatBox.scss 34:41  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 34 \2502                        border: 1px solid $color-button-theme ;\d\a    \2502                                          ^^^^^^^^^^^^^^^^^^^\a    \2575 \a   chatBox.scss 34:41  root stylesheet";
+}

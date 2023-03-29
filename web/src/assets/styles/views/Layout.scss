@@ -1,0 +1,42 @@
+.common-layout {
+    height: 100%;
+
+    :deep(.el-main) {
+        padding: 0px;
+        margin: 0px;
+        z-index: 1;
+
+    }
+
+    :deep(.el-container) {
+        height: 100%;
+    }
+
+    :deep(.el-header) {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .gray {
+        background-color: $color-gray-background;
+    }
+
+    //创作中心主题
+    .creation-main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        width: 100%;
+        height: calc(100vh - $top-navigation-height);
+    }
+
+    .creation-content {
+        width: 70%;
+        text-align: center;
+        height: 100%;
+        background-color: #fff;
+        margin-top: 30px;
+        border-radius: 30px;
+    }
+}

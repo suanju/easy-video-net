@@ -1,0 +1,124 @@
+.mian {
+  height: 100%;
+  text-align: centers;
+}
+.mian .head {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+}
+.mian .cover-picture {
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background-image: url("@/assets/img/home/column-bg.png");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background-position: center center;
+  background-size: cover;
+  transform: translate3d(0px, 0px, 0px);
+}
+.mian .cover-picture .centre-box {
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 800;
+  margin-bottom: 400px;
+}
+.mian .cover-picture .centre-box .type-box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 300;
+}
+@keyframes hideToShow {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.mian .cover-picture .centre-box .type-box .cursor {
+  margin-left: 1px;
+  animation: hideToShow 0.7s infinite;
+  font-weight: 200;
+}
+.mian .cover-picture .bannerWave1 {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 10;
+  background-image: url("@/assets/img/home/bannerWave1.png");
+  background-size: auto;
+  animation: gradientBG 100s linear infinite;
+}
+.mian .cover-picture .bannerWave2 {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 10;
+  animation: gradientBG 50s linear infinite;
+  background-image: url("@/assets/img/home/bannerWave2.png");
+}
+.mian .cover-picture .down {
+  position: fixed;
+  bottom: 90px;
+  width: 40px;
+  height: 40px;
+  background-image: url("@/assets/img/home/down.png");
+  background-size: contain;
+  animation: my-shake 1.5s ease-out infinite;
+}
+@keyframes gradientBG {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+@keyframes my-shake {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 0.5;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mian .column-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mian .column-box .el-row {
+  width: 80%;
+}
+.mian .column-box .sideCard {
+  padding-left: 100px;
+  position: sticky;
+  top: 80px;
+}
+
+/*# sourceMappingURL=column.css.map */

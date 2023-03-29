@@ -1,0 +1,70 @@
+.row {
+    height: $top-navigation-height;
+    transition: all .3s ease;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    background: #fff;
+    z-index: 999;
+
+
+    .menu-choose {
+        :deep(.el-menu-item) {
+            border-bottom: none;
+            color: #fff;
+        }
+    }
+
+    :deep(.el-menu--horizontal) {
+
+        border-bottom: none;
+    }
+
+    :deep(.el-menu-item:hover) {
+        background-color: rgb(0 0 0 / 0%);
+    }
+
+    :deep(.el-menu) {
+        background-color: transparent;
+    }
+
+    .menu-item-white {
+        color: #fff;
+    }
+
+    .menu-item-black {
+        color: #18191C;
+    }
+
+    .search {
+        height: 100%;
+        display: flex;
+        /*实现垂直居中*/
+        align-items: center;
+        /*实现水平居中*/
+        justify-content: center;
+
+        :deep(.el-input) {
+            max-width: 520px;
+        }
+
+        :deep(.el-input__wrapper) {
+            border-radius: 12px;
+        }
+
+    }
+
+}
+
+.bgColorBlack {
+    background-color: transparent;
+}
+
+.boxShadow {
+    box-shadow: none;
+    // box-shadow: 0 1px 10px -6px rgba(0, 0, 0, 0.4); 需要边框加
+}
+
+.bgColorWhite {
+    background-color: #fff;
+}

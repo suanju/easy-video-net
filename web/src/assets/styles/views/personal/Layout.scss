@@ -1,0 +1,76 @@
+.personal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: calc(100vh - $top-navigation-height);
+    background-size: 100% 100%;
+    background-color: $color-gray-background;
+
+    .personal-layout {
+        width: 70%;
+        text-align: center;
+        height: 100%;
+
+
+        :deep(.el-container) {
+            border-radius: 30px;
+        }
+
+        :deep(.el-main) {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        :deep(.el-col-12) {
+            max-width: 100%;
+        }
+
+        :deep(.el-container) {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+    }
+}
+
+
+.space {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-color: $color-gray-background;
+
+    .space-layout {
+        width: 70%;
+        text-align: center;
+        height: 100%;
+
+
+        :deep(.el-container) {
+            border-radius: 30px;
+        }
+
+        :deep(.el-main) {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        :deep(.el-col-12) {
+            max-width: 100%;
+        }
+
+        :deep(.el-container) {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+    }
+}

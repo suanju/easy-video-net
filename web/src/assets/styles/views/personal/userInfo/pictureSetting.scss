@@ -1,0 +1,63 @@
+.overall {
+    .principal {
+      padding-top: 20%;
+  
+      .form-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        .avatar-uploader {
+          padding-right: 30px;
+  
+          .avatar {
+            width: 230px;
+            height: 230px;
+            display: block;
+          }
+  
+          :deep(.el-upload) {
+            border: 1px dashed #8c939d;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--el-transition-duration-fast);
+          }
+  
+          .el-upload:hover {
+            border-color: var(--el-color-primary);
+          }
+  
+          .el-icon.avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 230px;
+            height: 230px;
+            text-align: center;
+          }
+        }
+  
+        .avatar-show {
+          padding-left: 30px;
+          border-left: 1px dashed #8c939d;
+        }
+      }
+  
+      .bottom-box {
+        padding-top: 30px;
+  
+        .text {
+          font-size: 12px;
+          color: $color-gray-text ;
+        }
+  
+        .button {
+  
+          margin-top: 30px;
+        }
+      }
+  
+    }
+  
+  }

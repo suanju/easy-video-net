@@ -1,0 +1,30 @@
+.video-introduce{
+    margin-top: 16px;
+    border-radius: 34px 4px;
+    color: #61666D;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    .introduce{
+        padding: 20px 20px 4px 20px;
+        font-size: 16px;
+        line-height: 26px;
+        display: flex;
+
+        .show-more{
+            margin-left: 6px;
+            color: $color-theme;
+        }
+    }
+
+    .tag{
+      padding: 6px 20px 8px 20px;
+
+
+      .tag-item{
+        margin-right: 10px;
+        background-color: #F1F2F3;
+        border-color :  #F1F2F3;
+        color: #61666D;
+      }
+      
+    }
+}

@@ -1,0 +1,75 @@
+.mian {
+    height: 100%;
+    text-align: centers;
+
+    .head {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        width: 100%;
+    }
+
+    .cover-picture {
+        width: 100%;
+        height: 12rem;
+        color: #fff;
+        background-image: url("@/assets/img/home/live-bg.png");
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        border: 0;
+        overflow: hidden;
+        background-position: center center;
+        background-size: cover;
+        transform: translate3d(0px, 0px, 0px);
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-top: 24px;
+        padding: 20px 140px 10px 150px;
+        font-size: 24px;
+
+        .icon {
+            width: 34px;
+            height: 34px;
+            margin-right: 10px;
+        }
+    }
+
+
+
+    .middle {
+        text-align: center;
+        width: 100%;
+        padding-top: 24px;
+        padding: 20px 140px 20px 140px;
+        display: grid;
+        grid-gap: 20px;
+        grid-column: span 5;
+        grid-template-columns: repeat(5, 1fr);
+
+        .live-card {
+            border-radius: 6px;
+            // background-color: aqua;
+            width: 100%;
+            height: 275px;
+            box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .empty {
+        width: 100%;
+        min-height: calc(100vh - 12rem - 104px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}

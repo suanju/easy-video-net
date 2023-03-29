@@ -1,0 +1,131 @@
+.notice-box {
+    width: 100%;
+
+
+
+    .title {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding-right: 14px;
+
+        .text {
+            flex: 1;
+        }
+
+        .select {
+            display: flex;
+            align-items: end;
+            min-width: 80px;
+            justify-content: center;
+
+            .ropdown-link {
+                display: flex;
+                align-items: center;
+
+                .icon {
+                    width: 18px;
+                    height: 18px;
+                    margin-left: 8px;
+                    transform: rotate(90deg);
+                }
+
+            }
+
+            :deep(.ropdown-link:focus-visible) {
+                outline: none
+            }
+
+            :deep(.el-popover) {
+                min-width: 80px;
+            }
+
+            .message-type-list {
+                color: #757575;
+                width: 100%;
+                text-align: start;
+
+                .type-item {
+                    margin-top: 12px;
+                }
+
+                .type-item:hover {
+                    color: $color-theme;
+                }
+
+            }
+        }
+
+    }
+
+    .message-list {
+        padding-right: 14px;
+        max-height: 560px;
+        min-height: 360px;
+        overflow: scroll;
+        overflow-x: hidden;
+        margin-top: 14px;
+
+
+        .message-item {
+            padding-right: 8px;
+            width: 100%;
+            display: flex;
+            flex: 1;
+            align-items: center;
+            border-bottom: 1px solid #e7e7e7;
+
+            .item-left {
+                display: flex;
+                align-items: center;
+                width: 60%;
+
+                .avatar {
+                    margin-right: 20px;
+                }
+
+                .content {
+                    font-size: 12px;
+                    font-weight: 500;
+
+                    .time {
+                        color: #757575;
+
+                        span {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+
+            .item-right {
+                width: 40%;
+                text-align: end;
+
+                .content-info {
+                    max-width: 80px;
+                    float: right;
+
+                    :deep(.el-image) {
+                        margin-top: 10px;
+                        width: 90px;
+                        height: 46px;
+                        border-radius: 6px;
+                        overflow: hidden;
+                    }
+
+                    .title {
+                        text-align: end;
+                        font-size: 12px;
+                        color: #746a6a;
+                    }
+                }
+            }
+        }
+
+        .record-empty {
+            width: 100%;
+        }
+    }
+
+}

@@ -1,0 +1,41 @@
+.side-navigation {
+  height: 100%;
+  border-right: solid 1px var(--el-menu-border-color);
+}
+.side-navigation .avatar-box {
+  padding-top: 16px;
+}
+.side-navigation :deep(.el-menu) {
+  border-right: none;
+}
+.side-navigation .el-menu-vertical .icon-item {
+  display: flex;
+  color: inherit;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.side-navigation .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.side-navigation .icon-small {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+}
+.side-navigation .icon-smallxl {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+.side-navigation .dialog :deep(.el-dialog__header) {
+  text-align: center;
+}
+.side-navigation :deep(.el-dialog__header) {
+  text-align: center;
+}
+
+/*# sourceMappingURL=personalNavigation.css.map */

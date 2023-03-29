@@ -1,0 +1,129 @@
+.column {
+    width: 100%;
+
+    .column-list {
+        display: grid;
+        grid-gap: 20px;
+        grid-column: span 2;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        // margin: auto;
+
+        .shadow-box {
+            box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 0.5);
+            transition: all .3s ease;
+        }
+
+        .mouseleave {
+            box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 0.5);
+            transition: all .3s ease;
+        }
+
+        .mouseover {
+            box-shadow: 0 1px 20px -6px rgba(0, 0, 0, 1);
+            transition: all .3s ease;
+        }
+
+        .column-item {
+            height: 300px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+
+            .item-image {
+                width: 50%;
+                height: 100%;
+                transition: all 1s;
+                overflow: hidden;
+
+                .image {
+                    width: 100%;
+                    height: 100%;
+                    transition: all 1s;
+                }
+            }
+
+            .image:hover {
+                transform: scale(1.3);
+            }
+
+            .right {
+                right: 0;
+                text-align: right;
+                position: absolute;
+            }
+
+            .item-text {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 20px 35px;
+
+                .icon-small {
+                    width: 14px;
+                    height: 14px;
+                    margin-right: 4px;
+                }
+
+                .post-meta {
+                    display: flex;
+                    align-items: center;
+
+                    span {
+                        display: flex;
+                        align-items: center;
+                        margin-right: 6px;
+                    }
+
+                    font-size: 12px;
+                    color: #797979;
+                }
+
+                h3 {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .recent-post-desc {
+                    font-size: 15px;
+                    line-height: 1.7;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                }
+
+                .sort-label {
+                    position: absolute;
+                    bottom: 20px;
+                    display: flex;
+
+                    .lable-item {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: flex;
+                        justify-content: center;
+                        padding: 3px 10px;
+                        background-color: #eee;
+                        border-radius: 3px;
+                        font-size: 14px;
+                        color: #595a5a;
+                        transition: all .3s;
+                        cursor: pointer;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,119 @@
+.carousel {
+    position: relative;
+    grid-column: 1/3;
+    grid-row: 1/3;
+    z-index: 0;
+
+    :deep(.el-carousel) {
+        border-radius: 6px;
+    }
+
+
+
+    .carousel-item {
+        width: 100%;
+        height: 420px;
+
+        .carousel-img-box {
+            width: 100%;
+            height: 100%;
+
+            .carousel-img {
+                width: 100%;
+                height: 100%;
+
+
+            }
+        }
+    }
+
+    .gradient {
+        width: 100%;
+        height: 80px;
+        background: aliceblue;
+        z-index: 1;
+        position: absolute;
+        z-index: 10;
+        bottom: 100px;
+
+    }
+
+    :deep(.el-carousel__indicators) {
+        bottom: 10px;
+        left: 6.5%;
+        transform: translateX(-50%);
+    }
+
+    :deep(.el-carousel__button) {
+        display: block;
+        background-color: #fff;
+        border: none;
+        outline: 0;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+    }
+
+    .carousel-bottom {
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        padding: 0;
+        margin-top: -6px;
+        border-radius: 0px 0px 6px 6px;
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        text-align: start;
+
+
+
+
+        .carousel-title {
+            margin-left: 20px;
+            width: 100%;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .toggle-button {
+            display: flex;
+
+            .button-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                margin-right: 12px;
+                background-color: rgba(255, 255, 255, .1);
+                flex: 1;
+
+                .arrow-icon {
+                    width: 12px;
+                    height: 12px;
+                }
+
+                .rotation {
+                    transform: rotate(180deg);
+                }
+            }
+
+        }
+    }
+
+    .carousel-bottom::after {
+        display: inline-block;
+        content: "";
+        // width: 100%;
+        height: 93.5%;
+        background: linear-gradient(to bottom, #f2f3f5, rgba(0, 0, 0, 0) 0%);
+
+    }
+}

@@ -1,0 +1,39 @@
+.comments-info {
+
+
+    .comments-textarea {
+        border: 1px solid #ddd;
+        width: 100%;
+        font-size: 14px;
+        padding: 15px;
+        min-height: 100px;
+        resize: none;
+        outline: none;
+        border-radius: 8px;
+        background-image: url("@/components/commentPosting/static/img/comments-textarea-img.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.comments-fun {
+    display: flex;
+    justify-content: space-between;
+
+    .icon-small {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.comments-emoji {
+    padding-top: 14px;
+    font-size: 24px;
+    text-align: left;
+
+    .emoji-item {
+        margin-right: 4px;
+    }
+}

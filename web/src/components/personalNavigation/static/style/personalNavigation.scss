@@ -1,0 +1,48 @@
+.side-navigation{
+    height: 100%;
+    border-right: solid 1px var(--el-menu-border-color);
+    .avatar-box{
+       padding-top: 16px;
+
+      
+    }
+    :deep(.el-menu ){
+        border-right:none;
+    }
+    .el-menu-vertical{
+        .icon-item{
+            display: flex;
+            color: inherit;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+           
+
+        }
+    }
+    .icon{
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    .icon-small{
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+    }
+    .icon-smallxl{
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+
+    .dialog{
+        :deep(.el-dialog__header){
+            text-align: center;
+        }
+    }
+    :deep(.el-dialog__header){
+        text-align: center;
+    }
+}

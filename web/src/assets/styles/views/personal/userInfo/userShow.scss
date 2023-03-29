@@ -1,0 +1,66 @@
+.overall{
+    .content {
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    
+        .video-list {
+            .title {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding-top: 24px;
+                padding: 20px 40px 20px 20px;
+                font-size: 16px;
+            }
+    
+            .icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+            }
+    
+            .vidoe-box {
+                width: 100%;
+                display: grid;
+                grid-gap: 20px;
+                grid-column: span 4;
+                grid-template-columns: repeat(4, 1fr);
+    
+    
+                .video-item {
+                    width: 100%;
+                    height: 160px;
+                    margin-bottom: 5.5rem;
+                }
+            }
+        }
+    
+        .article-list {
+    
+            .title {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding-top: 24px;
+                padding: 20px 40px 20px 20px;
+                font-size: 16px;
+            }
+    
+            .icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+            }
+        }
+    
+        .spread-bottom{
+            height: 4%;
+        }
+    
+    }
+
+    .scroll{
+        overflow: scroll;
+    }
+}

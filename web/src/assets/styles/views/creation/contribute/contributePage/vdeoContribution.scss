@@ -1,0 +1,105 @@
+.vdeo-contribution {
+    margin: 0 auto;
+    max-width: 70%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    .upload-box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .upload {
+            width: 100%;
+
+            .upload-btn {
+                margin-top: 2rem;
+            }
+
+            .upload-audit {
+                margin-top: 1.4rem;
+                font-size: 14px;
+                color: #999;
+
+                .tag {
+                    margin-left: 6px;
+                }
+            }
+        }
+
+    }
+
+    .form-box {
+        text-align: initial;
+
+        //进度条百分比
+        :deep(.el-progress-bar__innerText){
+            margin-right: 20px;
+        }
+
+        .video-preview{
+           display: none;
+            .video{
+                width: 100%;
+                height: 300px;
+            }
+        }
+
+        .form-item-middle {
+            align-items: center;
+        }
+
+        .cover-uploader {
+            padding-right: 30px;
+            max-height: 320px;
+            max-width: 230px;
+
+            .cover {
+                width: 180px;
+                height: 110px;
+                display: block;
+            }
+
+            :deep(.el-upload) {
+                border: 1px dashed #8c939d;
+                border-radius: 0.6rem;
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+                transition: var(--el-transition-duration-fast);
+            }
+
+            .el-upload:hover {
+                border-color: var(--el-color-primary);
+            }
+
+            .el-icon.cover-uploader-icon {
+                font-size: 28px;
+                color: #8c939d;
+                width: 180px;
+                height: 110px;
+                text-align: center;
+            }
+        }
+
+        .label-box {
+            .label-item {
+                margin-right: 6px;
+                margin-top: 6px;
+            }
+
+            .label-input {
+                margin-top: 6px;
+                width: 8rem;
+            }
+
+            .label-btn {
+                margin-top: 6px;
+                width: 8rem;
+            }
+        }
+
+    }
+}
