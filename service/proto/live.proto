@@ -1,0 +1,50 @@
+syntax = "proto3";
+package barrage;
+option go_package = "/pb";
+
+
+// 总的消息体
+message Message {
+  string msgType  = 1;
+  bytes data = 2;
+}
+
+// 接收弹幕消息内容请求
+message WebClientSendBarrageReq {
+  string text = 1;
+  string  color = 2;
+  string type = 3;
+}
+
+// 客户端弹幕消息内容响应
+message WebClientSendBarrageRes {
+  float msg_id= 1;
+  float user_id = 2;
+  string username =3;
+  string avatar   = 4 ;
+  string text = 5;
+  string color = 6;
+  string type = 7;
+}
+
+// 客户端弹幕消息内容响应
+message WebClientHistoricalBarrageRes {
+  repeated WebClientSendBarrageRes  list = 1;
+}
+
+
+message EnterLiveRoom {
+  float user_id = 1;
+  string username = 2;
+  string  avatar = 3;
+}
+
+// 客户端在线人数
+message WebClientEnterLiveRoomRes {
+  float user_id = 1;
+  string username = 2;
+  string  avatar = 3;
+  bool type = 4;
+  repeated EnterLiveRoom list = 5;
+}
+
