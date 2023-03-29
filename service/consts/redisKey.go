@@ -15,8 +15,6 @@ const (
 	*/
 	LiveRoomHistoricalBarrage = "liveRoomHistoricalBarrage_"
 
-	//LiveRoom 直播房间
-	LiveRoom = "liveRoom_"
 	//VideoWatchByID 观看视频
 	VideoWatchByID = "videoWatchBy_"
 )
