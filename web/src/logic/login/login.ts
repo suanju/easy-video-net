@@ -4,15 +4,22 @@ import { useGlobalStore, useUserStore } from "@/store/main";
 import { Result } from "@/types/idnex";
 import { forgetReq, loginReq, registReq, sendEmailInfo, sendEmailReq, sendEmailType, userInfoRes } from "@/types/login/login";
 import { validateEmail, validatePassword, validateUsername, validateVarCode } from "@/utils/validate/validate";
-import { ElMessage, FormInstance } from "element-plus";
+import { FormInstance } from "element-plus";
 import Swal from "sweetalert2";
-import { reactive, ref, Ref } from "vue";
+import { Ref, reactive, ref } from "vue";
 import { Router, useRouter } from 'vue-router';
 import { useInitChatSocket } from "../global/chat";
 import { useInitNoticeSocket } from "../global/notice";
 //提供数据
 
 const loading = useGlobalStore().globalData.loading
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000,
+})
 
 export const useLoginProp = () => {
     //公共部分
@@ -58,16 +65,16 @@ export const useLoginProp = () => {
             }
             loading.loading = true
             if (emailType == "regist") {
-                const result = await sendEmailVerificationCode(emailReq)
+                await sendEmailVerificationCode(emailReq)
             } else {
-                const result = await sendEmailVerificationCodeByForget(emailReq)
+                await sendEmailVerificationCodeByForget(emailReq)
             }
 
             sendEmailInfo.isPleaseClick = false
             loading.loading = false
-            ElMessage({
-                message: "验证码已发送！",
-                type: 'success',
+            Toast.fire({
+                icon: 'success',
+                title: '验证码发送成功'
             })
             sendEmailInfo.btnText = "60"
             const interval = setInterval(() => {
@@ -119,10 +126,7 @@ export const useLoginMethod = (store: any, router: Router, loginForm: loginReq) 
                     //初始化socket
                     useInitChatSocket()
                     useInitNoticeSocket()
-                    ElMessage({
-                        message: "登入成功",
-                        type: 'success',
-                    })
+
                     loading.loading = false
                     router.push("/")
 
@@ -162,9 +166,9 @@ export const useRegisterMethod = (store: any, router: Router, registForm: regist
                     loading.loading = true
                     const result = await regist(registForm)
                     store.setUserInfo(<userInfoRes>result.data)
-                    ElMessage({
-                        message: "注册成功",
-                        type: 'success',
+                    Toast.fire({
+                        icon: 'success',
+                        title: '注册成功'
                     })
                     loading.loading = false
                     router.push("/")
@@ -200,10 +204,10 @@ export const useForgetrMethod = (forgetForm: forgetReq, currentModel: Ref<boolea
             if (valid) {
                 try {
                     loading.loading = true
-                    const result = await forgetRequist(forgetForm)
-                    ElMessage({
-                        message: "修改成功",
-                        type: 'success',
+                    await forgetRequist(forgetForm)
+                    Toast.fire({
+                        icon: 'success',
+                        title: '修改成功'
                     })
                     forgetForm.email = ""
                     forgetForm.password = ""
