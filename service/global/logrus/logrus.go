@@ -58,5 +58,4 @@ func ReturnsInstance() *logrus.Logger {
 	}))
 
 	return Logger
-
 }

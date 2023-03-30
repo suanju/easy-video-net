@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-type ConfigStruct struct {
+type Info struct {
 	SqlConfig     *SqlConfigStruct
 	RConfig       *RConfigStruct
 	ProjectConfig *ProjectConfigStruct
@@ -20,7 +20,7 @@ func init() {
 	ReturnsInstance()
 }
 
-var Config = new(ConfigStruct)
+var Config = new(Info)
 var cfg *ini.File
 var err error
 
@@ -66,7 +66,7 @@ type AliyunOss struct {
 	DurationSeconds int    `ini:"durationSeconds"`
 }
 
-func ReturnsInstance() *ConfigStruct {
+func ReturnsInstance() *Info {
 	Config.SqlConfig = &SqlConfigStruct{}
 	cfg, err = ini.Load("config/config.ini")
 	if err != nil {
