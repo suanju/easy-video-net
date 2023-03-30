@@ -3,8 +3,18 @@ import { useUserStore } from '@/store/main';
 import { FileSliceUpload, FileUpload } from '@/types/idnex';
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
+import Swal from "sweetalert2";
 // 数据返回的接口
 // 定义请求响应参数，不含data
+
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  timer: 3000,
+})
+
 interface Result {
   code: number;
   message: string
@@ -95,7 +105,10 @@ class RequestHttp {
           this.handleCode(response.status)
         }
         if (!window.navigator.onLine) {
-          ElMessage.error('网络连接失败');
+          Toast.fire({
+            icon: 'error',
+            title: '网络连接失败'
+          })
           // 可以跳转到错误页面，也可以不做操作
           // return router.replace({
           //   path: '/404'
@@ -108,10 +121,16 @@ class RequestHttp {
   handleCode(code: number): void {
     switch (code) {
       case 401:
-        ElMessage.error('登录失败，请重新登录');
+        Toast.fire({
+          icon: 'error',
+          title: '登录失败，请重新登录'
+        })
         break;
       default:
-        ElMessage.error('请求失败');
+        Toast.fire({
+          icon: 'error',
+          title: '请求失败'
+        })
         break;
     }
   }
