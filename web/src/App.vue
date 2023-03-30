@@ -28,7 +28,6 @@ const scrollbarRef = ref()
 
 //滚动事件
 const handleScroll = (e: any) => {
-  console.log(e)
   global.setScroll(e.scrollLeft, e.scrollTop)
 }
 
