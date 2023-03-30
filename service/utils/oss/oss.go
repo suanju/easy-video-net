@@ -4,7 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha1"
 	"easy-video-net/global"
-	"easy-video-net/models/config/uploadMethod"
+	"easy-video-net/models/config/upload"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -63,7 +63,7 @@ type PolicyToken struct {
 
 func GetPolicyToken(_interface string) (results interface{}, err error) {
 	//获取当前接口对于的储存路径
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if !method.IsExistByField("interface", _interface) {
 		return nil, fmt.Errorf("上传接口不存在")
 	}

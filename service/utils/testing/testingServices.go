@@ -13,7 +13,7 @@ func LiveSeverTesting() {
 	//获取直播服务端口地址
 	var liveConfig = config.Config.LiveConfig
 
-	ipPort := CheckPortsAsLocalHost(liveConfig.IP, []string{"8090", "7001"})
+	ipPort := CheckPortsAsLocalHost(liveConfig.IP, []string{liveConfig.RTMP, liveConfig.FLV, liveConfig.Api, liveConfig.HLS})
 	if len(ipPort) == 0 {
 		global.Logger.Info("开启直播")
 		err := live.Start()
@@ -36,7 +36,6 @@ func CheckPortsAsLocalHost(ip string, Ports []string) []string {
 			global.Logger.Warn(ipPort, "端口未开启(fail)!")
 		} else {
 			if conn != nil {
-				global.Logger.Info(ipPort, ipPort, "端口已开启(success)!")
 				err := conn.Close()
 				if err != nil {
 					return nil
