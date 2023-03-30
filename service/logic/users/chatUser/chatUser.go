@@ -1,11 +1,13 @@
-package noticeSocket
+package chatUser
 
 import (
 	"easy-video-net/consts"
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/socket"
 	socketResponse "easy-video-net/interaction/response/socket"
+	"easy-video-net/logic/users/chat"
 	userModel "easy-video-net/models/users"
+	"easy-video-net/models/users/chat/chatList"
 	"easy-video-net/models/users/notice"
 	"easy-video-net/utils/response"
 	"encoding/json"
@@ -28,6 +30,7 @@ type ChanInfo struct {
 //UserChannel 用户信息
 type UserChannel struct {
 	UserInfo *userModel.User
+	Tid      uint
 	Socket   *websocket.Conn
 	MsgList  chan ChanInfo
 }
@@ -46,15 +49,31 @@ func (e *Engine) Start() {
 		case registerMsg := <-e.Register:
 			//添加成员
 			e.UserMapChannel[registerMsg.UserInfo.ID] = registerMsg
+			//清空未读消息
+			cl := new(chatList.ChatsListInfo)
+			err := cl.UnreadEmpty(registerMsg.UserInfo.ID, registerMsg.Tid)
+			//添加在线记录
+			if _, ok := chat.Severe.UserMapChannel[registerMsg.UserInfo.ID]; ok {
+				//聊天对象在线
+				chat.Severe.UserMapChannel[registerMsg.UserInfo.ID].ChatList[registerMsg.Tid] = registerMsg.Socket
+			}
+			if err != nil {
+				global.Logger.Error("uid %d tid %d 清空未读消息数量失败", registerMsg.UserInfo.ID, registerMsg.Tid)
+			}
 
 		case cancellationMsg := <-e.Cancellation:
 			//删除成员
 			delete(e.UserMapChannel, cancellationMsg.UserInfo.ID)
+			//删除在线记录
+			if _, ok := chat.Severe.UserMapChannel[cancellationMsg.UserInfo.ID]; ok {
+				//聊天对象在线
+				delete(chat.Severe.UserMapChannel[cancellationMsg.UserInfo.ID].ChatList, cancellationMsg.Tid)
+			}
 		}
 	}
 }
 
-func CreateNoticeSocket(uid uint, conn *websocket.Conn) (err error) {
+func CreateChatByUserSocket(uid uint, tid uint, conn *websocket.Conn) (err error) {
 	//创建UserChannel
 	userChannel := new(UserChannel)
 	//绑定ws
@@ -62,6 +81,7 @@ func CreateNoticeSocket(uid uint, conn *websocket.Conn) (err error) {
 	user := &userModel.User{}
 	user.Find(uid)
 	userChannel.UserInfo = user
+	userChannel.Tid = tid
 	userChannel.MsgList = make(chan ChanInfo, 10)
 
 	Severe.Register <- userChannel
@@ -69,7 +89,6 @@ func CreateNoticeSocket(uid uint, conn *websocket.Conn) (err error) {
 	go userChannel.Read()
 	go userChannel.Writer()
 	return nil
-
 }
 
 //Writer 监听写入数据
@@ -105,7 +124,8 @@ func (lre *UserChannel) Read() {
 			response.ErrorWs(lre.Socket, "消息格式错误")
 		}
 		switch info.Type {
-
+		case "sendChatMsgText":
+			sendChatMsgText(lre, lre.UserInfo.ID, lre.Tid, info)
 		}
 	}
 }

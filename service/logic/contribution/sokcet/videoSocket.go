@@ -1,4 +1,4 @@
-package videoSocket
+package sokcet
 
 import (
 	"easy-video-net/consts"

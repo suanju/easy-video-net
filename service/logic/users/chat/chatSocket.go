@@ -1,21 +1,21 @@
-package chatByUserSocket
+package chat
 
 import (
 	"easy-video-net/consts"
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/socket"
 	socketResponse "easy-video-net/interaction/response/socket"
-	"easy-video-net/logic/users/chatSocket"
+	userLogic "easy-video-net/logic/users"
 	userModel "easy-video-net/models/users"
 	"easy-video-net/models/users/chat/chatList"
 	"easy-video-net/models/users/notice"
 	"easy-video-net/utils/response"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/websocket"
 )
 
 type Engine struct {
-	//视频房间
 	UserMapChannel map[uint]*UserChannel
 
 	Register     chan *UserChannel
@@ -30,8 +30,8 @@ type ChanInfo struct {
 //UserChannel 用户信息
 type UserChannel struct {
 	UserInfo *userModel.User
-	Tid      uint
 	Socket   *websocket.Conn
+	ChatList map[uint]*websocket.Conn
 	MsgList  chan ChanInfo
 }
 
@@ -49,31 +49,26 @@ func (e *Engine) Start() {
 		case registerMsg := <-e.Register:
 			//添加成员
 			e.UserMapChannel[registerMsg.UserInfo.ID] = registerMsg
-			//清空未读消息
+			//进行未读消息通知
 			cl := new(chatList.ChatsListInfo)
-			err := cl.UnreadEmpty(registerMsg.UserInfo.ID, registerMsg.Tid)
-			//添加在线记录
-			if _, ok := chatSocket.Severe.UserMapChannel[registerMsg.UserInfo.ID]; ok {
-				//聊天对象在线
-				chatSocket.Severe.UserMapChannel[registerMsg.UserInfo.ID].ChatList[registerMsg.Tid] = registerMsg.Socket
+			unreadNum := cl.GetUnreadNumber(registerMsg.UserInfo.ID)
+			if *unreadNum > 0 {
+				//存在未读消息 直接推送聊天列表和记录
+				list, err := userLogic.GetChatList(registerMsg.UserInfo.ID)
+				if err != nil {
+					fmt.Println("查询错误")
+					return
+				}
+				response.SuccessWs(registerMsg.Socket, consts.ChatOnlineUnreadNotice, list)
 			}
-			if err != nil {
-				global.Logger.Error("uid %d tid %d 清空未读消息数量失败", registerMsg.UserInfo.ID, registerMsg.Tid)
-			}
-
 		case cancellationMsg := <-e.Cancellation:
 			//删除成员
 			delete(e.UserMapChannel, cancellationMsg.UserInfo.ID)
-			//删除在线记录
-			if _, ok := chatSocket.Severe.UserMapChannel[cancellationMsg.UserInfo.ID]; ok {
-				//聊天对象在线
-				delete(chatSocket.Severe.UserMapChannel[cancellationMsg.UserInfo.ID].ChatList, cancellationMsg.Tid)
-			}
 		}
 	}
 }
 
-func CreateChatByUserSocket(uid uint, tid uint, conn *websocket.Conn) (err error) {
+func CreateChatSocket(uid uint, conn *websocket.Conn) (err error) {
 	//创建UserChannel
 	userChannel := new(UserChannel)
 	//绑定ws
@@ -81,14 +76,15 @@ func CreateChatByUserSocket(uid uint, tid uint, conn *websocket.Conn) (err error
 	user := &userModel.User{}
 	user.Find(uid)
 	userChannel.UserInfo = user
-	userChannel.Tid = tid
 	userChannel.MsgList = make(chan ChanInfo, 10)
+	userChannel.ChatList = make(map[uint]*websocket.Conn, 0)
 
 	Severe.Register <- userChannel
 
 	go userChannel.Read()
 	go userChannel.Writer()
 	return nil
+
 }
 
 //Writer 监听写入数据
@@ -124,8 +120,7 @@ func (lre *UserChannel) Read() {
 			response.ErrorWs(lre.Socket, "消息格式错误")
 		}
 		switch info.Type {
-		case "sendChatMsgText":
-			sendChatMsgText(lre, lre.UserInfo.ID, lre.Tid, info)
+
 		}
 	}
 }
@@ -135,7 +130,7 @@ func (lre *UserChannel) NoticeMessage(tp string) {
 	nl := new(notice.Notice)
 	num := nl.GetUnreadNum(lre.UserInfo.ID)
 	if num == nil {
-		global.Logger.Error("通知id为%d用户未读消息失败", lre.UserInfo.ID)
+		global.Logger.Errorf("通知id为%d用户未读消息失败", lre.UserInfo.ID)
 	}
 	lre.MsgList <- ChanInfo{
 		Type: consts.NoticeSocketTypeMessage,

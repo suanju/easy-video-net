@@ -1,9 +1,9 @@
 package users
 
 import (
-	"easy-video-net/logic/users/chatByUserSocket"
-	"easy-video-net/logic/users/chatSocket"
-	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/logic/users/chat"
+	"easy-video-net/logic/users/chatUser"
+	"easy-video-net/logic/users/notice"
 	"easy-video-net/utils/response"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -15,7 +15,7 @@ func (us UserControllers) NoticeSocket(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
 	conn, _ := ctx.Get("conn")
 	ws := conn.(*websocket.Conn)
-	err := noticeSocket.CreateNoticeSocket(uid, ws)
+	err := notice.CreateNoticeSocket(uid, ws)
 	if err != nil {
 		response.ErrorWs(ws, "创建通知socket失败")
 	}
@@ -26,7 +26,7 @@ func (us UserControllers) ChatSocket(ctx *gin.Context) {
 	uid := ctx.GetUint("uid")
 	conn, _ := ctx.Get("conn")
 	ws := conn.(*websocket.Conn)
-	err := chatSocket.CreateChatSocket(uid, ws)
+	err := chat.CreateChatSocket(uid, ws)
 	if err != nil {
 		response.ErrorWs(ws, "创建聊天socket失败")
 	}
@@ -39,7 +39,7 @@ func (us UserControllers) ChatByUserSocket(ctx *gin.Context) {
 	tidQuery, _ := strconv.Atoi(ctx.Query("tid"))
 	tid := uint(tidQuery)
 	ws := conn.(*websocket.Conn)
-	err := chatByUserSocket.CreateChatByUserSocket(uid, tid, ws)
+	err := chatUser.CreateChatByUserSocket(uid, tid, ws)
 	if err != nil {
 		response.ErrorWs(ws, "创建用户聊天socket失败")
 	}

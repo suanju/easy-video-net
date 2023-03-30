@@ -4,7 +4,7 @@ import (
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/commonality"
 	response "easy-video-net/interaction/response/commonality"
-	"easy-video-net/models/config/uploadMethod"
+	"easy-video-net/models/config/upload"
 	"easy-video-net/models/contribution/video"
 	"easy-video-net/models/users"
 	"easy-video-net/models/users/attention"
@@ -27,7 +27,8 @@ var (
 func OssSTS() (results interface{}, err error) {
 	info, err := oss.GteStsInfo()
 	if err != nil {
-		return nil, err
+		global.Logger.Errorf("获取OssSts密钥失败 错误原因 :%s", err.Error())
+		return nil, fmt.Errorf("获取失败")
 	}
 	res, err := response.GteStsInfo(info)
 	if err != nil {
@@ -49,7 +50,7 @@ func Upload(file *multipart.FileHeader, ctx *gin.Context) (results interface{}, 
 	var fileInterface string
 	fileInterface = strings.Join(mForm.Value["interface"], fileInterface)
 
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if !method.IsExistByField("interface", fileInterface) {
 		return nil, fmt.Errorf("上传接口不存在")
 	}
@@ -66,13 +67,14 @@ func Upload(file *multipart.FileHeader, ctx *gin.Context) (results interface{}, 
 	}
 	if !location.IsDir(method.Path) {
 		if err = os.MkdirAll(method.Path, 077); err != nil {
+			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s 错误原因 : %s", method.Path, err.Error())
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
 	}
 	dst := method.Path + "/" + fileName
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
-		global.Logger.Warn("update headPortrait err")
+		global.Logger.Errorf("保存文件失败-保存路径为：%s ,错误原因 : %s", dst, err.Error())
 		return nil, fmt.Errorf("上传失败")
 	} else {
 		return dst, nil
@@ -92,7 +94,7 @@ func UploadSlice(file *multipart.FileHeader, ctx *gin.Context) (results interfac
 	var fileInterface string
 	fileInterface = strings.Join(mForm.Value["interface"], fileInterface)
 
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if !method.IsExistByField("interface", fileInterface) {
 		return nil, fmt.Errorf("上传接口不存在")
 	}
@@ -101,13 +103,14 @@ func UploadSlice(file *multipart.FileHeader, ctx *gin.Context) (results interfac
 	}
 	if !location.IsDir(Temporary) {
 		if err = os.MkdirAll(Temporary, 077); err != nil {
+			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s", method.Path)
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
 	}
 	dst := Temporary + "/" + fileName
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
-		global.Logger.Warn("Possible cause of the fragment upload failure: ", err)
+		global.Logger.Errorf("分片上传保存失败-保存路径为：%s ,错误原因 : %s ", dst, err.Error())
 		return nil, fmt.Errorf("上传失败")
 	} else {
 		return dst, nil
@@ -115,7 +118,7 @@ func UploadSlice(file *multipart.FileHeader, ctx *gin.Context) (results interfac
 }
 
 func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err error) {
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if !method.IsExistByField("interface", data.Interface) {
 		return nil, fmt.Errorf("未配置上传方法")
 	}
@@ -123,6 +126,7 @@ func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err erro
 	path := method.Path + "/" + data.FileMd5
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		//文件已存在
+		global.Logger.Info("上传文件 %s 已存在", data.FileMd5)
 		return response.UploadCheckResponse(true, list, path)
 	}
 	//取出未上传的分片
@@ -138,7 +142,7 @@ func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err erro
 }
 
 func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err error) {
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if !method.IsExistByField("interface", data.Interface) {
 		return nil, fmt.Errorf("未配置上传方法")
 	}
@@ -159,6 +163,7 @@ func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err erro
 		}
 	}
 	if len(list) > 0 {
+		global.Logger.Warn("上传文件 %s 分片未全部上传", data.FileName)
 		return nil, fmt.Errorf("分片未全部上传")
 	}
 	//进行合并操作
@@ -188,21 +193,21 @@ func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err erro
 			fmt.Println(err)
 		}
 		if _, err := fileInfo.Write(b); err != nil {
-			global.Logger.Errorf("合并分片追加错误 err : %d", err)
+			global.Logger.Errorf("合并分片追加错误 错误原因 : %d", err)
 		}
 		// 关闭分片
 		if err := tmpFile.Close(); err != nil {
-			global.Logger.Errorf("关闭分片错误 err : %d", err)
+			global.Logger.Errorf("关闭分片错误 错误原因 : %d", err)
 		}
 		if err := os.Remove(tmpFile.Name()); err != nil {
-			global.Logger.Errorf("合并操作删除临时分片失败 err : %d", err)
+			global.Logger.Errorf("合并操作删除临时分片失败 错误原因 : %d", err)
 		}
 	}
 	return dst, nil
 }
 
 func UploadingMethod(data *receive.UploadingMethodStruct) (results interface{}, err error) {
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if method.IsExistByField("interface", data.Method) {
 		return response.UploadingMethodResponse(method.Method), nil
 	} else {
@@ -211,7 +216,7 @@ func UploadingMethod(data *receive.UploadingMethodStruct) (results interface{}, 
 }
 
 func UploadingDir(data *receive.UploadingDirStruct) (results interface{}, err error) {
-	method := new(uploadMethod.UploadMethod)
+	method := new(upload.Upload)
 	if method.IsExistByField("interface", data.Interface) {
 		return response.UploadingDirResponse(method.Path), nil
 	} else {
@@ -254,6 +259,7 @@ func Search(data *receive.SearchStruct, uid uint) (results interface{}, err erro
 			al := new(attention.AttentionsList)
 			err = al.GetAttentionList(uid)
 			if err != nil {
+				global.Logger.Errorf("用户id %d 获取取关注列表失败,错误原因 : %s ", uid, err.Error())
 				return nil, fmt.Errorf("获取关注列表失败")
 			}
 			for _, v := range *al {

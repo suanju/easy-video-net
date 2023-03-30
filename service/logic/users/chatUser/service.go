@@ -1,11 +1,11 @@
-package chatByUserSocket
+package chatUser
 
 import (
 	"easy-video-net/consts"
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/socket"
 	"easy-video-net/interaction/response/socket"
-	"easy-video-net/logic/users/chatSocket"
+	"easy-video-net/logic/users/chat"
 	"easy-video-net/models/users/chat/chatList"
 	"easy-video-net/models/users/chat/chatMsg"
 	"easy-video-net/utils/conversion"
@@ -40,11 +40,11 @@ func sendChatMsgText(ler *UserChannel, uid uint, tid uint, info *receive.Receive
 		return
 	}
 
-	if _, ok := chatSocket.Severe.UserMapChannel[tid]; ok {
+	if _, ok := chat.Severe.UserMapChannel[tid]; ok {
 		//在线情况
-		if _, ok := chatSocket.Severe.UserMapChannel[tid].ChatList[uid]; ok {
+		if _, ok := chat.Severe.UserMapChannel[tid].ChatList[uid]; ok {
 			//在与自己聊天窗口 (直接进行推送)
-			response.SuccessWs(chatSocket.Severe.UserMapChannel[tid].ChatList[uid], consts.ChatSendTextMsg, socket.ChatSendTextMsgStruct{
+			response.SuccessWs(chat.Severe.UserMapChannel[tid].ChatList[uid], consts.ChatSendTextMsg, socket.ChatSendTextMsgStruct{
 				ID:        msgInfo.ID,
 				Uid:       msgInfo.Uid,
 				Username:  msgInfo.UInfo.Username,
@@ -60,12 +60,12 @@ func sendChatMsgText(ler *UserChannel, uid uint, tid uint, info *receive.Receive
 			cl := new(chatList.ChatsListInfo)
 			err := cl.UnreadAutocorrection(tid, uid)
 			if err != nil {
-				global.Logger.Error("uid %d tid %d 消息记录自增未读消息数量失败", tid, uid)
+				global.Logger.Errorf("uid %d tid %d 消息记录自增未读消息数量失败", tid, uid)
 			}
 			ci := new(chatList.ChatsListInfo)
 			_ = ci.FindByID(uid, tid)
 			//推送主socket
-			response.SuccessWs(chatSocket.Severe.UserMapChannel[tid].Socket, consts.ChatUnreadNotice, socket.ChatUnreadNoticeStruct{
+			response.SuccessWs(chat.Severe.UserMapChannel[tid].Socket, consts.ChatUnreadNotice, socket.ChatUnreadNoticeStruct{
 				Uid:         uid,
 				Tid:         tid,
 				LastMessage: ci.LastMessage,

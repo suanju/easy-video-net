@@ -4,12 +4,12 @@ import (
 	"easy-video-net/consts"
 	receive "easy-video-net/interaction/receive/contribution/article"
 	response "easy-video-net/interaction/response/contribution/article"
-	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/logic/users/notice"
 	"easy-video-net/models/common"
 	"easy-video-net/models/contribution/article"
 	"easy-video-net/models/contribution/article/classification"
 	"easy-video-net/models/contribution/article/comments"
-	"easy-video-net/models/users/notice"
+	noticeModel "easy-video-net/models/users/notice"
 	"easy-video-net/models/users/record"
 	"easy-video-net/utils/conversion"
 	"encoding/json"
@@ -160,9 +160,9 @@ func ArticlePostComment(data *receive.ArticlesPostCommentReceiveStruct, uid uint
 	}
 
 	//socket推送(在线的情况下)
-	if _, ok := noticeSocket.Severe.UserMapChannel[articleInfo.UserInfo.ID]; ok {
-		userChannel := noticeSocket.Severe.UserMapChannel[articleInfo.UserInfo.ID]
-		userChannel.NoticeMessage(notice.ArticleComment)
+	if _, ok := notice.Severe.UserMapChannel[articleInfo.UserInfo.ID]; ok {
+		userChannel := notice.Severe.UserMapChannel[articleInfo.UserInfo.ID]
+		userChannel.NoticeMessage(noticeModel.ArticleComment)
 	}
 
 	return "发布成功", nil

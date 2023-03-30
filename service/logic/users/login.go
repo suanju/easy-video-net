@@ -173,7 +173,8 @@ func SendEmailVerCode(data *receive.SendEmailVerCodeReceiveStruct) (results inte
 	body := fmt.Sprintf("您正在注册验证码为:%s,5分钟有效,请勿转发他人", code)
 	err = email.SendMail(mailTo, subject, body)
 	if err != nil {
-		return nil, err
+		global.Logger.Error("发送至%d邮箱验证码失败", data.Email)
+		return nil, fmt.Errorf("发送失败")
 	}
 	err = global.RedisDb.Set(fmt.Sprintf("%s%s", consts.RegEmailVerCode, data.Email), code, 5*time.Minute).Err()
 	if err != nil {

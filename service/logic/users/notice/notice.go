@@ -1,21 +1,19 @@
-package chatSocket
+package notice
 
 import (
 	"easy-video-net/consts"
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/socket"
 	socketResponse "easy-video-net/interaction/response/socket"
-	userLogic "easy-video-net/logic/users"
 	userModel "easy-video-net/models/users"
-	"easy-video-net/models/users/chat/chatList"
 	"easy-video-net/models/users/notice"
 	"easy-video-net/utils/response"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/websocket"
 )
 
 type Engine struct {
+	//视频房间
 	UserMapChannel map[uint]*UserChannel
 
 	Register     chan *UserChannel
@@ -31,7 +29,6 @@ type ChanInfo struct {
 type UserChannel struct {
 	UserInfo *userModel.User
 	Socket   *websocket.Conn
-	ChatList map[uint]*websocket.Conn
 	MsgList  chan ChanInfo
 }
 
@@ -49,18 +46,6 @@ func (e *Engine) Start() {
 		case registerMsg := <-e.Register:
 			//添加成员
 			e.UserMapChannel[registerMsg.UserInfo.ID] = registerMsg
-			//进行未读消息通知
-			cl := new(chatList.ChatsListInfo)
-			unreadNum := cl.GetUnreadNumber(registerMsg.UserInfo.ID)
-			if *unreadNum > 0 {
-				//存在未读消息 直接推送聊天列表和记录
-				list, err := userLogic.GetChatList(registerMsg.UserInfo.ID)
-				if err != nil {
-					fmt.Println("查询错误")
-					return
-				}
-				response.SuccessWs(registerMsg.Socket, consts.ChatOnlineUnreadNotice, list)
-			}
 		case cancellationMsg := <-e.Cancellation:
 			//删除成员
 			delete(e.UserMapChannel, cancellationMsg.UserInfo.ID)
@@ -68,7 +53,7 @@ func (e *Engine) Start() {
 	}
 }
 
-func CreateChatSocket(uid uint, conn *websocket.Conn) (err error) {
+func CreateNoticeSocket(uid uint, conn *websocket.Conn) (err error) {
 	//创建UserChannel
 	userChannel := new(UserChannel)
 	//绑定ws
@@ -77,7 +62,6 @@ func CreateChatSocket(uid uint, conn *websocket.Conn) (err error) {
 	user.Find(uid)
 	userChannel.UserInfo = user
 	userChannel.MsgList = make(chan ChanInfo, 10)
-	userChannel.ChatList = make(map[uint]*websocket.Conn, 0)
 
 	Severe.Register <- userChannel
 
@@ -130,7 +114,7 @@ func (lre *UserChannel) NoticeMessage(tp string) {
 	nl := new(notice.Notice)
 	num := nl.GetUnreadNum(lre.UserInfo.ID)
 	if num == nil {
-		global.Logger.Error("通知id为%d用户未读消息失败", lre.UserInfo.ID)
+		global.Logger.Errorf("通知id为%d用户未读消息失败", lre.UserInfo.ID)
 	}
 	lre.MsgList <- ChanInfo{
 		Type: consts.NoticeSocketTypeMessage,

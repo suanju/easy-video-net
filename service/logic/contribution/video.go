@@ -5,8 +5,8 @@ import (
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/contribution/video"
 	response "easy-video-net/interaction/response/contribution/video"
-	"easy-video-net/logic/contribution/videoSocket"
-	"easy-video-net/logic/users/noticeSocket"
+	"easy-video-net/logic/contribution/sokcet"
+	"easy-video-net/logic/users/notice"
 	"easy-video-net/models/common"
 	"easy-video-net/models/contribution/video"
 	"easy-video-net/models/contribution/video/barrage"
@@ -15,7 +15,7 @@ import (
 	"easy-video-net/models/users/attention"
 	"easy-video-net/models/users/collect"
 	"easy-video-net/models/users/favorites"
-	"easy-video-net/models/users/notice"
+	noticeModel "easy-video-net/models/users/notice"
 	"easy-video-net/models/users/record"
 	"easy-video-net/utils/conversion"
 	"encoding/json"
@@ -166,11 +166,11 @@ func SendVideoBarrage(data *receive.SendVideoBarrageReceiveStruct, uid uint) (re
 		return data, fmt.Errorf("发送弹幕失败")
 	}
 	//socket消息通知
-	res := videoSocket.ChanInfo{
+	res := sokcet.ChanInfo{
 		Type: consts.VideoSocketTypeResponseBarrageNum,
 		Data: nil,
 	}
-	for _, v := range videoSocket.Severe.VideoRoom[uint(videoID)] {
+	for _, v := range sokcet.Severe.VideoRoom[uint(videoID)] {
 		v.MsgList <- res
 	}
 
@@ -228,9 +228,9 @@ func VideoPostComment(data *receive.VideosPostCommentReceiveStruct, uid uint) (r
 	}
 
 	//socket推送(在线的情况下)
-	if _, ok := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
-		userChannel := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]
-		userChannel.NoticeMessage(notice.VideoComment)
+	if _, ok := notice.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
+		userChannel := notice.Severe.UserMapChannel[videoInfo.UserInfo.ID]
+		userChannel.NoticeMessage(noticeModel.VideoComment)
 	}
 
 	return "发布成功", nil
@@ -272,9 +272,9 @@ func LikeVideo(data *receive.LikeVideoReceiveStruct, uid uint) (results interfac
 	}
 
 	//socket推送(在线的情况下)
-	if _, ok := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
-		userChannel := noticeSocket.Severe.UserMapChannel[videoInfo.UserInfo.ID]
-		userChannel.NoticeMessage(notice.VideoLike)
+	if _, ok := notice.Severe.UserMapChannel[videoInfo.UserInfo.ID]; ok {
+		userChannel := notice.Severe.UserMapChannel[videoInfo.UserInfo.ID]
+		userChannel.NoticeMessage(noticeModel.VideoLike)
 	}
 
 	return "操作成功", nil
