@@ -58,7 +58,7 @@ func (e *Engine) Start() {
 				chat.Severe.UserMapChannel[registerMsg.UserInfo.ID].ChatList[registerMsg.Tid] = registerMsg.Socket
 			}
 			if err != nil {
-				global.Logger.Error("uid %d tid %d 清空未读消息数量失败", registerMsg.UserInfo.ID, registerMsg.Tid)
+				global.Logger.Errorf("uid %d tid %d 清空未读消息数量失败", registerMsg.UserInfo.ID, registerMsg.Tid)
 			}
 
 		case cancellationMsg := <-e.Cancellation:
@@ -135,7 +135,7 @@ func (lre *UserChannel) NoticeMessage(tp string) {
 	nl := new(notice.Notice)
 	num := nl.GetUnreadNum(lre.UserInfo.ID)
 	if num == nil {
-		global.Logger.Error("通知id为%d用户未读消息失败", lre.UserInfo.ID)
+		global.Logger.Errorf("通知id为%d用户未读消息失败", lre.UserInfo.ID)
 	}
 	lre.MsgList <- ChanInfo{
 		Type: consts.NoticeSocketTypeMessage,

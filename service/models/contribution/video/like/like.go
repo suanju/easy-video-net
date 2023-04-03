@@ -9,8 +9,8 @@ import (
 
 type Likes struct {
 	common.PublicModel
-	Uid     uint `json:"uid" gorm:"uid"`
-	VideoID uint `json:"video_id"  gorm:"video_id"`
+	Uid     uint `json:"uid" gorm:"column:uid"`
+	VideoID uint `json:"video_id"  gorm:"column:video_id"`
 }
 
 type LikesList []Likes

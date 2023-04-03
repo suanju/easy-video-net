@@ -10,11 +10,11 @@ import (
 
 type ChatsListInfo struct {
 	common.PublicModel
-	Uid         uint      `json:"uid" gorm:"uid"`
-	Tid         uint      `json:"tid"  gorm:"tid"`
-	Unread      int       `json:"unread" gorm:"unread"`
-	LastMessage string    `json:"last_message" gorm:"last_message"`
-	LastAt      time.Time `json:"last_at" gorm:"last_at"`
+	Uid         uint      `json:"uid" gorm:"column:uid"`
+	Tid         uint      `json:"tid"  gorm:"column:tid"`
+	Unread      int       `json:"unread" gorm:"column:unread"`
+	LastMessage string    `json:"last_message" gorm:"column:last_message"`
+	LastAt      time.Time `json:"last_at" gorm:"column:last_at"`
 
 	ToUserInfo users.User `json:"toUserInfo"  gorm:"foreignKey:tid"`
 }

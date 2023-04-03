@@ -4,8 +4,8 @@ import "easy-video-net/models/common"
 
 type Likes struct {
 	common.PublicModel
-	Uid       uint `json:"uid" gorm:"uid"`
-	ArticleID uint `json:"article_id"  gorm:"article_id"`
+	Uid       uint `json:"uid" gorm:"column:uid"`
+	ArticleID uint `json:"article_id"  gorm:"column:article_id"`
 }
 
 type LikesList []Likes

@@ -21,7 +21,6 @@ func init() {
 func Start() error {
 	path := location.GetCurrentAbPath()
 	path = path + `\Config\live\`
-	global.Logger.Info(path)
 	cmd := exec.Command("cmd.exe", "/c", "start "+path+"live-go.exe")
 	//获取输出对象，可以从该对象中读取输出结果
 	if stdio, err := cmd.StdoutPipe(); err != nil {
@@ -44,7 +43,6 @@ func Start() error {
 			log.Fatal(err)
 			return err
 		} else {
-			//log.Println(string(opBytes))
 		}
 	}
 	return nil

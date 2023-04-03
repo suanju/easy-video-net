@@ -17,10 +17,14 @@ import (
 	"easy-video-net/models/users/favorites"
 	noticeModel "easy-video-net/models/users/notice"
 	"easy-video-net/models/users/record"
+	"easy-video-net/utils/calculate"
 	"easy-video-net/utils/conversion"
 	"encoding/json"
 	"fmt"
+	"math"
+	"os/exec"
 	"strconv"
+	"strings"
 )
 
 func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct, uid uint) (results interface{}, err error) {
@@ -33,25 +37,101 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 		Src: data.Cover,
 		Tp:  data.CoverUploadType,
 	})
-	videoContribution := video.VideosContribution{
-		Uid:           uid,
-		Title:         data.Title,
-		Video:         videoSrc,
-		Cover:         coverImg,
-		VideoDuration: data.VideoDuration,
-		Reprinted:     conversion.BoolTurnInt8(*data.Reprinted),
-		Timing:        conversion.BoolTurnInt8(*data.Timing),
-		TimingTime:    data.TimingTime,
-		Label:         conversion.MapConversionString(data.Label),
-		Introduce:     data.Introduce,
-		Heat:          0,
+	width, height, err := calculate.GetVideoResolution(data.Video)
+	if err != nil {
+		global.Logger.Error("获取视频分辨率失败")
+		return nil, fmt.Errorf("获取视频分辨率失败")
+		return
 	}
+	videoContribution := &video.VideosContribution{
+		Uid:        uid,
+		Title:      data.Title,
+		Cover:      coverImg,
+		Reprinted:  conversion.BoolTurnInt8(*data.Reprinted),
+		Timing:     conversion.BoolTurnInt8(*data.Timing),
+		TimingTime: data.TimingTime,
+		Label:      conversion.MapConversionString(data.Label),
+		Introduce:  data.Introduce,
+		Heat:       0,
+	}
+	if height >= 1080 {
+		videoContribution.Video = videoSrc
+	} else if height >= 720 && height < 1080 {
+		videoContribution.Video720p = videoSrc
+	} else if height >= 480 && height < 720 {
+		videoContribution.Video480p = videoSrc
+	} else if height >= 360 && height < 480 {
+		videoContribution.Video360p = videoSrc
+	} else {
+		global.Logger.Error("上传视频分辨率过低")
+		return nil, fmt.Errorf("上传视频分辨率过低")
+	}
+
 	if *data.Timing {
 		//发布视频后进行的推送相关（待开发）
 	}
 	if !videoContribution.Create() {
 		return nil, fmt.Errorf("保存失败")
 	}
+	//进行视频转码
+	go func(width, height int, video *video.VideosContribution) {
+		//上传视频为本地则开始转码
+		if data.VideoUploadType == "local" {
+			inputFile := data.Video
+			sr := strings.Split(inputFile, ".")
+			// 定义转码分辨率列表
+			resolutions := []int{1080, 720, 480, 360}
+			for _, r := range resolutions {
+				// 计算转码后的宽和高需要取整
+				w := int(math.Ceil(float64(r) / float64(height) * float64(width)))
+				h := int(math.Ceil(float64(r)))
+				if h >= height {
+					continue
+				}
+				dst := sr[0] + fmt.Sprintf("_output_%dp."+sr[1], r)
+				// TODO: 调用转码接口，将转码后的视频保存到指定目录
+				cmd := exec.Command("ffmpeg",
+					"-i",
+					inputFile,
+					"-vf",
+					fmt.Sprintf("scale=%d:%d", w, h),
+					"-c:a",
+					"copy",
+					"-c:v",
+					"libx264",
+					"-preset",
+					"medium",
+					"-crf",
+					"23",
+					"-y",
+					dst)
+				err = cmd.Run()
+				if err != nil {
+					global.Logger.Errorf("视频 :%s :转码%d*%d失败 cmd : %s ,err :%s", inputFile, w, h, cmd, err)
+					continue
+				}
+				src, _ := json.Marshal(common.Img{
+					Src: dst,
+					Tp:  "local",
+				})
+				//转码成功后
+				if r == 1080 {
+					videoContribution.Video = src
+				} else if r == 720 {
+					videoContribution.Video720p = src
+				} else if r == 480 {
+					videoContribution.Video480p = src
+				} else if r == 360 {
+					videoContribution.Video360p = src
+				}
+				if !videoContribution.Save() {
+					global.Logger.Errorf("视频 :%s : 转码%d*%d后视频保存到数据库失败", inputFile, w, h)
+				}
+				global.Logger.Infof("视频 :%s : 转码%d*%d成功", inputFile, w, h)
+			}
+		}
+	}(width, height, videoContribution)
+
 	return "保存成功", nil
 }
 
@@ -107,7 +187,7 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 			//最近无播放
 			global.RedisDb.SAdd(consts.VideoWatchByID+strconv.Itoa(int(data.VideoID)), uid)
 			if videoInfo.Watch(data.VideoID) != nil {
-				global.Logger.Error("添加播放量错误", videoInfo.Watch(data.VideoID))
+				global.Logger.Error("添加播放量错误视频video_id:", videoInfo.Watch(data.VideoID))
 			}
 		}
 		//获取是否关注

@@ -11,9 +11,9 @@ import (
 
 type Record struct {
 	common.PublicModel
-	Uid  uint   `json:"uid"`
-	Type string `json:"type" gorm:"type"`
-	ToId uint   `json:"to_id" gorm:"to_id"`
+	Uid  uint   `json:"column:uid"`
+	Type string `json:"type" gorm:"column:type"`
+	ToId uint   `json:"to_id" gorm:"column:to_id"`
 
 	VideoInfo   video.VideosContribution     `json:"videoInfo" gorm:"foreignKey:to_id"`
 	Userinfo    users.User                   `json:"users.User"  gorm:"foreignKey:uid"`

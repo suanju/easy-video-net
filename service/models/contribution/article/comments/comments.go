@@ -11,12 +11,12 @@ import (
 
 type Comment struct {
 	common.PublicModel
-	Uid            uint   `json:"uid" gorm:"uid"`
-	ArticleID      uint   `json:"article_id" gorm:"article_id"`
-	Context        string `json:"context" gorm:"context"`
-	CommentID      uint   `json:"comment_id" gorm:"comment_id"`
-	CommentUserID  uint   `json:"comment_user_id" gorm:"comment_user_id"`
-	CommentFirstID uint   `json:"comment_first_id" gorm:"comment_first_id"`
+	Uid            uint   `json:"uid" gorm:"column:uid"`
+	ArticleID      uint   `json:"article_id" gorm:"column:article_id"`
+	Context        string `json:"context" gorm:"column:context"`
+	CommentID      uint   `json:"comment_id" gorm:"column:comment_id"`
+	CommentUserID  uint   `json:"comment_user_id" gorm:"column:comment_user_id"`
+	CommentFirstID uint   `json:"comment_first_id" gorm:"column:comment_first_id"`
 
 	UserInfo    users.User `json:"user_info" gorm:"foreignKey:Uid"`
 	ArticleInfo Article    `json:"article_info" gorm:"foreignKey:ArticleID"`

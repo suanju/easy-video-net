@@ -8,8 +8,8 @@ import (
 
 type LiveInfo struct {
 	common.PublicModel
-	Uid   uint           `json:"uid" gorm:"uid"`
-	Title string         `json:"title" gorm:"title"`
+	Uid   uint           `json:"uid" gorm:"column:uid"`
+	Title string         `json:"title" gorm:"column:title"`
 	Img   datatypes.JSON `json:"img" gorm:"type:json;comment:img"`
 }
 

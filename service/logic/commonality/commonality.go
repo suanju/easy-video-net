@@ -11,6 +11,7 @@ import (
 	"easy-video-net/utils/conversion"
 	"easy-video-net/utils/location"
 	"easy-video-net/utils/oss"
+	"easy-video-net/utils/validator"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
@@ -57,12 +58,10 @@ func Upload(file *multipart.FileHeader, ctx *gin.Context) (results interface{}, 
 	if len(method.Path) == 0 {
 		return nil, fmt.Errorf("请联系管理员设置接口保存路径")
 	}
-	//取出文件
-	index := strings.LastIndex(file.Filename, ".")
-	suffix := file.Filename[index:]
-	switch suffix {
-	case ".jpg", ".jpeg", ".png", ".ico", ".gif", ".wbmp", ".bmp", ".svg", ".webp", ".mp4":
-	default:
+	index := strings.LastIndex(fileName, ".")
+	suffix := fileName[index:]
+	err = validator.CheckVideoSuffix(suffix)
+	if err != nil {
 		return nil, fmt.Errorf("非法后缀！")
 	}
 	if !location.IsDir(method.Path) {
@@ -126,7 +125,7 @@ func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err erro
 	path := method.Path + "/" + data.FileMd5
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		//文件已存在
-		global.Logger.Info("上传文件 %s 已存在", data.FileMd5)
+		global.Logger.Infof("上传文件 %s 已存在", data.FileMd5)
 		return response.UploadCheckResponse(true, list, path)
 	}
 	//取出未上传的分片
@@ -163,7 +162,7 @@ func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err erro
 		}
 	}
 	if len(list) > 0 {
-		global.Logger.Warn("上传文件 %s 分片未全部上传", data.FileName)
+		global.Logger.Warnf("上传文件 %s 分片未全部上传", data.FileName)
 		return nil, fmt.Errorf("分片未全部上传")
 	}
 	//进行合并操作
@@ -218,7 +217,7 @@ func UploadingMethod(data *receive.UploadingMethodStruct) (results interface{}, 
 func UploadingDir(data *receive.UploadingDirStruct) (results interface{}, err error) {
 	method := new(upload.Upload)
 	if method.IsExistByField("interface", data.Interface) {
-		return response.UploadingDirResponse(method.Path), nil
+		return response.UploadingDirResponse(method.Path, method.Quality), nil
 	} else {
 		return nil, fmt.Errorf("未配置上传方法")
 	}

@@ -12,10 +12,10 @@ import (
 
 type Msg struct {
 	common.PublicModel
-	Uid     uint   `json:"uid" gorm:"uid"`
-	Tid     uint   `json:"tid"  gorm:"tid"`
-	Type    string `json:"type" gorm:"type"`
-	Message string `json:"message" gorm:"message"`
+	Uid     uint   `json:"uid" gorm:"column:uid"`
+	Tid     uint   `json:"tid"  gorm:"column:tid"`
+	Type    string `json:"type" gorm:"column:type"`
+	Message string `json:"message" gorm:"column:message"`
 
 	UInfo users.User `json:"UInfo"  gorm:"foreignKey:uid"`
 	TInfo users.User `json:"TInfo"  gorm:"foreignKey:tid"`

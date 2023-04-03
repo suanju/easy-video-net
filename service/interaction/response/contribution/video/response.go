@@ -16,6 +16,9 @@ type Info struct {
 	Uid            uint             `json:"uid" `
 	Title          string           `json:"title" `
 	Video          string           `json:"video"`
+	Video720p      string           `json:"video_720p"`
+	Video480p      string           `json:"video_480p"`
+	Video360p      string           `json:"video_360p"`
 	Cover          string           `json:"cover" `
 	VideoDuration  int64            `json:"video_duration"`
 	Label          []string         `json:"label"`
@@ -66,7 +69,9 @@ func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVid
 	creatorAvatar, _ := conversion.FormattingJsonSrc(vc.UserInfo.Photo)
 	cover, _ := conversion.FormattingJsonSrc(vc.Cover)
 	videoSrc, _ := conversion.FormattingJsonSrc(vc.Video)
-
+	video720pSrc, _ := conversion.FormattingJsonSrc(vc.Video720p)
+	video480pSrc, _ := conversion.FormattingJsonSrc(vc.Video480p)
+	video360pSrc, _ := conversion.FormattingJsonSrc(vc.Video360p)
 	//评论
 	comments := commentsInfoList{}
 	for _, v := range vc.Comments {
@@ -95,6 +100,9 @@ func GetVideoContributionByIDResponse(vc *video.VideosContribution, recommendVid
 			Uid:            vc.Uid,
 			Title:          vc.Title,
 			Video:          videoSrc,
+			Video720p:      video720pSrc,
+			Video480p:      video480pSrc,
+			Video360p:      video360pSrc,
 			Cover:          cover,
 			VideoDuration:  vc.VideoDuration,
 			Label:          conversion.StringConversionMap(vc.Label),

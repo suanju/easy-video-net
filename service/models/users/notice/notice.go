@@ -10,12 +10,12 @@ import (
 
 type Notice struct {
 	common.PublicModel
-	Uid     uint   `json:"uid" gorm:"uid"`
-	Cid     uint   `json:"cid" gorm:"cid"`
-	Type    string `json:"type" gorm:"type"`
-	ToID    uint   `json:"to_id" gorm:"to_id"`
-	ISRead  uint   `json:"is_read" gorm:"is_read"`
-	Content string `json:"content" gorm:"content"`
+	Uid     uint   `json:"uid" gorm:"column:uid"`
+	Cid     uint   `json:"cid" gorm:"column:cid"`
+	Type    string `json:"type" gorm:"column:type"`
+	ToID    uint   `json:"to_id" gorm:"column:to_id"`
+	ISRead  uint   `json:"is_read" gorm:"column:is_read"`
+	Content string `json:"content" gorm:"column:content"`
 
 	VideoInfo   VideoInfo  `json:"videoInfo" gorm:"foreignKey:to_id"`
 	UserInfo    users.User `json:"userinfo"  gorm:"foreignKey:cid"`

@@ -87,7 +87,7 @@ func sendChatMsgText(ler *UserChannel, uid uint, tid uint, info *receive.Receive
 		cl := new(chatList.ChatsListInfo)
 		err := cl.UnreadAutocorrection(tid, uid)
 		if err != nil {
-			global.Logger.Error("uid %d tid %d 消息记录自增未读消息数量失败", tid, uid)
+			global.Logger.Errorf("uid %d tid %d 消息记录自增未读消息数量失败", tid, uid)
 		}
 	}
 }

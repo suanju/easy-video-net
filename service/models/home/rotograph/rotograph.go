@@ -8,11 +8,11 @@ import (
 
 type Rotograph struct {
 	common.PublicModel
-	Title string         `json:"title" gorm:"title"`
-	Cover datatypes.JSON `json:"cover" gorm:"cover"`
-	Color string         `json:"color" gorm:"color" `
-	Type  string         `json:"type" gorm:"type"`
-	ToId  uint           `json:"to_id" gorm:"to_id"`
+	Title string         `json:"title" gorm:"column:title"`
+	Cover datatypes.JSON `json:"cover" gorm:"column:cover"`
+	Color string         `json:"color" gorm:"column:color" `
+	Type  string         `json:"type" gorm:"column:type"`
+	ToId  uint           `json:"to_id" gorm:"column:to_id"`
 }
 
 type List []Rotograph

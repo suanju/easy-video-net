@@ -14,17 +14,20 @@ import (
 
 type VideosContribution struct {
 	common.PublicModel
-	Uid           uint           `json:"uid" gorm:"uid"`
-	Title         string         `json:"title" gorm:"title"`
-	Video         datatypes.JSON `json:"video" gorm:"video"`
-	Cover         datatypes.JSON `json:"cover" gorm:"cover"`
-	VideoDuration int64          `json:"video_duration" gorm:"video_duration"`
-	Reprinted     int8           `json:"reprinted" gorm:"reprinted"`
-	Timing        int8           `json:"timing" gorm:"timing"`
-	TimingTime    time.Time      `json:"timingTime"  gorm:"timing_Time"`
-	Label         string         `json:"label" gorm:"label"`
-	Introduce     string         `json:"introduce" gorm:"introduce"`
-	Heat          int            `json:"heat" gorm:"heat"`
+	Uid           uint           `json:"uid" gorm:"column:uid"`
+	Title         string         `json:"title" gorm:"column:title"`
+	Video         datatypes.JSON `json:"video" gorm:"column:video"` //默认1080p
+	Video720p     datatypes.JSON `json:"video_720p" gorm:"column:video_720p"`
+	Video480p     datatypes.JSON `json:"video_480p" gorm:"column:video_480p"`
+	Video360p     datatypes.JSON `json:"video_360p" gorm:"column:video_360p"`
+	Cover         datatypes.JSON `json:"cover" gorm:"column:cover"`
+	VideoDuration int64          `json:"video_duration" gorm:"column:video_duration"`
+	Reprinted     int8           `json:"reprinted" gorm:"column:reprinted"`
+	Timing        int8           `json:"timing" gorm:"column:timing"`
+	TimingTime    time.Time      `json:"timingTime"  gorm:"column:timing_Time"`
+	Label         string         `json:"label" gorm:"column:label"`
+	Introduce     string         `json:"introduce" gorm:"column:introduce"`
+	Heat          int            `json:"heat" gorm:"column:heat"`
 
 	UserInfo users.User           `json:"user_info" gorm:"foreignKey:Uid"`
 	Likes    like.LikesList       `json:"likes" gorm:"foreignKey:VideoID" `
@@ -64,6 +67,14 @@ func (vc *VideosContribution) Delete(id uint, uid uint) bool {
 //Update 更新数据
 func (vc *VideosContribution) Update(info map[string]interface{}) bool {
 	err := global.Db.Model(vc).Updates(info).Error
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+func (vc *VideosContribution) Save() bool {
+	err := global.Db.Save(vc).Error
 	if err != nil {
 		return false
 	}

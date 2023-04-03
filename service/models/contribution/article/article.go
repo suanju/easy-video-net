@@ -15,17 +15,17 @@ import (
 
 type ArticlesContribution struct {
 	common.PublicModel
-	Uid                uint           `json:"uid" gorm:"uid"`
-	ClassificationID   uint           `json:"classification_id"  gorm:"classification_id"`
-	Title              string         `json:"title" gorm:"title"`
-	Cover              datatypes.JSON `json:"cover" gorm:"cover"`
-	Timing             int8           `json:"timing" gorm:"timing"`
-	TimingTime         time.Time      `json:"timingTime"  gorm:"timing_Time"`
-	Label              string         `json:"label" gorm:"label"`
-	Content            string         `json:"content" gorm:"content"`
-	ContentStorageType string         `json:"content_Storage_Type" gorm:"content_storage_type"`
-	IsComments         int8           `json:"is_comments" gorm:"is_comments"`
-	Heat               int            `json:"heat" gorm:"heat"`
+	Uid                uint           `json:"uid" gorm:"column:uid"`
+	ClassificationID   uint           `json:"classification_id"  gorm:"column:classification_id"`
+	Title              string         `json:"title" gorm:"column:title"`
+	Cover              datatypes.JSON `json:"cover" gorm:"column:cover"`
+	Timing             int8           `json:"timing" gorm:"column:timing"`
+	TimingTime         time.Time      `json:"timingTime"  gorm:"column:timing_Time"`
+	Label              string         `json:"label" gorm:"column:label"`
+	Content            string         `json:"content" gorm:"column:content"`
+	ContentStorageType string         `json:"content_Storage_Type" gorm:"column:content_storage_type"`
+	IsComments         int8           `json:"is_comments" gorm:"column:is_comments"`
+	Heat               int            `json:"heat" gorm:"column:heat"`
 
 	//光联表
 

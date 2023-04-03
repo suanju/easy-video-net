@@ -9,13 +9,13 @@ import (
 
 type Barrage struct {
 	common.PublicModel
-	Uid     uint    `json:"uid" gorm:"uid"`
-	VideoID uint    `json:"video_id" gorm:"video_id"`
-	Time    float64 `json:"time" gorm:"time"`
-	Author  string  `json:"author" gorm:"author"`
-	Type    uint    `json:"type" gorm:"type"`
-	Text    string  `json:"text" gorm:"text"`
-	Color   uint    `json:"color" gorm:"color"`
+	Uid     uint    `json:"uid" gorm:"column:uid"`
+	VideoID uint    `json:"video_id" gorm:"column:video_id"`
+	Time    float64 `json:"time" gorm:"column:time"`
+	Author  string  `json:"author" gorm:"column:author"`
+	Type    uint    `json:"type" gorm:"column:type"`
+	Text    string  `json:"text" gorm:"column:text"`
+	Color   uint    `json:"color" gorm:"column:color"`
 
 	UserInfo  users.User `json:"user_info" gorm:"foreignKey:Uid"`
 	VideoInfo VideoInfo  `json:"video_info" gorm:"foreignKey:VideoID"`

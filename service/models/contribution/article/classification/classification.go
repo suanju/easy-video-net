@@ -7,8 +7,8 @@ import (
 
 type Classification struct {
 	common.PublicModel
-	AID   uint   `json:"a_id" gorm:"a_id"`
-	Label string `json:"label" gorm:"label"`
+	AID   uint   `json:"a_id" gorm:"column:a_id"`
+	Label string `json:"label" gorm:"column:label"`
 }
 
 type ClassificationsList []Classification

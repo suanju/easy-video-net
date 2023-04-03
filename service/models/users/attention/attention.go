@@ -8,8 +8,8 @@ import (
 
 type Attention struct {
 	common.PublicModel
-	Uid         uint `json:"uid" gorm:"uid"`
-	AttentionID uint `json:"attention_id" gorm:"attention_id"`
+	Uid         uint `json:"uid" gorm:"column:uid"`
+	AttentionID uint `json:"attention_id" gorm:"column:attention_id"`
 
 	UserInfo          users.User `json:"user_info" gorm:"foreignKey:Uid"`
 	AttentionUserInfo users.User `json:"attention_user_info" gorm:"foreignKey:AttentionID"`

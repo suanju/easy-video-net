@@ -20,12 +20,14 @@ func UploadingMethodResponse(tp string) interface{} {
 	}
 }
 
-func UploadingDirResponse(dir string) interface{} {
+func UploadingDirResponse(dir string, quality float64) interface{} {
 	type UploadingDirResponseStruct struct {
-		Path string `json:"path"`
+		Path    string  `json:"path"`
+		Quality float64 `json:"quality"`
 	}
 	return UploadingDirResponseStruct{
-		Path: dir,
+		Path:    dir,
+		Quality: quality,
 	}
 }
 
