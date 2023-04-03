@@ -1,61 +1,106 @@
 package logrus
 
 import (
-	"fmt"
+	"encoding/json"
 	rotateLogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 	"os"
-	"path"
+	"syscall"
 	"time"
 )
 
-func init() {
+type JsonInfo struct {
+	Time     string `json:"time"`
+	Level    string `json:"level"`
+	Msg      string `json:"msg"`
+	File     string `json:"file,omitempty"`
+	Function string `json:"function,omitempty"`
+}
 
+//JsonFormatter 自定义json 解析
+type JsonFormatter struct {
+	logrus.JSONFormatter
+}
+
+func (f *JsonFormatter) Format(entry *logrus.Entry) ([]byte, error) {
+	// 构造 JSON 数据
+	info := &JsonInfo{
+		Time:  entry.Time.Format("2006.01.02 15:04:05"),
+		Level: entry.Level.String(),
+		Msg:   entry.Message,
+	}
+	//只有等级匹配进行打印调用者信息
+	if entry.Level == logrus.ErrorLevel || entry.Level == logrus.WarnLevel || entry.Level == logrus.DebugLevel || entry.Level == logrus.PanicLevel {
+		info.File = entry.Caller.File
+		info.Function = entry.Caller.Function
+	}
+	lineBreak := "\n"
+	jsonData, err := json.Marshal(info)
+	if err != nil {
+		return nil, err
+	}
+	formattedMsg := string(jsonData) + lineBreak
+	return []byte(formattedMsg), nil
 }
 
 var (
 	logFilePath = "./runtime/log" //文件存储路径
-	logFileName = "system.log"
 )
 
 func ReturnsInstance() *logrus.Logger {
 	Logger := logrus.New()
-	// 日志文件
-	fileName := path.Join(logFilePath, logFileName)
-	// 写入文件
-	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
-	if err != nil {
-		fmt.Println("打开/写入文件失败", err)
-	}
 	// 日志级别
 	Logger.SetLevel(logrus.DebugLevel)
-	// 设置输出
-	Logger.Out = file
+	//打印调用者信息
+	Logger.SetReportCaller(true)
+	//定义到空输出
+	Logger.SetOutput(os.NewFile(uintptr(syscall.Stdin), "/dev/null"))
+
 	// 设置 rotate logs,实现文件分割
-	logWriter, err := rotateLogs.New(
-		// 分割后的文件名称
-		fileName+".%Y%m%d.log",
-		// 生成软链，指向最新日志文件
-		rotateLogs.WithLinkName(fileName),
-		// 设置最大保存时间(7天)
-		rotateLogs.WithMaxAge(7*24*time.Hour), //以hour为单位的整数
-		// 设置日志切割时间间隔(1天)
+	logInfoWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/info.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
 		rotateLogs.WithRotationTime(1*time.Hour),
 	)
+	logFataWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/fata.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
+		rotateLogs.WithRotationTime(1*time.Hour),
+	)
+	logDebugWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/debug.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
+		rotateLogs.WithRotationTime(1*time.Hour),
+	)
+	logWarnWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/warn.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
+		rotateLogs.WithRotationTime(1*time.Hour),
+	)
+	logErrorWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/error.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
+		rotateLogs.WithRotationTime(1*time.Hour),
+	)
+	logPanicWriter, _ := rotateLogs.New(
+		logFilePath+"/%Y-%m-%d/panic.log",
+		rotateLogs.WithMaxAge(7*24*time.Hour),
+		rotateLogs.WithRotationTime(1*time.Hour),
+	)
+
 	// hook机制的设置
 	writerMap := lfshook.WriterMap{
-		logrus.InfoLevel:  logWriter,
-		logrus.FatalLevel: logWriter,
-		logrus.DebugLevel: logWriter,
-		logrus.WarnLevel:  logWriter,
-		logrus.ErrorLevel: logWriter,
-		logrus.PanicLevel: logWriter,
+		logrus.InfoLevel:  logInfoWriter,
+		logrus.FatalLevel: logFataWriter,
+		logrus.DebugLevel: logDebugWriter,
+		logrus.WarnLevel:  logWarnWriter,
+		logrus.ErrorLevel: logErrorWriter,
+		logrus.PanicLevel: logPanicWriter,
 	}
+	Logger.Formatter = &JsonFormatter{}
 	//给loggers添加hook
-	Logger.AddHook(lfshook.NewHook(writerMap, &logrus.JSONFormatter{
-		TimestampFormat: "2006-01-02 15:04:05",
-	}))
+	Logger.AddHook(lfshook.NewHook(writerMap, &JsonFormatter{}))
 
 	return Logger
 }
