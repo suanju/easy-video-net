@@ -14,6 +14,7 @@
     "ali-oss": "^6.17.1",
     "animate.css": "^4.1.1",
     "axios": "^1.1.3",
+    "compressorjs": "^1.2.1",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
     "default-passive-events": "^2.0.0",
