@@ -325,9 +325,11 @@ const favoriteVideoShowClose = (done: () => void) => {
 
 
 const watchPath = watch(() => route.path, async () => {
-    if (route.path != '/videoShow/video') {
+    console.log(route.path)
+    if (!route.path.includes('/videoShow/video')) {
         return false
     }
+    console.log(videoID)
     dp.value = await useInit(videoRef, route, router, videoID, videoInfo) as DPlayer
     if (userStore.userInfoData.token) {
         let socketLer = useWebSocket(userStore, videoInfo, router, liveNumber)
@@ -338,6 +340,7 @@ const watchPath = watch(() => route.path, async () => {
 
 const watchDanmaku = watch(videoBarrage, (newVal, oldVal) => {
     if (videoBarrage.value) {
+        
         dp.value.danmaku.show()
     } else {
         dp.value.danmaku.hide()
