@@ -1,6 +1,5 @@
-import { getuploadingDir, gteossSTS } from "@/apis/commonality"
+import { gteossSTS } from "@/apis/commonality"
 import { useGlobalStore } from "@/store/main"
-import { GetuploadingDirReq } from "@/types/commonality/commonality"
 import { FileUpload, OssSTSInfo } from "@/types/idnex"
 import OSS from 'ali-oss'
 import { fileHash, fileSuffix } from "./fileManipulation"
@@ -54,15 +53,11 @@ export const initOssSTS = async (_interface: string): Promise<OssSTSInfo> => {
  * @param file File对象
  * @returns {Promise<{name:string,host:string}>}
  */
-export const ossUpload = (file: File, uploadConfig: FileUpload, fragment: boolean): Promise<{ path: string }> => {
+export const ossUpload = (file: File, uploadConfig: FileUpload, dir: string, fragment: boolean): Promise<{ path: string }> => {
     return new Promise((resolve, reject) => {
         initOssSTS(uploadConfig.interface)
             .then(async (ossSts) => {
-                //获取保存路径
-                const response = await getuploadingDir(<GetuploadingDirReq>{
-                    interface: uploadConfig.interface
-                })
-                let dir = response.data?.path
+                //得到名称及其初始化
                 const name = await fileHash(file) + fileSuffix(file.name)
                 const key = `${dir}${name}`
                 // 初始化阿里云oss客户端
@@ -73,7 +68,7 @@ export const ossUpload = (file: File, uploadConfig: FileUpload, fragment: boolea
                     stsToken: ossSts.stsToken,
                     bucket: ossSts.bucket,
                 });
-                console.log(fragment)
+
                 if (!fragment) {
                     console.log("普通上传")
                     //为了能够显示进度条的取舍也进行了分片上传
@@ -122,7 +117,6 @@ export const ossUpload = (file: File, uploadConfig: FileUpload, fragment: boolea
                         partSize: 1 * 1024 * 1024,
                         mime: "text/plain",
                     };
-
                     try {
                         const res = await client.multipartUpload(`${dir}${name}`, file, {
                             ...options,

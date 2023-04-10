@@ -1,6 +1,6 @@
-import { lib, SHA256 } from 'crypto-js'
-import fileToArrayBuffer from 'file-to-array-buffer'
-
+import Compressor from "compressorjs";
+import { lib, SHA256 } from 'crypto-js';
+import fileToArrayBuffer from 'file-to-array-buffer';
 // 获取文件后缀
 export const fileSuffix = (filename: string) => {
     const pos = filename.lastIndexOf('.')
@@ -24,4 +24,24 @@ export const arrayBufferToWordArray = (ab: any) => {
 export const fileHash = async (file: Blob): Promise<String> => {
     const buffer = await fileToArrayBuffer(file)
     return SHA256(arrayBufferToWordArray(buffer)).toString()
+}
+
+
+export const compressFile = async (file: File, quality: number) => {
+    return new Promise((resolve, reject) => {
+        new Compressor(file, {
+            quality: quality,
+            success(result) {
+                resolve(result);
+            },
+            error(err) {
+                reject(err);
+            },
+        });
+    });
+}
+
+export const isImageFile = (file: File): boolean => {
+    const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+    return file && acceptedImageTypes.includes(file.type);
 }
