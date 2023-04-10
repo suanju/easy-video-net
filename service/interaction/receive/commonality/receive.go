@@ -36,3 +36,8 @@ type UploadMergeStruct struct {
 	Interface string          `json:"interface" binding:"required"`
 	SliceList UploadSliceList `json:"slice_list"  binding:"required"`
 }
+
+type RegisterMediaStruct struct {
+	Type string `json:"type"`
+	Path string `json:"path"`
+}
