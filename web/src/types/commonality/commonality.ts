@@ -14,6 +14,7 @@ export interface GetuploadingDirReq {
 }
 export interface GetuploadingDirRes {
     path: string
+    quality: number
 }
 
 export interface GetOssConfigdRrq {
@@ -93,3 +94,9 @@ export interface UploadMergeReq {
 }
 
 export type UploadMergeRes = string
+
+export interface RegisterMediaReq {
+    type: string
+    path: string
+}
+export type RegisterMediaRes = string

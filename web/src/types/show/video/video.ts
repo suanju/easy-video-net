@@ -28,6 +28,9 @@ export interface VInfo {
     uid: number
     title: string
     video: string
+    video_720p: string
+    video_480p: string
+    video_360p: string
     cover: string
     video_duration: number
     label: Array<string>
