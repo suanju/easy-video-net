@@ -54,16 +54,20 @@ type ProjectConfigStruct struct {
 }
 
 type AliyunOss struct {
-	Region          string `ini:"region"`
-	Bucket          string `ini:"bucket"`
-	AccessKeyId     string `ini:"accessKeyId"`
-	AccessKeySecret string `ini:"accessKeySecret"`
-	Host            string `ini:"host"`
-	CallbackUrl     string `ini:"callbackUrl"`
-	Endpoint        string `ini:"endpoint"`
-	RoleArn         string `ini:"roleArn"`
-	RoleSessionName string `ini:"roleSessionName"`
-	DurationSeconds int    `ini:"durationSeconds"`
+	Region                   string `ini:"region"`
+	Bucket                   string `ini:"bucket"`
+	AccessKeyId              string `ini:"accessKeyId"`
+	AccessKeySecret          string `ini:"accessKeySecret"`
+	Host                     string `ini:"host"`
+	CallbackUrl              string `ini:"callbackUrl"`
+	Endpoint                 string `ini:"endpoint"`
+	RoleArn                  string `ini:"roleArn"`
+	RoleSessionName          string `ini:"roleSessionName"`
+	DurationSeconds          int    `ini:"durationSeconds"`
+	TranscodingTemplate360p  string `ini:"transcodingTemplate360p"`
+	TranscodingTemplate480p  string `ini:"transcodingTemplate480p"`
+	TranscodingTemplate720p  string `ini:"transcodingTemplate720p"`
+	TranscodingTemplate1080p string `ini:"transcodingTemplate1080p"`
 }
 
 func ReturnsInstance() *Info {
