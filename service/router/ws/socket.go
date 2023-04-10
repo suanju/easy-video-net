@@ -8,10 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Router struct {
-}
-
-func (r *Router) InitSocketRouter(Router *gin.RouterGroup) {
+func (r *RouterGroup) InitSocketRouter(Router *gin.RouterGroup) {
 	socketRouter := Router.Group("ws").Use(middlewares.VerificationTokenAsSocket())
 	{
 		userControllers := new(users.UserControllers)

@@ -2,6 +2,7 @@ package router
 
 import (
 	"easy-video-net/middlewares"
+	"easy-video-net/router/callback"
 	"easy-video-net/router/commonality"
 	"easy-video-net/router/contribution"
 	"easy-video-net/router/home"
@@ -17,7 +18,8 @@ type RoutersGroup struct {
 	Home         home.RouterGroup
 	Commonality  commonality.RouterGroup
 	Contribution contribution.RouterGroup
-	Ws           ws.Router
+	Ws           ws.RouterGroup
+	Callback     callback.RouterGroup
 }
 
 var RoutersGroupApp = new(RoutersGroup)
@@ -40,6 +42,7 @@ func InitRouter() {
 		RoutersGroupApp.Contribution.VideoRouter.InitVideoRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.ArticleRouter.InitArticleRouter(PrivateGroup)
 		RoutersGroupApp.Contribution.DiscussRouter.InitDiscussRouter(PrivateGroup)
+		RoutersGroupApp.Callback.InitRouter(PrivateGroup)
 	}
 
 	err := router.Run()

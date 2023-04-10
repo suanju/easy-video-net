@@ -19,6 +19,7 @@ func (r *RouterGroup) InitRouter(Router *gin.RouterGroup) {
 		routers.POST("/uploadingMethod", commonalityControllers.UploadingMethod)
 		routers.POST("/uploadingDir", commonalityControllers.UploadingDir)
 		routers.POST("/getFullPathOfImage", commonalityControllers.GetFullPathOfImage)
+		routers.POST("/registerMedia", commonalityControllers.RegisterMedia)
 
 	}
 	//非必须登入
