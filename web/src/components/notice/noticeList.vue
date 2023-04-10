@@ -153,10 +153,10 @@ const switchMessageType = (type: string) => {
 const jump = (type: string, id: number) => {
   switch (type) {
     case "videoComment":
-      router.push({ name: "VideoShow", query: { videoID: id } })
+      router.push({ name: "VideoShow", params: { id } })
       break
     case "videoLike":
-      router.push({ name: "VideoShow", query: { videoID: id } })
+      router.push({ name: "VideoShow", params: { id } })
       break
     case "articleComment":
       router.push({ name: "ArticleShow", query: { articleID: id } })

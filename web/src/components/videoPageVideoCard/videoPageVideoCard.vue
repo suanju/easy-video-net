@@ -1,6 +1,6 @@
 <template>
     <div class="video-card" @click="jump()">
-        <div class="card-left" >
+        <div class="card-left">
             <div class="item-image" :style="{ backgroundImage: `url(${props.cover})` }"></div>
             <div class="classification">
                 <div class="classification-right">
@@ -11,27 +11,28 @@
             </div>
         </div>
         <div class="card-right">
-            <div class="video-title"><VueEllipsis3 :text="props.title" :visibleLine="2" /></div>
+            <div class="video-title">
+                <VueEllipsis3 :text="props.title" :visibleLine="2" />
+            </div>
             <div class="video-information-top">
                 <SvgIcon name="up" class="icon" color="#999"></SvgIcon>
-                <span class="video-information-username">{{ props.username }} </span> 
+                <span class="video-information-username">{{ props.username }} </span>
             </div>
             <div class="video-information-bottom">
                 <SvgIcon name="video" class="icon" color="#999"></SvgIcon>
-                <span class="video-information-plays-num">{{ props.heat }} </span> 
+                <span class="video-information-plays-num">{{ props.heat }} </span>
                 <SvgIcon name="barrageNumber" class="icon" color="#999"></SvgIcon>
-                <span class="video-information-username">{{ props.barrageNumber }} </span> 
+                <span class="video-information-username">{{ props.barrageNumber }} </span>
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
+import { formattingSecondTime } from "@/utils/conversion/timeConversion";
+import { defineProps, ref } from "vue";
 import { VueEllipsis3 } from 'vue-ellipsis-3';
-import { ref, defineProps } from "vue"
-import { formattingSecondTime } from "@/utils/conversion/timeConversion"
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 
 components: {
     VueEllipsis3
@@ -40,7 +41,7 @@ const props = defineProps({
     id: {
         type: Number,
         required: true,
-        default : 0
+        default: 0
     },
     video_duration: {
         type: Number,
@@ -77,7 +78,7 @@ const router = useRouter()
 const isMouseover = ref(false)
 
 const jump = () => {
-    router.push({ name: "VideoShow", query: { videoID: props.id } }) 
+    router.push({ name: "VideoShow", params: { id: props.id } })
 }
 
 </script>

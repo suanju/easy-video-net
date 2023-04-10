@@ -86,7 +86,7 @@ const router = useRouter()
 const isMouseover = ref(false)
 
 const jump = () => {
-    router.push({ name: "VideoShow", query: { videoID: props.id } })
+    router.push({ name: "VideoShow", params: { id: props.id } })
 }
 
 </script>

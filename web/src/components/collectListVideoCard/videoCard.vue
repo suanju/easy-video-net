@@ -1,8 +1,8 @@
 <template>
     <div :class="{ item: true }" @click="jump()">
-        <div :class="{ normal: true}" v-show="!isMouseover">
+        <div :class="{ normal: true }" v-show="!isMouseover">
             <div class="head">
-                <div class="item-image" :style="{backgroundImage : `url(${props.cover})` }"></div>
+                <div class="item-image" :style="{ backgroundImage: `url(${props.cover})` }"></div>
                 <div class="classification">
                     <div class="classification-left">
                     </div>
@@ -13,11 +13,14 @@
                 </div>
             </div>
             <div class="info">
-                <div class="video-title"><VueEllipsis3 :text="props.title" :visibleLine="2" /></div>
+                <div class="video-title">
+                    <VueEllipsis3 :text="props.title" :visibleLine="2" />
+                </div>
                 <div class="video-information">
-                    <span class="video-information-time">收藏时间  :</span>
+                    <span class="video-information-time">收藏时间 :</span>
                     <SvgIcon name="videoTime" class="icon" color="#999"></SvgIcon>
-                     <span class="video-information-time">  {{ dayjs(rFC3339ToTime(props.created_at)).format('YYYY-MM-DD')  }}</span>
+                    <span class="video-information-time"> {{ dayjs(rFC3339ToTime(props.created_at)).format('YYYY-MM-DD')
+                    }}</span>
                 </div>
             </div>
         </div>
@@ -26,11 +29,11 @@
 
 <script setup lang="ts">
 
-import { ref, defineProps } from "vue"
+import { formattingSecondTime, rFC3339ToTime } from "@/utils/conversion/timeConversion";
 import dayjs from "dayjs";
-import { formattingSecondTime, rFC3339ToTime } from "@/utils/conversion/timeConversion"
-import { useRouter } from "vue-router"
+import { defineProps, ref } from "vue";
 import { VueEllipsis3 } from 'vue-ellipsis-3';
+import { useRouter } from "vue-router";
 
 
 components: {
@@ -66,7 +69,7 @@ const router = useRouter()
 const isMouseover = ref(false)
 
 const jump = () => {
-    router.push({ name: "VideoShow", query: { videoID: props.id } })
+    router.push({ name: "VideoShow", params: { id: props.id } })
 }
 
 </script>

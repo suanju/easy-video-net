@@ -46,7 +46,7 @@
       </el-popover>
 
 
-      <div class="icon-item">
+      <div class="icon-item" @click="notOpen()">
         <SvgIcon name="dynamic" class="icon" :color="iconColor"></SvgIcon>
         <p :style="{ color: iconColor }">动态</p>
       </div>
@@ -121,6 +121,7 @@
 
 <script lang="ts" setup>
 import { getLiveRoom } from "@/apis/live";
+import globalScss from "@/assets/styles/global/export.module.scss";
 import MessageList from "@/components/messageList/messageList.vue";
 import NoticeList from "@/components/notice/noticeList.vue";
 import { useChatListStore } from "@/store/chat";
@@ -128,6 +129,7 @@ import { useUserStore } from "@/store/main";
 import { liveKeyDesensitization } from "@/utils/conversion/stringConversion";
 import { ArrowRight } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
+import Swal from "sweetalert2";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import useClipboard from "vue-clipboard3";
 import { useRouter } from "vue-router";
@@ -243,6 +245,17 @@ const loginOut = () => {
     name: "Login"
   })
 }
+
+
+const notOpen = () => {
+  Swal.fire({
+    title: "敬请期待",
+    heightAuto: false,
+    confirmButtonColor: globalScss.colorButtonTheme,
+    icon: "info",
+  })
+}
+
 
 onMounted(() => {
   //刷新时关闭
