@@ -79,3 +79,11 @@ func (c *Controllers) Search(ctx *gin.Context) {
 		c.Response(ctx, results, err)
 	}
 }
+
+//RegisterMedia 注册媒体资源
+func (c *Controllers) RegisterMedia(ctx *gin.Context) {
+	if rec, err := controllers.ShouldBind(ctx, new(receive.RegisterMediaStruct)); err == nil {
+		results, err := commonality.RegisterMedia(rec)
+		c.Response(ctx, results, err)
+	}
+}
