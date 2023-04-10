@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/alibabacloud-go/darabonba-openapi/v2 v2.0.2
+	github.com/alibabacloud-go/ice-20201109/v2 v2.0.6
 	github.com/alibabacloud-go/tea-utils/v2 v2.0.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.8.0
