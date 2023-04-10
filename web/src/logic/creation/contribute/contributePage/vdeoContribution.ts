@@ -1,17 +1,16 @@
-import { getuploadingMethod } from "@/apis/commonality";
+import { getuploadingMethod, registerMedia } from "@/apis/commonality";
 import { createVideoContribution, updateVideoContribution } from "@/apis/contribution";
 import globalScss from "@/assets/styles/global/export.module.scss";
 import { useEditVideoStore } from '@/store/creation';
 import { useUserStore } from "@/store/main";
-import { GetUploadingMethodReq, GetUploadingMethodRes } from "@/types/commonality/commonality";
+import { GetUploadingMethodReq, GetUploadingMethodRes, RegisterMediaReq } from "@/types/commonality/commonality";
 import { CreateVideoContributionReq, UpdateVideoContributionReq, uploadFileformation, vdeoContributionForm } from "@/types/creation/contribute/contributePage/vdeoContribution";
-import { timetoRFC3339 } from "@/utils/conversion/timeConversion";
 import { fileReader } from "@/utils/fun/fun";
 import { uploadFile } from '@/utils/upload/upload';
 import { validateVideoIntroduce, validateVideoTitle } from "@/utils/validate/validate";
 import { ElInput, FormInstance, UploadProps, UploadRawFile, UploadRequestOptions } from 'element-plus';
 import Swal from 'sweetalert2';
-import { nextTick, reactive, Ref, ref, UnwrapNestedRefs } from "vue";
+import { Ref, UnwrapNestedRefs, nextTick, reactive, ref } from "vue";
 import { Router, useRouter } from 'vue-router';
 
 export const useVdeoContributionProp = () => {
@@ -26,8 +25,6 @@ export const useVdeoContributionProp = () => {
         isShow: false,
         title: '',
         type: false,
-        timing: false,
-        date1time: '',
         labelInputVisible: false,
         labelText: "",
         label: [],
@@ -112,11 +109,17 @@ export const useHandleFileMethod = (uploadFileformation: uploadFileformation, fo
             const response = await uploadFile(uploadFileformation, params.file, fragment)
             console.log(response)
             uploadFileformation.uploadUrl = response.path
+            //进行媒体资源注册
+            let media = await registerMedia(<RegisterMediaReq>{
+                type: uploadFileformation.uploadType,
+                path: response.path
+            })
+            uploadFileformation.media = media.data
         } catch (err) {
             console.log(err)
             form.isShow = false
             Swal.fire({
-                title: "获取上传节点失败",
+                title: "上传视频失败",
                 heightAuto: false,
                 confirmButtonColor: globalScss.colorButtonTheme,
                 icon: "error",
@@ -206,7 +209,7 @@ export const useHandleCoverMethod = (uploadCoveration: uploadFileformation, form
         } catch (err) {
             console.log(err)
             Swal.fire({
-                title: "获取上传节点失败",
+                title: "上传视频封面失败",
                 heightAuto: false,
                 confirmButtonColor: globalScss.colorButtonTheme,
                 icon: "error",
@@ -256,11 +259,6 @@ export const useSaveData = async (form: vdeoContributionForm, uploadFileformatio
     await formEl.validate(async (valid, fields) => {
         if (valid) {
             try {
-                if (!form.date1time) {
-                    form.date1time = timetoRFC3339(new Date())
-                } else {
-                    form.date1time = timetoRFC3339(new Date(form.date1time))
-                }
                 if (!uploadCoveration.uploadUrl) throw "请先上传封面"
                 //判断操作类型
                 if (props.type == "edit") {
@@ -286,11 +284,10 @@ export const useSaveData = async (form: vdeoContributionForm, uploadFileformatio
                         coverUploadType: uploadCoveration.uploadType,
                         title: form.title,
                         reprinted: form.type,
-                        timing: form.timing,
-                        timingTime: form.date1time,
                         label: form.label,
                         introduce: form.introduce,
-                        videoDuration: form.videoDuration
+                        videoDuration: form.videoDuration,
+                        media: uploadFileformation.media
                     }
                     await createVideoContribution(createRequistData)
                 }

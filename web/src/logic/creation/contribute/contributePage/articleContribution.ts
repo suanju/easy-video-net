@@ -12,7 +12,7 @@ import { ElInput, FormInstance, UploadProps, UploadRawFile, UploadRequestOptions
 import hljs from 'highlight.js';
 import { QuillOptionsStatic } from 'quill';
 import Swal from 'sweetalert2';
-import { nextTick, reactive, Ref, ref, toRaw, UnwrapNestedRefs } from "vue";
+import { Ref, UnwrapNestedRefs, nextTick, reactive, ref, toRaw } from "vue";
 import { Router, useRouter } from 'vue-router';
 
 export const useArticleContributionProp = () => {
@@ -196,7 +196,7 @@ export const useHandleFileMethod = (uploadFileformation: uploadFileformation, fo
         } catch (err) {
             console.log(err)
             Swal.fire({
-                title: "获取上传节点失败",
+                title: "上传图片失败",
                 heightAuto: false,
                 confirmButtonColor: globalScss.colorButtonTheme,
                 icon: "error",
@@ -285,7 +285,7 @@ export const useHandleCoverMethod = (uploadCoveration: uploadFileformation) => {
         } catch (err) {
             console.log(err)
             Swal.fire({
-                title: "获取上传节点失败",
+                title: "上传封面失败",
                 heightAuto: false,
                 confirmButtonColor: globalScss.colorButtonTheme,
                 icon: "error",
