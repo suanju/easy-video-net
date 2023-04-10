@@ -7,7 +7,7 @@
     <div class="cover-picture">
     </div>
     <!-- 顶部通道 热门分类 -->
-    <homeHeaderChannel></homeHeaderChannel>
+    <homeHeaderChannel @click="notOpen()"></homeHeaderChannel>
     <!-- 主体 -->
     <div class="middle" :infinite-scroll-distance="770" v-infinite-scroll="scrollBottom" :record-empty="40"
       :infinite-scroll-delay="1000">
@@ -55,13 +55,14 @@
 
 <script setup lang="ts">
 import { getHomeInfo } from "@/apis/home";
+import globalScss from "@/assets/styles/global/export.module.scss";
 import homeHeaderChannel from "@/components/homeHeaderChannel/homeHeaderChannel.vue";
 import homeRotograph from "@/components/homeRotograph/homeRotograph.vue";
 import Card from "@/components/homeVideoList/card.vue";
 import topNavigation from "@/components/topNavigation/topNavigation.vue";
 import { GetHomeInfoReq, GetHomeInfoRes, VideoInfo } from "@/types/home/home";
-import { computed, onMounted, reactive, Ref, ref, UnwrapNestedRefs } from "vue";
-
+import Swal from "sweetalert2";
+import { Ref, UnwrapNestedRefs, computed, onMounted, reactive, ref } from "vue";
 components: {
   homeRotograph
   Card
@@ -135,6 +136,15 @@ const scrollBottom = () => {
   if (homeInfo.value.videoList.length <= 0) return false
   loadData(homeInfo, pageInfo)
 
+}
+
+const notOpen = () => {
+  Swal.fire({
+    title: "敬请期待",
+    heightAuto: false,
+    confirmButtonColor: globalScss.colorButtonTheme,
+    icon: "info",
+  })
 }
 
 onMounted(() => {
