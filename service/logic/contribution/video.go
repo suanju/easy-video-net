@@ -12,6 +12,7 @@ import (
 	"easy-video-net/models/contribution/video/barrage"
 	"easy-video-net/models/contribution/video/comments"
 	"easy-video-net/models/contribution/video/like"
+	transcodingTask "easy-video-net/models/sundry/transcoding"
 	"easy-video-net/models/users/attention"
 	"easy-video-net/models/users/collect"
 	"easy-video-net/models/users/favorites"
@@ -19,12 +20,14 @@ import (
 	"easy-video-net/models/users/record"
 	"easy-video-net/utils/calculate"
 	"easy-video-net/utils/conversion"
+	"easy-video-net/utils/oss"
 	"encoding/json"
 	"fmt"
 	"math"
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct, uid uint) (results interface{}, err error) {
@@ -37,50 +40,59 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 		Src: data.Cover,
 		Tp:  data.CoverUploadType,
 	})
-	width, height, err := calculate.GetVideoResolution(data.Video)
-	if err != nil {
-		global.Logger.Error("获取视频分辨率失败")
-		return nil, fmt.Errorf("获取视频分辨率失败")
-		return
+	var width, height int
+	if data.VideoUploadType == "local" {
+		//如果是本地上传
+		width, height, err = calculate.GetVideoResolution(data.Video)
+		if err != nil {
+			global.Logger.Error("获取视频分辨率失败")
+			return nil, fmt.Errorf("获取视频分辨率失败")
+		}
+	} else {
+		mediaInfo, err := oss.GetMediaInfo(data.Media)
+		if err != nil {
+			return nil, fmt.Errorf("获取视频信息失败,稍后再试")
+		}
+		width, _ = strconv.Atoi(*mediaInfo.Body.MediaInfo.FileInfoList[0].FileBasicInfo.Width)
+		height, _ = strconv.Atoi(*mediaInfo.Body.MediaInfo.FileInfoList[0].FileBasicInfo.Height)
 	}
 	videoContribution := &video.VideosContribution{
-		Uid:        uid,
-		Title:      data.Title,
-		Cover:      coverImg,
-		Reprinted:  conversion.BoolTurnInt8(*data.Reprinted),
-		Timing:     conversion.BoolTurnInt8(*data.Timing),
-		TimingTime: data.TimingTime,
-		Label:      conversion.MapConversionString(data.Label),
-		Introduce:  data.Introduce,
-		Heat:       0,
+		Uid:       uid,
+		Title:     data.Title,
+		Cover:     coverImg,
+		Reprinted: conversion.BoolTurnInt8(*data.Reprinted),
+		Label:     conversion.MapConversionString(data.Label),
+		Introduce: data.Introduce,
+		MediaID:   *data.Media,
+		Heat:      0,
 	}
+	// 定义转码分辨率列表
+	resolutions := []int{1080, 720, 480, 360}
 	if height >= 1080 {
+		resolutions = resolutions[1:]
 		videoContribution.Video = videoSrc
 	} else if height >= 720 && height < 1080 {
+		resolutions = resolutions[2:]
 		videoContribution.Video720p = videoSrc
 	} else if height >= 480 && height < 720 {
+		resolutions = resolutions[3:]
 		videoContribution.Video480p = videoSrc
 	} else if height >= 360 && height < 480 {
+		resolutions = resolutions[4:]
 		videoContribution.Video360p = videoSrc
 	} else {
 		global.Logger.Error("上传视频分辨率过低")
 		return nil, fmt.Errorf("上传视频分辨率过低")
-	}
-
-	if *data.Timing {
-		//发布视频后进行的推送相关（待开发）
 	}
 	if !videoContribution.Create() {
 		return nil, fmt.Errorf("保存失败")
 	}
 	//进行视频转码
 	go func(width, height int, video *video.VideosContribution) {
-		//上传视频为本地则开始转码
 		if data.VideoUploadType == "local" {
+			//本地ffmpeg 处理
 			inputFile := data.Video
 			sr := strings.Split(inputFile, ".")
-			// 定义转码分辨率列表
-			resolutions := []int{1080, 720, 480, 360}
 			for _, r := range resolutions {
 				// 计算转码后的宽和高需要取整
 				w := int(math.Ceil(float64(r) / float64(height) * float64(width)))
@@ -114,20 +126,65 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 					Src: dst,
 					Tp:  "local",
 				})
-				//转码成功后
-				if r == 1080 {
+				switch r {
+				case 1080:
 					videoContribution.Video = src
-				} else if r == 720 {
+				case 720:
 					videoContribution.Video720p = src
-				} else if r == 480 {
+				case 480:
 					videoContribution.Video480p = src
-				} else if r == 360 {
+				case 360:
 					videoContribution.Video360p = src
 				}
 				if !videoContribution.Save() {
 					global.Logger.Errorf("视频 :%s : 转码%d*%d后视频保存到数据库失败", inputFile, w, h)
 				}
 				global.Logger.Infof("视频 :%s : 转码%d*%d成功", inputFile, w, h)
+			}
+		} else {
+			inputFile := data.Video
+			sr := strings.Split(inputFile, ".")
+			//云转码处理
+			for _, r := range resolutions {
+				//获取转码模板
+				var template string
+				dst := sr[0] + fmt.Sprintf("_output_%dp."+sr[1], r)
+				src, _ := json.Marshal(common.Img{
+					Src: dst,
+					Tp:  data.VideoUploadType,
+				})
+				switch r {
+				case 1080:
+					template = global.Config.AliyunOss.TranscodingTemplate1080p
+					videoContribution.Video = src
+				case 720:
+					template = global.Config.AliyunOss.TranscodingTemplate720p
+					videoContribution.Video720p = src
+				case 480:
+					template = global.Config.AliyunOss.TranscodingTemplate480p
+					videoContribution.Video480p = src
+				case 360:
+					template = global.Config.AliyunOss.TranscodingTemplate360p
+					videoContribution.Video360p = src
+				}
+				outputUrl, _ := conversion.SwitchIngStorageFun(data.VideoUploadType, dst)
+				taskName := "转码 : " + *data.Media + "时间 :" + time.Now().Format("2006.01.02 15:04:05") + " template : " + template
+				jobInfo, err := oss.SubmitTranscodeJob(taskName, video.MediaID, outputUrl, template)
+				if err != nil {
+					global.Logger.Errorf("视频云转码 : %s 失败 err : %s", outputUrl, err.Error())
+					continue
+				}
+				task := &transcodingTask.TranscodingTask{
+					TaskID:     *jobInfo.TranscodeParentJob.ParentJobId,
+					VideoID:    video.ID,
+					Resolution: r,
+					Dst:        dst,
+					Status:     0,
+					Type:       transcodingTask.Aliyun,
+				}
+				if !task.AddTask() {
+					global.Logger.Errorf("视频云转码任务名: %s 后将视频任务 保存到数据库失败", taskName)
+				}
 			}
 		}
 	}(width, height, videoContribution)
