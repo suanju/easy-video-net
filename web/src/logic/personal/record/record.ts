@@ -1,11 +1,11 @@
-import { Router, useRouter } from 'vue-router';
-import Swal from 'sweetalert2';
-import globalScss from "@/assets/styles/global/export.module.scss"
-import { Ref, ref } from 'vue';
 import { deleteRecordByID, getRecordList } from '@/apis/personal';
-import { useRoute } from 'vue-router';
-import { DeleteRecordByIDReq, GetRecordListItem, GetRecordListReq, GetRecordListRes } from '@/types/personal/record/record'; import { useGlobalStore } from '@/store/main';
+import globalScss from "@/assets/styles/global/export.module.scss";
+import { useGlobalStore } from '@/store/main';
 import { PageInfo } from '@/types/idnex';
+import { DeleteRecordByIDReq, GetRecordListItem, GetRecordListReq, GetRecordListRes } from '@/types/personal/record/record';
+import Swal from 'sweetalert2';
+import { Ref, ref } from 'vue';
+import { Router, useRoute, useRouter } from 'vue-router';
 
 export const useRecordProp = () => {
     const loading = useGlobalStore().globalData.loading
@@ -13,8 +13,8 @@ export const useRecordProp = () => {
     const router = useRouter()
     const recordList = ref(<GetRecordListRes>[])
     const pageInfo = ref(<PageInfo>{
-            page: 1,
-            size: 8,
+        page: 1,
+        size: 8,
     })
     //是否首次加载
     const isLoading = ref(true)
@@ -36,7 +36,7 @@ export const useRecordProp = () => {
 
 export const useJump = (item: GetRecordListItem, router: Router) => {
     if (item.type == "视频") {
-        router.push({ name: "VideoShow", query: { videoID: item.to_id } })
+        router.push({ name: "VideoShow", params: { id: item.to_id } })
     } else if (item.type == "专栏") {
         router.push({ name: "ArticleShow", query: { articleID: item.to_id } })
     } else {
@@ -86,7 +86,7 @@ export const useLoadData = async (recordList: Ref<GetRecordListRes>, isLoading: 
             item.is_delete = false
             return item
         })
-        recordList.value = [...recordList.value,...data.data] 
+        recordList.value = [...recordList.value, ...data.data]
         console.log(recordList)
         isLoading.value = false
     } catch (err) {

@@ -3,7 +3,7 @@ export default [{
     name: "VideoShowPage",
     children: [
         {
-            path: "video",
+            path: "video/:id",
             name: "VideoShow",
             component: () => import('@/views/show/video/video.vue'),
         }

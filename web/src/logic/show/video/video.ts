@@ -2,9 +2,9 @@ import { danmakuApi, getVideoBarrageList, getVideoContributionByID, likeVideo, s
 import globalScss from "@/assets/styles/global/export.module.scss";
 import { useUserStore } from "@/store/main";
 import { GetVideoBarrageListReq, GetVideoContributionByIDReq, LikeVideoReq, SendVideoBarrageReq, VideoInfo } from "@/types/show/video/video";
-import DPlayer, { DPlayerDanmakuItem } from "dplayer";
+import DPlayer, { DPlayerDanmakuItem, DPlayerVideoQuality } from "dplayer";
 import Swal from 'sweetalert2';
-import { reactive, Ref, ref, UnwrapNestedRefs } from "vue";
+import { Ref, UnwrapNestedRefs, reactive, ref } from "vue";
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from "vue-router";
 import { numberOfViewers, responseBarrageNum } from './socketFun';
 
@@ -99,7 +99,7 @@ export const useLikeVideo = async (videoInfo: UnwrapNestedRefs<VideoInfo>) => {
 export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoaded, Router: Router, videoID: Ref<Number>, videoInfo: UnwrapNestedRefs<VideoInfo>) => {
   try {
     //绑定视频id
-    if (!route.query.videoID) {
+    if (!route.params.id) {
       Router.back()
       Swal.fire({
         title: "获取视频失败",
@@ -110,7 +110,7 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
       Router.back()
       return
     }
-    videoID.value = Number(route.query.videoID)
+    videoID.value = Number(route.params.id)
     //得到视频信息
     const vinfo = await getVideoContributionByID(<GetVideoContributionByIDReq>{
       video_id: videoID.value
@@ -119,6 +119,32 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
     videoInfo.videoInfo = vinfo.data.videoInfo
     videoInfo.recommendList = vinfo.data.recommendList
 
+    //得到清晰度列表
+    let quality: DPlayerVideoQuality[] = []
+    if (videoInfo.videoInfo.video) {
+      quality = [...quality, {
+        name: "1080P超清",
+        url: videoInfo.videoInfo.video
+      }]
+    }
+    if (videoInfo.videoInfo.video_720p) {
+      quality = [...quality, {
+        name: "720P高清",
+        url: videoInfo.videoInfo.video_720p
+      }]
+    }
+    if (videoInfo.videoInfo.video_480p) {
+      quality = [...quality, {
+        name: "480P标清",
+        url: videoInfo.videoInfo.video_480p
+      }]
+    }
+    if (videoInfo.videoInfo.video_360p) {
+      quality = [...quality, {
+        name: "360P流畅",
+        url: videoInfo.videoInfo.video_360p
+      }]
+    }
     //获取视频弹幕信息
     const barrageList = await getVideoBarrageList(<GetVideoBarrageListReq>{
       id: videoID.value.toString()
@@ -140,9 +166,10 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
         token: userStore.userInfoData.token
       },
       mutex: false, // 互斥，阻止多个播放器同时播放
-      video: { // 视频信息
-        type: "auto", // 视频类型 可选"auto", "hls", "flv", "dash"..
-        url: videoInfo.videoInfo.video, // 视频链接
+      video: {
+        quality: quality,
+        defaultQuality: 0,
+        url: "不填", // 视频链接
         pic: videoInfo.videoInfo.cover
       },
     });
