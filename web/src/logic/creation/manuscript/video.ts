@@ -1,14 +1,14 @@
-import { Router, useRouter } from 'vue-router';
-import Swal from 'sweetalert2';
-import globalScss from "@/assets/styles/global/export.module.scss"
-import { Ref, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { GetRecordListReq } from '@/types/personal/record/record'; import { useGlobalStore } from '@/store/main';
-import { PageInfo } from '@/types/idnex';
-import { DeleteVideoByIDReq, GetVideoManagementListItem, GetVideoManagementListRes } from '@/types/creation/manuscript/video';
 import { deleteVideoByID, getVideoManagementList } from '@/apis/contribution';
+import globalScss from "@/assets/styles/global/export.module.scss";
 import { useEditVideoStore } from '@/store/creation';
+import { useGlobalStore } from '@/store/main';
+import { DeleteVideoByIDReq, GetVideoManagementListItem, GetVideoManagementListRes } from '@/types/creation/manuscript/video';
+import { PageInfo } from '@/types/idnex';
+import { GetRecordListReq } from '@/types/personal/record/record';
 import { editVideo } from '@/types/store/creation';
+import Swal from 'sweetalert2';
+import { Ref, ref } from 'vue';
+import { Router, useRoute, useRouter } from 'vue-router';
 
 export const useVideoProp = () => {
     const loading = useGlobalStore().globalData.loading
@@ -40,7 +40,7 @@ export const useVideoProp = () => {
 }
 
 export const useJump = (item: GetVideoManagementListItem, router: Router) => {
-    router.push({ name: "VideoShow", query: { videoID: item.id } })
+    router.push({ name: "VideoShow", params: { id: item.id } })
 }
 
 export const useDelRecord = async (recordList: Ref<GetVideoManagementListRes>, id: number) => {
@@ -67,12 +67,12 @@ export const useDelRecord = async (recordList: Ref<GetVideoManagementListRes>, i
                         heightAuto: false,
                         icon: "success",
                     })
-                    recordList.value = recordList.value.filter((item :GetVideoManagementListItem) => {
+                    recordList.value = recordList.value.filter((item: GetVideoManagementListItem) => {
                         if (item.id == id) item.is_delete = true
                         return item
                     })
                     setTimeout(() => {
-                        recordList.value = recordList.value.filter((item :GetVideoManagementListItem) => {
+                        recordList.value = recordList.value.filter((item: GetVideoManagementListItem) => {
                             return item.id != id
                         })
                     }, 400)
@@ -91,7 +91,7 @@ export const useDelRecord = async (recordList: Ref<GetVideoManagementListRes>, i
         })
 
     } catch (err) {
-        
+
         Swal.fire({
             title: "删除失败",
             heightAuto: false,
