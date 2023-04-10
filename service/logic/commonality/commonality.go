@@ -4,8 +4,8 @@ import (
 	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/commonality"
 	response "easy-video-net/interaction/response/commonality"
-	"easy-video-net/models/config/upload"
 	"easy-video-net/models/contribution/video"
+	"easy-video-net/models/sundry/upload"
 	"easy-video-net/models/users"
 	"easy-video-net/models/users/attention"
 	"easy-video-net/utils/conversion"
@@ -18,6 +18,7 @@ import (
 	"mime/multipart"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
@@ -272,4 +273,14 @@ func Search(data *receive.SearchStruct, uid uint) (results interface{}, err erro
 		return nil, fmt.Errorf("未匹配的类型")
 	}
 	return
+}
+
+func RegisterMedia(data *receive.RegisterMediaStruct) (results interface{}, err error) {
+	path, _ := conversion.SwitchIngStorageFun(data.Type, data.Path)
+	//注册媒资
+	registerMediaBody, err := oss.RegisterMediaInfo(path, "video", time.Now().String())
+	if err != nil {
+		return nil, fmt.Errorf("注册媒资失败")
+	}
+	return registerMediaBody.MediaId, nil
 }
