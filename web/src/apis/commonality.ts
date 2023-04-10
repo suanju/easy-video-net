@@ -1,4 +1,4 @@
-import { GetFullPathOfImageRrq, GetuploadingDirReq, GetuploadingDirRes, GetUploadingMethodReq, GetUploadingMethodRes, GteossStsres, SearchReq, SearchRes, UploadCheckReq, UploadCheckRes, UploadMergeReq, UploadMergeRes } from "@/types/commonality/commonality";
+import { GetFullPathOfImageRrq, GetuploadingDirReq, GetuploadingDirRes, GetUploadingMethodReq, GetUploadingMethodRes, GteossStsres, RegisterMediaReq, RegisterMediaRes, SearchReq, SearchRes, UploadCheckReq, UploadCheckRes, UploadMergeReq, UploadMergeRes } from "@/types/commonality/commonality";
 import { FileSliceUpload, FileUpload } from "@/types/idnex";
 import httpRequest from "@/utils/requst";
 
@@ -45,4 +45,9 @@ export const uploadCheck = (params: UploadCheckReq) => {
 //上传文件验证(合并操作)
 export const uploadMerge = (params: UploadMergeReq) => {
     return httpRequest.post<UploadMergeRes>('/commonality/uploadMerge', params);
+}
+
+//注册媒体资源
+export const registerMedia = (params: RegisterMediaReq) => {
+    return httpRequest.post<RegisterMediaRes>('/commonality/registerMedia', params);
 }
