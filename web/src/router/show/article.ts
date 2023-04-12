@@ -4,7 +4,7 @@ export default [{
 
     children: [
         {
-            path: "article",
+            path: "article/:id",
             name: "ArticleShow",
             component: () => import('@/views/show/article/article.vue'),
         }
