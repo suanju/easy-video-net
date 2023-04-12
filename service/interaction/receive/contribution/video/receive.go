@@ -14,7 +14,7 @@ type CreateVideoContributionReceiveStruct struct {
 	Label           []string `json:"label"`
 	Introduce       string   `json:"introduce" binding:"required"`
 	VideoDuration   int64    `json:"videoDuration" binding:"required"`
-	Media           *string  `json:"media" binding:"required"`
+	Media           *string  `json:"media"`
 }
 
 type UpdateVideoContributionReceiveStruct struct {
