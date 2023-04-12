@@ -396,7 +396,7 @@ export const useSaveData = async (form: ArticleContribution, formEl: FormInstanc
                     heightAuto: false,
                     icon: "success",
                     preConfirm: () => {
-                        router.push({ name: "Creation" })
+                        router.push({ name: "ArticleManagement" })
                     }
                 })
             } catch (err) {

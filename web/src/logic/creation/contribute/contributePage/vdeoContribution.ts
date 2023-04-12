@@ -110,11 +110,13 @@ export const useHandleFileMethod = (uploadFileformation: uploadFileformation, fo
             console.log(response)
             uploadFileformation.uploadUrl = response.path
             //进行媒体资源注册
-            let media = await registerMedia(<RegisterMediaReq>{
-                type: uploadFileformation.uploadType,
-                path: response.path
-            })
-            uploadFileformation.media = media.data
+            if (uploadFileformation.uploadType == "aliyunOss") {
+                let media = await registerMedia(<RegisterMediaReq>{
+                    type: uploadFileformation.uploadType,
+                    path: response.path
+                })
+                uploadFileformation.media = media.data
+            }
         } catch (err) {
             console.log(err)
             form.isShow = false
@@ -298,16 +300,16 @@ export const useSaveData = async (form: vdeoContributionForm, uploadFileformatio
                     heightAuto: false,
                     icon: "success",
                     preConfirm: () => {
-                        router.push({ name: "Creation" })
+                        router.push({ name: "VideoManagement" })
                     }
                 })
             } catch (err) {
                 console.log(err)
                 Swal.fire({
-                    title: err as string,
+                    title: (err as Error).message,
                     confirmButtonColor: globalScss.colorButtonTheme,
                     heightAuto: false,
-                    icon: "warning",
+                    icon: "error",
 
                 })
             }
