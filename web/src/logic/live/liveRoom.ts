@@ -1,15 +1,15 @@
 
-import DPlayer, { DPlayerDanmaku } from "dplayer";
-import Swal from 'sweetalert2'
-import globalScss from "@/assets/styles/global/export.module.scss"
-import { nextTick, reactive, Ref, ref, UnwrapNestedRefs } from "vue";
-import flvJs from "flv.js";
-import { decodeMessage } from "@/proto/pb/live"
-import { webClientBarrageDeal, webClientEnterLiveRoomDeal, webClientHistoricalBarrageRes, webError } from "@/logic/live/socketFun"
-import { useRoute, RouteLocationNormalizedLoaded, useRouter, Router } from "vue-router"
-import { useUserStore } from "@/store/main";
 import { getLiveRoomInfo } from "@/apis/live";
+import globalScss from "@/assets/styles/global/export.module.scss";
+import { webClientBarrageDeal, webClientEnterLiveRoomDeal, webClientHistoricalBarrageRes, webError } from "@/logic/live/socketFun";
+import { decodeMessage } from "@/proto/pb/live";
+import { useUserStore } from "@/store/main";
 import { GetLiveRoomInfoReq, GetLiveRoomInfoRes } from "@/types/live/liveRoom";
+import DPlayer, { DPlayerDanmaku } from "dplayer";
+import flvJs from "flv.js";
+import Swal from 'sweetalert2';
+import { nextTick, reactive, Ref, ref, UnwrapNestedRefs } from "vue";
+import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from "vue-router";
 export const useLiveRoomProp = () => {
   const route = useRoute()
   const router = useRouter()
@@ -46,7 +46,7 @@ export const useWebSocket = (dp: DPlayer, userStore: any, sideRef: Ref<any>, roo
         let buf = new Uint8Array(reader.result as ArrayBuffer);
         const response = decodeMessage(buf)
         switch (response.msgType) {
-          case "error" :
+          case "error":
             webError(response)
             break;
           case "webClientBarrageRes":
@@ -76,7 +76,7 @@ export const useWebSocket = (dp: DPlayer, userStore: any, sideRef: Ref<any>, roo
       return
     } else {
       // 实例化socket
-      socket = new WebSocket( import.meta.env.VITE_SOCKET_URL + "/ws/liveSocket?token=" +  userStore.userInfoData.token + "&liveRoom=" + roomID.value)
+      socket = new WebSocket(import.meta.env.VITE_SOCKET_URL + "/ws/liveSocket?token=" + userStore.userInfoData.token + "&liveRoom=" + roomID.value)
       // 监听socket连接
       socket.onopen = open
       // 监听socket错误信息
@@ -98,10 +98,10 @@ export const useWebSocket = (dp: DPlayer, userStore: any, sideRef: Ref<any>, roo
 }
 
 
-export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoaded, Router: Router, roomID: Ref<Number>,liveInfo : UnwrapNestedRefs<GetLiveRoomInfoRes>) => {
+export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoaded, Router: Router, roomID: Ref<Number>, liveInfo: UnwrapNestedRefs<GetLiveRoomInfoRes>) => {
   try {
     //绑定房间
-    if (!route.query.roomID) {
+    if (!route.params.id) {
       Router.back()
       Swal.fire({
         title: "访问房间失败",
@@ -112,15 +112,15 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
       Router.back()
       return
     }
-    roomID.value = Number(route.query.roomID)
+    roomID.value = Number(route.params.id)
 
     //获取直播信息
 
     const li = await getLiveRoomInfo(<GetLiveRoomInfoReq>{
-      room_id :  roomID.value
+      room_id: roomID.value
     })
 
-    if(!li.data){
+    if (!li.data) {
       Swal.fire({
         title: "该用户未进行直播配置",
         heightAuto: false,
@@ -143,7 +143,7 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
       loop: true, // 循环播放
       lang: "zh-cn", // 语言，可选'en', 'zh-cn', 'zh-tw',
       logo: "", // 在左上角展示一个logo
-      autoplay : true,
+      autoplay: true,
       danmaku: true as unknown as DPlayerDanmaku, //官方文档给的就是true 但是ts中规定类型不一致取的取舍方案
       apiBackend: {
         read: function (options) {
@@ -167,7 +167,7 @@ export const useInit = async (videoRef: Ref, route: RouteLocationNormalizedLoade
               hasAudio: true,
               url: liveInfo.flv,
             });
-            nextTick(() =>{
+            nextTick(() => {
               flvPlayer.attachMediaElement(video);
               flvPlayer.load();
             })
