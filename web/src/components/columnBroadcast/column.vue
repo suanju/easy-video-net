@@ -161,8 +161,8 @@ const quickCreationArr = (num: number): Array<GetArticleContributionListByUserRe
     return arr
 }
 
-const jumpArticle = (articleID: number) => {
-    router.push({ name: "ArticleShow", query: { articleID } })
+const jumpArticle = (id: number) => {
+    router.push({ name: "ArticleShow", params: { id } })
 }
 onMounted(() => {
     loadData()

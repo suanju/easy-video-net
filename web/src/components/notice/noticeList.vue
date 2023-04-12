@@ -159,10 +159,10 @@ const jump = (type: string, id: number) => {
       router.push({ name: "VideoShow", params: { id } })
       break
     case "articleComment":
-      router.push({ name: "ArticleShow", query: { articleID: id } })
+      router.push({ name: "ArticleShow", params: { id } })
       break
     case "articleLike":
-      router.push({ name: "ArticleShow", query: { articleID: id } })
+      router.push({ name: "ArticleShow", params: { id } })
       break
   }
 }

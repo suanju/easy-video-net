@@ -4,7 +4,7 @@
             <div class="head">
                 <div class="item-image" :style="{ backgroundImage: `url(${props.img})` }"></div>
                 <div class="classification">
-                 
+
                 </div>
             </div>
             <div class="info">
@@ -25,9 +25,9 @@
 
 <script setup lang="ts">
 
-import { ref, defineProps } from "vue"
-import { useRouter } from "vue-router"
+import { defineProps, ref } from "vue";
 import { VueEllipsis3 } from 'vue-ellipsis-3';
+import { useRouter } from "vue-router";
 
 
 components: {
@@ -67,7 +67,7 @@ const router = useRouter()
 const isMouseover = ref(false)
 
 const jump = () => {
-    router.push({ name: "liveRoom", query: { roomID: props.id } })
+    router.push({ name: "liveRoom", params: { id: props.id } })
 }
 
 </script>

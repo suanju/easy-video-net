@@ -1,7 +1,6 @@
 <template>
     <div class="comments-info">
-        <textarea class="comments-textarea" placeholder="写下点什么..." maxlength="1000"
-            v-model="comments.comments"></textarea>
+        <textarea class="comments-textarea" placeholder="写下点什么..." maxlength="1000" v-model="comments.comments"></textarea>
     </div>
     <!-- 标签及发布 -->
     <div class="comments-fun">
@@ -21,14 +20,15 @@
             @click="comments.comments = comments.comments + emojiItem">{{ emojiItem }}</span>
     </div>
 </template>
-<script lang="ts" setup>import { getVideoComment, videoPostComment } from '@/apis/contribution';
-import {  CommentsInfo } from '@/types/show/article/article';
+<script lang="ts" setup>
+import { getVideoComment, videoPostComment } from '@/apis/contribution';
+import globalScss from "@/assets/styles/global/export.module.scss";
+import { CommentsInfo } from '@/types/show/article/article';
+import { GetVideoCommentReq, VideoPostCommentReq } from '@/types/show/video/video';
+import { vRemoveFocus } from "@/utils/customInstruction/focus";
 import { ElButton } from 'element-plus';
 import Swal from 'sweetalert2';
-import { vRemoveFocus } from "@/utils/customInstruction/focus"
-import globalScss from "@/assets/styles/global/export.module.scss"
-import {  UnwrapNestedRefs, reactive } from 'vue';
-import { GetVideoCommentReq, VideoPostCommentReq } from '@/types/show/video/video';
+import { UnwrapNestedRefs, reactive } from 'vue';
 
 const props = defineProps({
     videoID: {
@@ -112,7 +112,7 @@ const postComment = async (comments: UnwrapNestedRefs<CommentsInfo>, videoID: nu
 
     } catch (err) {
         Swal.fire({
-            title: err as string,
+            title: "评论失败",
             heightAuto: false,
             confirmButtonColor: globalScss.colorButtonTheme,
             icon: "error",

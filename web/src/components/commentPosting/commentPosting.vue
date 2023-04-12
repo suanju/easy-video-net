@@ -1,7 +1,6 @@
 <template>
     <div class="comments-info">
-        <textarea class="comments-textarea" placeholder="写下点什么..." maxlength="1000"
-            v-model="comments.comments"></textarea>
+        <textarea class="comments-textarea" placeholder="写下点什么..." maxlength="1000" v-model="comments.comments"></textarea>
     </div>
     <!-- 标签及发布 -->
     <div class="comments-fun">
@@ -21,13 +20,14 @@
             @click="comments.comments = comments.comments + emojiItem">{{ emojiItem }}</span>
     </div>
 </template>
-<script lang="ts" setup>import { articlePostComment, getArticleComment } from '@/apis/contribution';
+<script lang="ts" setup>
+import { articlePostComment, getArticleComment } from '@/apis/contribution';
+import globalScss from "@/assets/styles/global/export.module.scss";
 import { ArticlePostCommentReq, CommentsInfo, GetArticleCommentReq } from '@/types/show/article/article';
+import { vRemoveFocus } from "@/utils/customInstruction/focus";
 import { ElButton } from 'element-plus';
 import Swal from 'sweetalert2';
-import { vRemoveFocus } from "@/utils/customInstruction/focus"
-import globalScss from "@/assets/styles/global/export.module.scss"
-import { Ref, UnwrapNestedRefs, reactive, toRefs } from 'vue';
+import { UnwrapNestedRefs, reactive } from 'vue';
 
 const props = defineProps({
     articleID: {
@@ -111,7 +111,7 @@ const postComment = async (comments: UnwrapNestedRefs<CommentsInfo>, articleID: 
 
     } catch (err) {
         Swal.fire({
-            title: err as string,
+            title: "评论失败",
             heightAuto: false,
             confirmButtonColor: globalScss.colorButtonTheme,
             icon: "error",

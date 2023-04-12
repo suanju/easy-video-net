@@ -23,24 +23,24 @@
                         </div>
                         <div class="item-text">
                             <div class="post-meta">
-                            <div class="meta-left">
-                                <SvgIcon name="camera" class="icon-small"></SvgIcon>
-                                {{ dayjs(item.created_at).format('YYYY.MM.DD') }}
-                            </div>
-                            <div class="meta-right">
-                                <SvgIcon name="hot" class="icon-small"></SvgIcon>
-                                <span>
-                                    {{ item.heat }}
-                                </span>
-                                <SvgIcon name="comments" class="icon-small"></SvgIcon>
-                                <span>
-                                    {{ item.comments_number }}
-                                </span>
-                                <SvgIcon name="like" class="icon-small"></SvgIcon>
-                                <span>
-                                    {{ item.likes_number }}
-                                </span>
-                            </div>
+                                <div class="meta-left">
+                                    <SvgIcon name="camera" class="icon-small"></SvgIcon>
+                                    {{ dayjs(item.created_at).format('YYYY.MM.DD') }}
+                                </div>
+                                <div class="meta-right">
+                                    <SvgIcon name="hot" class="icon-small"></SvgIcon>
+                                    <span>
+                                        {{ item.heat }}
+                                    </span>
+                                    <SvgIcon name="comments" class="icon-small"></SvgIcon>
+                                    <span>
+                                        {{ item.comments_number }}
+                                    </span>
+                                    <SvgIcon name="like" class="icon-small"></SvgIcon>
+                                    <span>
+                                        {{ item.likes_number }}
+                                    </span>
+                                </div>
                             </div>
                             <h3>{{ item.title }}</h3>
                             <div class="recent-post-desc">
@@ -61,10 +61,10 @@
 <script setup lang="ts">
 
 import { GetArticleContributionListByUserResItem } from "@/types/live/liveRoom";
-import dayjs from "dayjs"
-import { useRouter } from 'vue-router';
-import { VueEllipsis3 } from 'vue-ellipsis-3';
 import { ArticleInfoList } from '@/types/space/space';
+import dayjs from "dayjs";
+import { VueEllipsis3 } from 'vue-ellipsis-3';
+import { useRouter } from 'vue-router';
 
 components: {
     VueEllipsis3
@@ -95,8 +95,8 @@ const quickCreationArr = (num: number): Array<GetArticleContributionListByUserRe
     return arr
 }
 
-const jumpArticle = (articleID: number) => {
-    router.push({ name: "ArticleShow", query: { articleID } })
+const jumpArticle = (id: number) => {
+    router.push({ name: "ArticleShow", params: { id } })
 }
 </script>
 <style scoped lang="scss">
