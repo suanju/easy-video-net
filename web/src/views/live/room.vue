@@ -5,8 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="18">
             <div class="live-box">
-              <LiveHeader
-                :src="liveInfo?.photo ? liveInfo?.photo : ''"
+              <LiveHeader :src="liveInfo?.photo ? liveInfo?.photo : ''"
                 :titel="liveInfo?.live_title ? liveInfo?.live_title : ''" />
               <div ref="videoRef" class="player" id="dplay" />
             </div>
@@ -25,7 +24,7 @@
           <el-col :span="16">
             <div class="dynamic-box">
               <div class="dynamic">
-                <Column :roomID="Number(route.query.roomID)" />
+                <Column :roomID="Number(route.params.id)" />
               </div>
             </div>
           </el-col>
@@ -41,12 +40,12 @@
   </div>
 </template>
 <script lang="ts"  setup >
-import LiveHeader from "@/components/LiveBroadcast/liveHeader.vue"
-import Side from "@/components/LiveBroadcast/side.vue";
 import Announcement from "@/components/LiveBroadcast/announcement.vue";
 import Column from "@/components/LiveBroadcast/column.vue";
-import DPlayer from "dplayer"
-import { useLiveRoomProp, useWebSocket, useInit } from "@/logic/live/liveRoom"
+import LiveHeader from "@/components/LiveBroadcast/liveHeader.vue";
+import Side from "@/components/LiveBroadcast/side.vue";
+import { useInit, useLiveRoomProp, useWebSocket } from "@/logic/live/liveRoom";
+import DPlayer from "dplayer";
 import { onMounted, ref } from "vue";
 
 components: {
@@ -57,15 +56,15 @@ components: {
 }
 const sideRef = ref()
 var dp: DPlayer //播放器配置对象
-const { videoRef, userStore , route ,  router , roomID ,liveInfo} = useLiveRoomProp()
+const { videoRef, userStore, route, router, roomID, liveInfo } = useLiveRoomProp()
 
 
 const sendMessage = ref((tset: string) => {
 })
 
 onMounted(async () => {
-  dp = await useInit(videoRef,route , router, roomID,liveInfo) as DPlayer
-  sendMessage.value = useWebSocket(dp, userStore, sideRef,roomID,router).sendMessage
+  dp = await useInit(videoRef, route, router, roomID, liveInfo) as DPlayer
+  sendMessage.value = useWebSocket(dp, userStore, sideRef, roomID, router).sendMessage
 })
 
 
