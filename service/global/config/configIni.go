@@ -48,9 +48,9 @@ type LiveConfigStruct struct {
 }
 
 type ProjectConfigStruct struct {
-	UrlStates bool   `ini:"url_states"`
-	Url       string `ini:"url"`
-	UrlTest   string `ini:"url_test"`
+	ProjectStates bool   `ini:"project_states"`
+	Url           string `ini:"url"`
+	UrlTest       string `ini:"url_test"`
 }
 
 type AliyunOss struct {
@@ -59,11 +59,11 @@ type AliyunOss struct {
 	AccessKeyId              string `ini:"accessKeyId"`
 	AccessKeySecret          string `ini:"accessKeySecret"`
 	Host                     string `ini:"host"`
-	CallbackUrl              string `ini:"callbackUrl"`
 	Endpoint                 string `ini:"endpoint"`
 	RoleArn                  string `ini:"roleArn"`
 	RoleSessionName          string `ini:"roleSessionName"`
 	DurationSeconds          int    `ini:"durationSeconds"`
+	IsOpenTranscoding        bool   `ini:"isOpenTranscoding"`
 	TranscodingTemplate360p  string `ini:"transcodingTemplate360p"`
 	TranscodingTemplate480p  string `ini:"transcodingTemplate480p"`
 	TranscodingTemplate720p  string `ini:"transcodingTemplate720p"`
@@ -111,7 +111,7 @@ func ReturnsInstance() *Info {
 	}
 
 	//判断是否为正式环境
-	if Config.ProjectConfig.UrlStates {
+	if Config.ProjectConfig.ProjectStates {
 		Config.ProjectUrl = Config.ProjectConfig.Url
 	} else {
 		Config.ProjectUrl = Config.ProjectConfig.UrlTest
