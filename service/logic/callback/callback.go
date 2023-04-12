@@ -23,7 +23,6 @@ func AliyunTranscodingMedia(data *receive.AliyunMediaCallback[receive.AliyunTran
 		return nil, nil
 	}
 	if taskInfo.Status == 1 {
-
 		global.Logger.Infof("阿里云媒体服务视频转码回调已经处理无需处理，任务id %s", data.MessageBody.Jobs)
 		return nil, nil
 	}
