@@ -1,11 +1,10 @@
 
-import { Router, useRouter, useRoute, RouteLocationNormalizedLoaded } from 'vue-router';
-import { getArticleComment, getArticleContributionByID } from "@/apis/contribution"
-import { GetArticleCommentReq, GetArticleContributionByIDReq, GetArticleContributionByIDRes } from "@/types/show/article/article"
-import { Ref, reactive, ref } from "vue"
-import globalScss from "@/assets/styles/global/export.module.scss"
+import { getArticleContributionByID } from "@/apis/contribution";
+import globalScss from "@/assets/styles/global/export.module.scss";
+import { GetArticleContributionByIDReq, GetArticleContributionByIDRes } from "@/types/show/article/article";
 import Swal from 'sweetalert2';
-import { Size } from 'tsparticles-engine';
+import { Ref, reactive, ref } from "vue";
+import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-router';
 
 export const useArticleShowProp = () => {
     const articleID = ref(0)
@@ -29,7 +28,7 @@ export const useArticleShowProp = () => {
 }
 export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticleContributionByIDRes>, route: RouteLocationNormalizedLoaded, router: Router) => {
     try {
-        if (!route.query.articleID) {
+        if (!route.params.id) {
             router.back()
             Swal.fire({
                 title: "缺少文章ID",
@@ -40,7 +39,7 @@ export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticl
             router.back()
             return
         }
-        articleID.value = Number(route.query.articleID)
+        articleID.value = Number(route.params.id)
         window.onresize = function () {
             const canvasSnow = document.getElementById('canvas_sakura') as HTMLEmbedElement;
             if (!canvasSnow) return false
