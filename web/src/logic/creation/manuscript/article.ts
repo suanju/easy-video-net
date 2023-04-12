@@ -1,14 +1,14 @@
-import { Router, useRouter } from 'vue-router';
-import Swal from 'sweetalert2';
-import globalScss from "@/assets/styles/global/export.module.scss"
-import { Ref, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { GetRecordListReq } from '@/types/personal/record/record'; import { useGlobalStore } from '@/store/main';
-import { PageInfo } from '@/types/idnex';
-import { DeleteArticleByIDReq, GetArticleManagementListItem, GetArticleManagementListRes } from '@/types/creation/manuscript/Article';
 import { deleteArticleByID, getArticleManagementList } from '@/apis/contribution';
+import globalScss from "@/assets/styles/global/export.module.scss";
 import { useEditArticleStore } from '@/store/creation';
+import { useGlobalStore } from '@/store/main';
+import { DeleteArticleByIDReq, GetArticleManagementListItem, GetArticleManagementListRes } from '@/types/creation/manuscript/Article';
+import { PageInfo } from '@/types/idnex';
+import { GetRecordListReq } from '@/types/personal/record/record';
 import { editArticle } from '@/types/store/creation';
+import Swal from 'sweetalert2';
+import { Ref, ref } from 'vue';
+import { Router, useRoute, useRouter } from 'vue-router';
 
 export const useArticleProp = () => {
     const loading = useGlobalStore().globalData.loading
@@ -40,7 +40,7 @@ export const useArticleProp = () => {
 }
 
 export const useJump = (item: GetArticleManagementListItem, router: Router) => {
-    router.push({ name: "ArticleShow", query: { articleID: item.id } })
+    router.push({ name: "ArticleShow", params: { id: item.id } })
 }
 
 export const useDelRecord = async (recordList: Ref<GetArticleManagementListRes>, id: number) => {
