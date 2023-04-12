@@ -57,14 +57,17 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 		height, _ = strconv.Atoi(*mediaInfo.Body.MediaInfo.FileInfoList[0].FileBasicInfo.Height)
 	}
 	videoContribution := &video.VideosContribution{
-		Uid:       uid,
-		Title:     data.Title,
-		Cover:     coverImg,
-		Reprinted: conversion.BoolTurnInt8(*data.Reprinted),
-		Label:     conversion.MapConversionString(data.Label),
-		Introduce: data.Introduce,
-		MediaID:   *data.Media,
-		Heat:      0,
+		Uid:           uid,
+		Title:         data.Title,
+		Cover:         coverImg,
+		Reprinted:     conversion.BoolTurnInt8(*data.Reprinted),
+		Label:         conversion.MapConversionString(data.Label),
+		VideoDuration: data.VideoDuration,
+		Introduce:     data.Introduce,
+		Heat:          0,
+	}
+	if data.Media != nil {
+		videoContribution.MediaID = *data.Media
 	}
 	// 定义转码分辨率列表
 	resolutions := []int{1080, 720, 480, 360}
@@ -141,7 +144,7 @@ func CreateVideoContribution(data *receive.CreateVideoContributionReceiveStruct,
 				}
 				global.Logger.Infof("视频 :%s : 转码%d*%d成功", inputFile, w, h)
 			}
-		} else {
+		} else if data.VideoUploadType == "aliyunOss" && global.Config.AliyunOss.IsOpenTranscoding {
 			inputFile := data.Video
 			sr := strings.Split(inputFile, ".")
 			//云转码处理
