@@ -132,10 +132,9 @@ export const useLoginMethod = (store: any, router: Router, loginForm: loginReq) 
 
                 }
                 catch (err: any) {
-                    err as unknown as Result
                     loading.loading = false
                     Swal.fire({
-                        title: err.message,
+                        title: (err as Error).message,
                         heightAuto: false,
                         confirmButtonColor: globalScss.colorButtonTheme,
                         icon: "error",
@@ -177,7 +176,7 @@ export const useRegisterMethod = (store: any, router: Router, registForm: regist
                     err as unknown as Result
                     loading.loading = false
                     Swal.fire({
-                        title: err.message,
+                        title: (err as Error).message,
                         heightAuto: false,
                         confirmButtonColor: globalScss.colorButtonTheme,
                         icon: "error",
@@ -225,7 +224,7 @@ export const useForgetrMethod = (forgetForm: forgetReq, currentModel: Ref<boolea
                     err as unknown as Result
                     loading.loading = false
                     Swal.fire({
-                        title: err.message,
+                        title: (err as Error).message,
                         heightAuto: false,
                         confirmButtonColor: globalScss.colorButtonTheme,
                         icon: "error",
