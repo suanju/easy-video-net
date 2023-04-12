@@ -5,8 +5,7 @@ import (
 	rotateLogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
-	"os"
-	"syscall"
+	"io/ioutil"
 	"time"
 )
 
@@ -55,8 +54,7 @@ func ReturnsInstance() *logrus.Logger {
 	//打印调用者信息
 	Logger.SetReportCaller(true)
 	//定义到空输出
-	Logger.SetOutput(os.NewFile(uintptr(syscall.Stdin), "/dev/null"))
-
+	Logger.SetOutput(ioutil.Discard)
 	// 设置 rotate logs,实现文件分割
 	logInfoWriter, _ := rotateLogs.New(
 		logFilePath+"/%Y-%m-%d/info.log",
