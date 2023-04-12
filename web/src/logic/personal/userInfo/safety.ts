@@ -1,12 +1,10 @@
-import { reactive } from "vue";
-import { changePassword } from "@/apis/personal"
-import { validatePassword, validateVarCode } from '@/utils/validate/validate';
-import globalScss from "@/assets/styles/global/export.module.scss"
-import Swal from 'sweetalert2';
-import { changePasswordReq, sendEmailInfo } from '@/types/personal/userInfo/security';
+import { changePassword, sendEmailVerificationCodeByChangePassword } from "@/apis/personal";
+import globalScss from "@/assets/styles/global/export.module.scss";
 import { useGlobalStore } from "@/store/main";
-import { sendEmailVerificationCodeByChangePassword } from "@/apis/personal";
-import { Result } from "@/types/idnex";
+import { changePasswordReq, sendEmailInfo } from '@/types/personal/userInfo/security';
+import { validatePassword, validateVarCode } from '@/utils/validate/validate';
+import Swal from 'sweetalert2';
+import { reactive } from "vue";
 
 
 const loading = useGlobalStore().globalData.loading
@@ -84,9 +82,8 @@ export const useSafetyMethod = (form: changePasswordReq) => {
             loading.loading = false
         } catch (err: any) {
             loading.loading = false
-            err as Result
             Swal.fire({
-                title: err.message,
+                title: (err as Error).message,
                 confirmButtonColor: globalScss.colorButtonTheme,
                 heightAuto: false,
                 icon: "warning",

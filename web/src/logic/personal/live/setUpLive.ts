@@ -154,7 +154,7 @@ export const useSaveData = async (liveInformationForm: LiveInformation, formEl: 
             } catch (err) {
                 console.log(err)
                 Swal.fire({
-                    title: err as string,
+                    title: "保存失败",
                     confirmButtonColor: globalScss.colorButtonTheme,
                     heightAuto: false,
                     icon: "warning",

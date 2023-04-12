@@ -177,7 +177,7 @@ export const useSaveData = async (createFavoriteRmationForm: CreateCollectRmatio
                 console.log(err)
                 emits("shutDown");
                 Swal.fire({
-                    title: err.message as string,
+                    title: (err as Error).message,
                     confirmButtonColor: globalScss.colorButtonTheme,
                     heightAuto: false,
                     icon: "warning",

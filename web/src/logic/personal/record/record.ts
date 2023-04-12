@@ -38,9 +38,9 @@ export const useJump = (item: GetRecordListItem, router: Router) => {
     if (item.type == "视频") {
         router.push({ name: "VideoShow", params: { id: item.to_id } })
     } else if (item.type == "专栏") {
-        router.push({ name: "ArticleShow", query: { articleID: item.to_id } })
+        router.push({ name: "ArticleShow", params: { id: item.to_id } })
     } else {
-        router.push({ name: "liveRoom", query: { roomID: item.to_id } })
+        router.push({ name: "liveRoom", params: { id: item.to_id } })
     }
 }
 
