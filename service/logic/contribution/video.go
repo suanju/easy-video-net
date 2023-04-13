@@ -249,6 +249,7 @@ func GetVideoContributionByID(data *receive.GetVideoContributionByIDReceiveStruc
 			if videoInfo.Watch(data.VideoID) != nil {
 				global.Logger.Error("添加播放量错误视频video_id:", videoInfo.Watch(data.VideoID))
 			}
+			videoInfo.Heat++
 		}
 		//获取是否关注
 		at := new(attention.Attention)
