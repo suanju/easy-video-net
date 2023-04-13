@@ -11,9 +11,12 @@ import (
 
 func init() {
 	go func() {
-		err := Start()
-		if err != nil {
-			global.Logger.Error("开启直播服务失败")
+		if !global.Config.ProjectConfig.ProjectStates {
+			//测试环境快速开启直播服务
+			err := Start()
+			if err != nil {
+				global.Logger.Error("开启直播服务失败")
+			}
 		}
 	}()
 }
