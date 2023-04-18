@@ -1,6 +1,7 @@
 
 import { getArticleContributionByID } from "@/apis/contribution";
 import globalScss from "@/assets/styles/global/export.module.scss";
+import { useGlobalStore } from "@/store/main";
 import { GetArticleContributionByIDReq, GetArticleContributionByIDRes } from "@/types/show/article/article";
 import Swal from 'sweetalert2';
 import { Ref, reactive, ref } from "vue";
@@ -8,6 +9,7 @@ import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from 'vue-
 
 export const useArticleShowProp = () => {
     const articleID = ref(0)
+    const global = useGlobalStore()
     const articleInfo = ref(<GetArticleContributionByIDRes>{})
     const router = useRouter()
     const route = useRoute()
@@ -24,9 +26,10 @@ export const useArticleShowProp = () => {
         router,
         route,
         replyCommentsDialog,
+        global
     }
 }
-export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticleContributionByIDRes>, route: RouteLocationNormalizedLoaded, router: Router) => {
+export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticleContributionByIDRes>, route: RouteLocationNormalizedLoaded, router: Router, global: any) => {
     try {
         if (!route.params.id) {
             router.back()
@@ -40,6 +43,7 @@ export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticl
             return
         }
         articleID.value = Number(route.params.id)
+        global.globalData.loading.loading = true
         window.onresize = function () {
             const canvasSnow = document.getElementById('canvas_sakura') as HTMLEmbedElement;
             if (!canvasSnow) return false
@@ -55,7 +59,10 @@ export const useInit = async (articleID: Ref<number>, articleInfo: Ref<GetArticl
         articleInfo.value = response.data
         articleInfo.value.comments = response.data?.comments
 
+        global.globalData.loading.loading = false
+
     } catch (err) {
+        global.globalData.loading.loading = false
         console.log(err)
     }
 }

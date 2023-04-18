@@ -5,7 +5,6 @@ import { useEditArticleStore } from '@/store/creation';
 import { GetUploadingMethodReq, GetUploadingMethodRes } from "@/types/commonality/commonality";
 import { AreateArticleContributionReq, ArticleContribution, GetArticleClassificationListRes, GetArticleClassificationListResItem, UpdateArticleContributionReq } from '@/types/creation/contribute/contributePage/articleContribution';
 import { uploadFileformation } from "@/types/creation/contribute/contributePage/vdeoContribution";
-import { timetoRFC3339 } from '@/utils/conversion/timeConversion';
 import { uploadFile } from '@/utils/upload/upload';
 import { validateArticleTitle } from '@/utils/validate/validate';
 import { ElInput, FormInstance, UploadProps, UploadRawFile, UploadRequestOptions } from 'element-plus';
@@ -26,9 +25,7 @@ export const useArticleContributionProp = () => {
         isShow: true,
         title: "",
         content: "",
-        timing: false,
         comments: true,
-        date1time: '',
         labelInputVisible: false,
         labelText: "",
         label: [],
@@ -354,11 +351,6 @@ export const useSaveData = async (form: ArticleContribution, formEl: FormInstanc
                     })
                     return
                 }
-                if (!form.date1time) {
-                    form.date1time = timetoRFC3339(new Date())
-                } else {
-                    form.date1time = timetoRFC3339(new Date(form.date1time))
-                }
                 if (props.type == "edit") {
                     //更新模式
                     let updateRequistData = <UpdateArticleContributionReq>{
@@ -380,8 +372,6 @@ export const useSaveData = async (form: ArticleContribution, formEl: FormInstanc
                         coverUploadType: uploadCoveration.uploadType,
                         articleContributionUploadType: uploadFileformation.uploadType,
                         title: form.title,
-                        timing: form.timing,
-                        timingTime: form.date1time,
                         label: form.label,
                         content: form.content,
                         comments: form.comments,
