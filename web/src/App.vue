@@ -2,8 +2,8 @@
   <!-- 全局loading -->
   <div class="parcel">
     <el-scrollbar ref="scrollbarRef" height="100%" @scroll="handleScroll">
-      <div ref="mianRef" class="global-loading" v-loading="global.globalData.loading.loading"
-        :element-loading-text="global.globalData.loading.loadingText"
+      <div ref="mianRef" :class="{ 'global-loading': true, 'rolling': global.globalData.loading.loading }"
+        v-loading="global.globalData.loading.loading" :element-loading-text="global.globalData.loading.loadingText"
         :element-loading-svg="global.globalData.loading.loadingSvg"
         :element-loading-svg-view-box="global.globalData.loading.loadingSvgViewBox"
         :element-loading-background="global.globalData.loading.loadingBackground">
