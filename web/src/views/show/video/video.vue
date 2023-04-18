@@ -36,7 +36,7 @@
                                 </el-button>
                                 <el-button :type="videoInfo?.videoInfo?.is_collect ? 'primary' : 'info'"
                                     @click="favoriteVideoShow = true" v-removeFocus :icon="Star" circle />
-                                <el-button type="info" v-removeFocus :icon="Position" circle />
+                                <el-button type="info" @click="notOpen" v-removeFocus :icon="Position" circle />
                             </div>
                         </div>
                     </div>
@@ -251,6 +251,7 @@
 </template>
 
 <script lang="ts" setup>
+import globalScss from "@/assets/styles/global/export.module.scss";
 import commentPosting from "@/components/commentPosting/videoCommentPosting.vue";
 import FavoriteVideo from "@/components/favoriteVideo/favoriteVideo.vue";
 import topNavigation from "@/components/topNavigation/topNavigation.vue";
@@ -265,6 +266,7 @@ import { vRemoveFocus } from "@/utils/customInstruction/focus";
 import { House, MoreFilled, Plus, Position, Star } from '@element-plus/icons-vue';
 import dayjs from 'dayjs';
 import DPlayer from "dplayer";
+import Swal from "sweetalert2";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { VueEllipsis3 } from 'vue-ellipsis-3';
 
@@ -280,7 +282,7 @@ components: {
 
 var dp = ref(<DPlayer>{})  //播放器配置对象
 var socket: WebSocket //socket
-const { videoRef, route, router, userStore, videoID, videoInfo, barrageInput, barrageListShow, liveNumber, replyCommentsDialog, videoBarrage } = useVideoProp()
+const { videoRef, route, router, userStore, videoID, videoInfo, barrageInput, barrageListShow, liveNumber, replyCommentsDialog, videoBarrage, global } = useVideoProp()
 
 const sendBarrageEvent = () => {
     useSendBarrage(barrageInput, dp.value, userStore, videoInfo, socket)
@@ -330,7 +332,7 @@ const watchPath = watch(() => route.path, async () => {
         return false
     }
     console.log(videoID)
-    dp.value = await useInit(videoRef, route, router, videoID, videoInfo) as DPlayer
+    dp.value = await useInit(videoRef, route, router, videoID, videoInfo, global) as DPlayer
     if (userStore.userInfoData.token) {
         let socketLer = useWebSocket(userStore, videoInfo, router, liveNumber)
         socketLer ? socket = socketLer : ""
@@ -340,7 +342,6 @@ const watchPath = watch(() => route.path, async () => {
 
 const watchDanmaku = watch(videoBarrage, (newVal, oldVal) => {
     if (videoBarrage.value) {
-        
         dp.value.danmaku.show()
     } else {
         dp.value.danmaku.hide()
@@ -348,6 +349,15 @@ const watchDanmaku = watch(videoBarrage, (newVal, oldVal) => {
 
 })
 
+
+const notOpen = () => {
+    Swal.fire({
+        title: "敬请期待",
+        heightAuto: false,
+        confirmButtonColor: globalScss.colorButtonTheme,
+        icon: "info",
+    })
+}
 
 onMounted(async () => {
 

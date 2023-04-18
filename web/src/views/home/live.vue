@@ -44,7 +44,7 @@ import Card from "@/components/homeLiveCard/card.vue";
 import homeRotograph from "@/components/homeRotograph/homeRotograph.vue";
 import topNavigation from "@/components/topNavigation/topNavigation.vue";
 import { BeLiveInfo, GetBeLiveListRes } from "@/types/home/live";
-import { onMounted, Ref, ref } from "vue";
+import { Ref, onMounted, ref } from "vue";
 
 components: {
     homeRotograph
@@ -75,10 +75,7 @@ const quickCreationArr = (num: number): Array<BeLiveInfo> => {
 }
 
 onMounted(() => {
-    setTimeout(() => {
-        loadData(beList)
-    }, 3000);
-
+    loadData(beList)
 })
 
 </script>

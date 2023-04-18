@@ -5,15 +5,14 @@
             <div class="timeline" v-show="recordList.length > 0" v-infinite-scroll="scrollBottom"
                 infinite-scroll-delay="1000">
                 <el-timeline>
-                    <el-timeline-item
-                        :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
+                    <el-timeline-item :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
                         v-for="(item, index) in recordList" :key="item.id" :timestamp="recordTimeFormat(item.updated_at)"
                         placement="top">
-                        <div class="timeline-item" >
+                        <div class="timeline-item">
                             <div class="item-left" @click="jump(item)">
                                 <el-image class="item-img" :src="item.cover" fit="cover" />
                             </div>
-                            <div class="item-right" >
+                            <div class="item-right">
                                 <div class="data">
                                     <div class="item-title" @click="jump(item)">
                                         <VueEllipsis3 :visibleLine="1" :text="item.title">
@@ -48,13 +47,13 @@
 </template>
 
 <script lang="ts" setup>
-import { VueEllipsis3 } from 'vue-ellipsis-3';
-import { Delete } from '@element-plus/icons-vue'
-import { useRecordProp, useLoadData, useDelRecord, useJump } from '@/logic/personal/record/record';
-import {  watch } from 'vue';
-import { recordTimeFormat } from "@/utils/conversion/timeConversion"
-import { vRemoveFocus } from "@/utils/customInstruction/focus"
+import { useDelRecord, useJump, useLoadData, useRecordProp } from '@/logic/personal/record/record';
 import { GetRecordListItem } from '@/types/personal/record/record';
+import { recordTimeFormat } from "@/utils/conversion/timeConversion";
+import { vRemoveFocus } from "@/utils/customInstruction/focus";
+import { Delete } from '@element-plus/icons-vue';
+import { watch } from 'vue';
+import { VueEllipsis3 } from 'vue-ellipsis-3';
 
 
 components: {
@@ -84,9 +83,8 @@ const scrollBottom = async () => {
 watch(() => route.path, async () => {
     recordList.value = []
     isLoading.value = true
-    setTimeout(() => {
-        useLoadData(recordList, isLoading, pageInfo, isTheEnd)
-    }, 2000)
+    useLoadData(recordList, isLoading, pageInfo, isTheEnd)
+
 }, { immediate: true, deep: true })
 
 </script>

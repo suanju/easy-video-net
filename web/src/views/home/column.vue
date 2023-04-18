@@ -72,9 +72,7 @@ const fetchData = () => {
 const initTyped = (input: string) => {
     // @ts-ignore 不需要后面两个参数
     const typed = new EasyTyper(obj, input, () => {
-        setTimeout(() => {
-            fetchData()
-        }, 3000)
+        fetchData()
     })
 }
 

@@ -22,8 +22,8 @@
                                 </div>
                             </template>
                             <template #default>
-                                <VideoCard :id="videoInfo.id" :title="videoInfo.title"
-                                    :cover="videoInfo.cover" :video_duration="videoInfo.video_duration" :created_at="videoInfo.created_at">
+                                <VideoCard :id="videoInfo.id" :title="videoInfo.title" :cover="videoInfo.cover"
+                                    :video_duration="videoInfo.video_duration" :created_at="videoInfo.created_at">
                                 </VideoCard>
                             </template>
                         </el-skeleton>
@@ -42,13 +42,13 @@
 
 <script lang="ts" setup>
 
-import VideoCard from "@/components/collectListVideoCard/videoCard.vue"
+import VideoCard from "@/components/collectListVideoCard/videoCard.vue";
 import Column from "@/components/spaceCard/columnCard.vue";
-import { onMounted } from "vue";
+import { useCollectListProp, useInit } from "@/logic/personal/create/collectList";
 import { VideoInfo } from "@/types/space/space";
-import { useCollectListProp ,useInit} from "@/logic/personal/create/collectList";
+import { onMounted } from "vue";
 
-const {  route , releaseInformation , isLoading } = useCollectListProp()
+const { route, releaseInformation, isLoading } = useCollectListProp()
 
 //生成占位骨架屏
 const quickCreationArr = (num: number): Array<VideoInfo> => {
@@ -67,13 +67,11 @@ components: {
 
 
 onMounted(() => {
-    setTimeout(() => {
-        useInit(route, releaseInformation, isLoading)
-    }, 1500);
+    useInit(route, releaseInformation, isLoading)
 })
 
 </script>
 
 <style lang="scss" scoped>
-@import  "@/assets/styles/views/personal/collect/collectList.scss";
+@import "@/assets/styles/views/personal/collect/collectList.scss";
 </style>

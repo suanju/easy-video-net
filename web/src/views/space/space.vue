@@ -76,9 +76,7 @@ components: {
 
 
 onMounted(() => {
-    setTimeout(() => {
-        useInit(spaceData.spaceInfoData.id, releaseInformation, isLoading)
-    }, 3000);
+    useInit(spaceData.spaceInfoData.id, releaseInformation, isLoading)
 })
 
 </script>

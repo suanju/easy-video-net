@@ -1,7 +1,8 @@
 <template>
     <div class="overall">
         <pageHeader title="我的收藏" icon-nmae="collection"></pageHeader>
-        <div class="collect-list" ref="scrollRef" :style="{ height: scrollHeight + 'px', overflow: isLoading ?  'scroll' : 'hidden'  }"
+        <div class="collect-list" ref="scrollRef"
+            :style="{ height: scrollHeight + 'px', overflow: isLoading ? 'scroll' : 'hidden' }"
             v-show="isLoading == false || favoritesList.length > 0">
             <div class="collect-item" v-for="item in favoritesList.length > 0 ? favoritesList : quickCreationArr(7)">
                 <!-- 骨架屏 -->
@@ -21,7 +22,8 @@
                             <div class="title">{{ item.title }}</div>
                             <div class="creator">创建者 : {{ item.userInfo.username }} 播放数 : 0</div>
                             <div class="btn">
-                                <el-button type="primary" round size="small" @click="viewContent(item.id)"> 查看内容 </el-button>
+                                <el-button type="primary" round size="small" @click="viewContent(item.id)"> 查看内容
+                                </el-button>
                             </div>
                         </div>
                         <div class="function">
@@ -57,17 +59,17 @@
 </template>
 
 <script lang="ts" setup>
-import { MoreFilled } from '@element-plus/icons-vue'
-import { useFavoritesProp, useInit, useDelFavorites, useUpdateFavorites } from "@/logic/personal/create/favorites"
-import { onMounted, ref, watch } from 'vue';
-import CreateFavorites from "@/components/createFavorites/createFavorites.vue"
+import CreateFavorites from "@/components/createFavorites/createFavorites.vue";
+import { useDelFavorites, useFavoritesProp, useInit, useUpdateFavorites } from "@/logic/personal/create/favorites";
 import { GetFavoritesListItem } from '@/types/personal/collect/favorites';
+import { MoreFilled } from '@element-plus/icons-vue';
+import { onMounted, ref, watch } from 'vue';
 
 comments: {
     CreateFavorites
 }
 
-const { route ,router, favoritesList, createCollectDialogShow, updataInfo } = useFavoritesProp()
+const { route, router, favoritesList, createCollectDialogShow, updataInfo } = useFavoritesProp()
 const scrollHeight = ref(0)
 const scrollRef = ref()
 const isLoading = ref(false)
@@ -77,10 +79,12 @@ onMounted(() => {
     scrollHeight.value = document.documentElement.clientHeight - scrollRef.value.offsetTop
 })
 
-const viewContent = (id :number) => {
-    router.push({name:"CollectList" , params : {
-        "id" : id
-    }})
+const viewContent = (id: number) => {
+    router.push({
+        name: "CollectList", params: {
+            "id": id
+        }
+    })
 }
 const delFavorites = (id: number) => {
     useDelFavorites(id, favoritesList)
@@ -110,18 +114,14 @@ const shutDown = () => {
     //关闭是进行数据更新
     favoritesList.value = []
     isLoading.value = false
-    setTimeout(() => {
-        useInit(favoritesList, isLoading)
-    }, 3000)
+    useInit(favoritesList, isLoading)
 }
 
 
 watch(() => route.path, async () => {
     favoritesList.value = []
     isLoading.value = false
-    setTimeout(() => {
-        useInit(favoritesList, isLoading)
-    }, 3000)
+    useInit(favoritesList, isLoading)
 }, { immediate: true, deep: true })
 
 </script>
