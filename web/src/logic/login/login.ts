@@ -90,6 +90,12 @@ export const useLoginProp = () => {
 
         } catch (err) {
             loading.loading = false
+            Swal.fire({
+                title: (err as Error).message,
+                heightAuto: false,
+                confirmButtonColor: globalScss.colorButtonTheme,
+                icon: "error",
+            })
             console.log(err)
 
         }
