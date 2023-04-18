@@ -70,7 +70,7 @@ func UpdateAvatar(data *receive.UpdateAvatarStruct, uid uint) (results interface
 	})
 	user := &users.User{PublicModel: common.PublicModel{ID: uid}, Photo: photo}
 	if user.Update() {
-		return conversion.FormattingSrc(data.ImgUrl), nil
+		return conversion.SwitchIngStorageFun(data.Tp, data.ImgUrl)
 	} else {
 		return nil, fmt.Errorf("更新失败")
 	}
