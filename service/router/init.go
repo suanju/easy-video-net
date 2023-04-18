@@ -31,7 +31,7 @@ func InitRouter() {
 	PrivateGroup.Use()
 	{
 		//静态资源访问
-		router.Static("/assets", "./assets/")
+		router.Static("/assets", "./assets")
 		RoutersGroupApp.Users.LoginRouter.InitLoginRouter(PrivateGroup)
 		RoutersGroupApp.Users.SpaceRouter.InitSpaceRouter(PrivateGroup)
 		RoutersGroupApp.Ws.InitSocketRouter(PrivateGroup)
