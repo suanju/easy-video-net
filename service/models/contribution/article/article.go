@@ -7,8 +7,6 @@ import (
 	"easy-video-net/models/contribution/article/comments"
 	"easy-video-net/models/contribution/article/like"
 	"easy-video-net/models/users"
-	"time"
-
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
@@ -19,8 +17,6 @@ type ArticlesContribution struct {
 	ClassificationID   uint           `json:"classification_id"  gorm:"column:classification_id"`
 	Title              string         `json:"title" gorm:"column:title"`
 	Cover              datatypes.JSON `json:"cover" gorm:"column:cover"`
-	Timing             int8           `json:"timing" gorm:"column:timing"`
-	TimingTime         time.Time      `json:"timingTime"  gorm:"column:timing_Time"`
 	Label              string         `json:"label" gorm:"column:label"`
 	Content            string         `json:"content" gorm:"column:content"`
 	ContentStorageType string         `json:"content_Storage_Type" gorm:"column:content_storage_type"`
@@ -48,6 +44,11 @@ func (vc *ArticlesContribution) Create() bool {
 		return false
 	}
 	return true
+}
+
+//Watch 添加播放
+func (vc *ArticlesContribution) Watch(id uint) error {
+	return global.Db.Model(vc).Where("id", id).Updates(map[string]interface{}{"heat": gorm.Expr("Heat  + ?", 1)}).Error
 }
 
 //GetList 查询数据类型
