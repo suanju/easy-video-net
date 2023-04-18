@@ -101,7 +101,7 @@ const loadSocket = () => {
         return
     } else {
         // 实例化socket
-        socket = new WebSocket(import.meta.env.VITE_SOCKET_URL + "/ws/chatByUserSocket?token=" + userStore.userInfoData.token + "&tid=" + tid.value)
+        socket = new WebSocket(import.meta.env.VITE_SOCKET_URL + "/ws/chatUserSocket?token=" + userStore.userInfoData.token + "&tid=" + tid.value)
         // 监听socket连接
         socket.onopen = open
         // 监听socket错误信息
