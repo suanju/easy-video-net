@@ -2,6 +2,7 @@ package contribution
 
 import (
 	"easy-video-net/consts"
+	"easy-video-net/global"
 	receive "easy-video-net/interaction/receive/contribution/article"
 	response "easy-video-net/interaction/response/contribution/article"
 	"easy-video-net/logic/users/notice"
@@ -14,6 +15,7 @@ import (
 	"easy-video-net/utils/conversion"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/dlclark/regexp2"
 )
@@ -47,17 +49,11 @@ func CreateArticleContribution(data *receive.CreateArticleContributionReceiveStr
 		ClassificationID:   data.ClassificationID,
 		Title:              data.Title,
 		Cover:              coverImg,
-		Timing:             conversion.BoolTurnInt8(*data.Timing),
-		TimingTime:         data.TimingTime,
 		Label:              conversion.MapConversionString(data.Label),
 		Content:            data.Content,
 		ContentStorageType: data.ArticleContributionUploadType,
 		IsComments:         conversion.BoolTurnInt8(*data.Comments),
 		Heat:               0,
-	}
-
-	if *data.Timing {
-		//发布视频后进行的推送相关（待开发）
 	}
 	if !articlesContribution.Create() {
 		return nil, fmt.Errorf("保存失败")
@@ -128,6 +124,15 @@ func GetArticleContributionByID(data *receive.GetArticleContributionByIDReceiveS
 		err = rd.AddArticleRecord(uid, data.ArticleID)
 		if err != nil {
 			return nil, fmt.Errorf("添加历史记录失败")
+		}
+		//进行文章热度增加
+		if !global.RedisDb.SIsMember(consts.ArticleWatchByID+strconv.Itoa(int(data.ArticleID)), uid).Val() {
+			//最近无播放
+			global.RedisDb.SAdd(consts.ArticleWatchByID+strconv.Itoa(int(data.ArticleID)), uid)
+			if articlesContribution.Watch(data.ArticleID) != nil {
+				global.Logger.Error("添加热度错误article_id:", articlesContribution.Watch(data.ArticleID))
+			}
+			articlesContribution.Heat++
 		}
 	}
 	return response.GetArticleContributionByIDResponse(articlesContribution), nil
