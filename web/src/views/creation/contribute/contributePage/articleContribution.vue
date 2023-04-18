@@ -23,14 +23,14 @@
                     <el-button v-removeFocus size="small" type="primary" :icon="Edit" round
                         @click="form.isShow = false">编辑</el-button>
                 </el-form-item>
-                <el-form-item label="定时发布" v-show="props.type != 'edit'">
+                <!-- <el-form-item label="定时发布" v-show="props.type != 'edit'">
                     <el-switch v-model="form.timing" />
                 </el-form-item>
                 <el-form-item label="选择时间" v-show="form.timing" class="animate__animated animate__fadeIn">
                     <el-col :span="7">
                         <el-date-picker v-model="form.date1time" type="datetime" placeholder="请选择定时发布时间" />
                     </el-col>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="开启评论">
                     <el-switch v-model="form.comments" />
                 </el-form-item>
