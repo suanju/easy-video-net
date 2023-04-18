@@ -7,17 +7,14 @@ import (
 	"fmt"
 )
 
-//FormattingSrc 图片处理相关
-func FormattingSrc(src string) string {
-	api := global.Config.ProjectUrl
-	return fmt.Sprintf("%s/%s", api, src)
-}
-
 func FormattingJsonSrc(str []byte) (url string, err error) {
 	data := new(common.Img)
 	err = json.Unmarshal(str, data)
 	if err != nil {
 		return "", fmt.Errorf("json format error")
+	}
+	if data.Src == "" {
+		return "", nil
 	}
 	path, err := SwitchIngStorageFun(data.Tp, data.Src)
 	if err != nil {
