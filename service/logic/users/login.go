@@ -11,7 +11,6 @@ import (
 	"easy-video-net/utils/conversion"
 	"easy-video-net/utils/email"
 	"easy-video-net/utils/jwt"
-	"easy-video-net/utils/location"
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis"
@@ -122,7 +121,7 @@ func Register(data *receive.RegisterReceiveStruct) (results interface{}, err err
 	password := []byte(fmt.Sprintf("%s%s%s", salt, data.Password, salt))
 	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
 	photo, _ := json.Marshal(common.Img{
-		Src: fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		Src: "",
 		Tp:  "local",
 	})
 	registerData := &userModel.User{
