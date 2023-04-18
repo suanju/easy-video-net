@@ -23,7 +23,7 @@ import (
 
 var (
 	//Temporary 文件文件存续位置
-	Temporary = "assets/tmp/"
+	Temporary = "assets/tmp"
 )
 
 func OssSTS() (results interface{}, err error) {
@@ -66,7 +66,7 @@ func Upload(file *multipart.FileHeader, ctx *gin.Context) (results interface{}, 
 		return nil, fmt.Errorf("非法后缀！")
 	}
 	if !location.IsDir(method.Path) {
-		if err = os.MkdirAll(method.Path, 077); err != nil {
+		if err = os.MkdirAll(method.Path, 0775); err != nil {
 			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s 错误原因 : %s", method.Path, err.Error())
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
@@ -102,7 +102,7 @@ func UploadSlice(file *multipart.FileHeader, ctx *gin.Context) (results interfac
 		return nil, fmt.Errorf("请联系管理员设置接口保存路径")
 	}
 	if !location.IsDir(Temporary) {
-		if err = os.MkdirAll(Temporary, 077); err != nil {
+		if err = os.MkdirAll(Temporary, 0775); err != nil {
 			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s", method.Path)
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
