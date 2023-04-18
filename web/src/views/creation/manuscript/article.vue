@@ -43,12 +43,12 @@
 </template>
 
 <script lang="ts" setup>
-import { VueEllipsis3 } from 'vue-ellipsis-3';
-import { Delete, Edit } from '@element-plus/icons-vue'
-import { useArticleProp, useLoadData, useDelRecord, useJump, useEditRecord } from '@/logic/creation/manuscript/article';
-import { watch } from 'vue';
-import { vRemoveFocus } from "@/utils/customInstruction/focus"
+import { useArticleProp, useDelRecord, useEditRecord, useJump, useLoadData } from '@/logic/creation/manuscript/article';
 import { GetArticleManagementListItem } from '@/types/creation/manuscript/Article';
+import { vRemoveFocus } from "@/utils/customInstruction/focus";
+import { Delete, Edit } from '@element-plus/icons-vue';
+import { watch } from 'vue';
+import { VueEllipsis3 } from 'vue-ellipsis-3';
 
 
 components: {
@@ -81,9 +81,7 @@ const scrollBottom = async () => {
 watch(() => route.path, async () => {
     articleList.value = []
     isLoading.value = true
-    setTimeout(() => {
-        useLoadData(articleList, isLoading, pageInfo, isTheEnd)
-    }, 2000)
+    useLoadData(articleList, isLoading, pageInfo, isTheEnd)
 }, { immediate: true, deep: true })
 
 </script>

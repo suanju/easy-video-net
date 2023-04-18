@@ -52,18 +52,18 @@
 </template>
 
 <script lang="ts" setup>
-import { VueEllipsis3 } from 'vue-ellipsis-3';
-import { Delete, Edit } from '@element-plus/icons-vue'
-import { useVideoProp, useLoadData, useDelRecord, useJump , useEditRecord } from '@/logic/creation/manuscript/video';
-import { watch } from 'vue';
-import { vRemoveFocus } from "@/utils/customInstruction/focus"
+import { useDelRecord, useEditRecord, useJump, useLoadData, useVideoProp } from '@/logic/creation/manuscript/video';
 import { GetVideoManagementListItem } from '@/types/creation/manuscript/video';
+import { vRemoveFocus } from "@/utils/customInstruction/focus";
+import { Delete, Edit } from '@element-plus/icons-vue';
+import { watch } from 'vue';
+import { VueEllipsis3 } from 'vue-ellipsis-3';
 
 components: {
     VueEllipsis3
 }
 
-const { route, router, videoList, isLoading, pageInfo, loading, isLoadMore, isTheEnd , editVideoStore} = useVideoProp()
+const { route, router, videoList, isLoading, pageInfo, loading, isLoadMore, isTheEnd, editVideoStore } = useVideoProp()
 
 const delRecord = (id: number) => {
     useDelRecord(videoList, id)
@@ -73,8 +73,8 @@ const jump = (item: GetVideoManagementListItem) => {
     useJump(item, router)
 }
 
-const editRecord = (item: GetVideoManagementListItem) =>{
-    useEditRecord(item, loading,editVideoStore,router)
+const editRecord = (item: GetVideoManagementListItem) => {
+    useEditRecord(item, loading, editVideoStore, router)
 }
 
 //加载底部
@@ -90,9 +90,8 @@ const scrollBottom = async () => {
 watch(() => route.path, async () => {
     videoList.value = []
     isLoading.value = true
-    setTimeout(() => {
-        useLoadData(videoList, isLoading, pageInfo, isTheEnd)
-    }, 2000)
+    useLoadData(videoList, isLoading, pageInfo, isTheEnd)
+
 }, { immediate: true, deep: true })
 
 </script>
