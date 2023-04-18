@@ -4,6 +4,7 @@ import (
 	"easy-video-net/global/config"
 	"fmt"
 	"github.com/go-redis/redis"
+	"log"
 )
 
 func ReturnsInstance() *redis.Client {
@@ -18,8 +19,7 @@ func ReturnsInstance() *redis.Client {
 	})
 	_, err = Db.Ping().Result()
 	if err != nil {
-		fmt.Printf("redis连接失败:%v \n", err)
+		log.Fatalf("redis连接失败:%v \n", err)
 	}
 	return Db
-
 }
