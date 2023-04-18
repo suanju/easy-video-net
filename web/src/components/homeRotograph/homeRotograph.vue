@@ -1,6 +1,6 @@
 <template>
     <div class="carousel">
-        <el-carousel ref="carouselRef" arrow="never" height="490px" :autoplay="false" @change="change">
+        <el-carousel ref="carouselRef" arrow="never" height="490px" :autoplay="true" @change="change">
             <el-carousel-item v-for="item in rotograph" :key="item.cover">
                 <div class="carousel-item" @click="jump(item)">
                     <div class="carousel-img-box">
