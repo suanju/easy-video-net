@@ -1,14 +1,10 @@
-import { PageInfo } from '@/types/idnex';
-import { type } from 'os';
 //form 表单结构
 export interface ArticleContribution {
-    id : number,
+    id: number,
     isShow: boolean
     title: string
     content: string
-    timing: boolean,
     comments: boolean,
-    date1time: string,
     labelInputVisible: boolean,
     labelText: string,
     label: Array<string>,
@@ -29,8 +25,8 @@ export interface AreateArticleContributionReq {
     classification_id: number
 }
 
-export interface UpdateArticleContributionReq{
-    id :number
+export interface UpdateArticleContributionReq {
+    id: number
     cover: string,
     coverUploadType: string,
     articleContributionUploadType: string,
