@@ -1,42 +1,35 @@
 # easy-video-net
 
-<<<<<<< HEAD
 #### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
-=======
-#### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + ts + element-plus 进行开发
->>>>>>> origin/master
 
 
 
 
 **主要功能模块**
+
 - **视频上传分享支持转码及弹幕功能**
 - **稿件投稿使用富文本编辑器进行简单发布**
-<<<<<<< HEAD
 - **一个简单直播功能 需要使用livego搭建直播服务**
 - **简单的消息通知 及其im功能**
 - **个人相关及其相关发布信息的CRUD**
 
-=======
-- **一个简单直播功能 需要使用live 搭建直播服务**
-- **简单的消息通知 及其im功能**
-- **个人相关及其相关发布信息的CRUD**
-- 
->>>>>>> origin/master
 
 #### 项目环境 
 
 **server**
+
 -  golang  1.18
 -  mysql  8.0
 -  reids  3.0
 -  ffmpeg  4.2
 
 **web**
+
 -  npm 8.18
 -  node v16.16
 
 **项目特点**
+
 - 完成上传分接口类型使用不用存储，不同质量，实现本地极其阿里云oss存储 支持分片上传，断点续传 oss 直传
 - 视频本地存储使用ffnpeg进行视频转码 , oss使用阿里云智能媒体转码
 - 简单实现直播功能并且采用protobuf进行通信
@@ -108,6 +101,7 @@ easy-vide-net
 ```
 
 **server端启动**
+
 ```
 //填写完成项目config文件夹内config.ini
 
@@ -118,6 +112,7 @@ go build  打包项目
 ```
 
 **server端启动**
+
 ```
 //填写完成项目env文件配置请求地址
 
@@ -126,7 +121,6 @@ npm i 安装所需依赖
 npm run dev 运行项目
 ```
 
-<<<<<<< HEAD
 #### **项目展示**
 
 ![image-20230419151645612](D:\GoStudy\easy-video-net\docs\image-20230419151645612.png)
@@ -135,14 +129,12 @@ npm run dev 运行项目
 
 
 
-![image-20230419151937238](D:\GoStudy\easy-video-net\docs\image-20230419151937238.png)
+![image-20230419151937238](\docs\image-20230419151937238.png)
 
-![image-20230419151819626](D:\GoStudy\easy-video-net\docs\image-20230419151819626.png)
+![image-20230419151819626](\image-20230419151819626.png)
 
-![image-20230419151958183](D:\GoStudy\easy-video-net\docs\image-20230419151958183.png)
+![image-20230419151958183](\image-20230419151958183.png)
 
-![image-20230419151844222](D:\GoStudy\easy-video-net\docs\image-20230419151844222.png)
+![image-20230419151844222](\image-20230419151844222.png)
 
-![image-20230419152335308](D:\GoStudy\easy-video-net\docs\image-20230419152335308.png)
-=======
->>>>>>> origin/master
+![image-20230419152335308](\image-20230419152335308.png)
