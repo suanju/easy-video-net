@@ -17,13 +17,14 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
 
 var (
 	//Temporary 文件文件存续位置
-	Temporary = "assets/tmp"
+	Temporary = filepath.ToSlash("assets/tmp")
 )
 
 func OssSTS() (results interface{}, err error) {
@@ -103,16 +104,17 @@ func UploadSlice(file *multipart.FileHeader, ctx *gin.Context) (results interfac
 	}
 	if !location.IsDir(Temporary) {
 		if err = os.MkdirAll(Temporary, 0775); err != nil {
-			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s", method.Path)
+			global.Logger.Errorf("创建临时文件报错路径失败 创建路径为：%s", method.Path)
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
 	}
-	dst := Temporary + "/" + fileName
+	dst := filepath.ToSlash(Temporary + "/" + fileName)
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
 		global.Logger.Errorf("分片上传保存失败-保存路径为：%s ,错误原因 : %s ", dst, err.Error())
 		return nil, fmt.Errorf("上传失败")
 	} else {
+		_ = os.Chmod(dst, 0775)
 		return dst, nil
 	}
 }
@@ -123,7 +125,7 @@ func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err erro
 		return nil, fmt.Errorf("未配置上传方法")
 	}
 	list := make(receive.UploadSliceList, 0)
-	path := method.Path + "/" + data.FileMd5
+	path := filepath.ToSlash(method.Path + "/" + data.FileMd5)
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		//文件已存在
 		global.Logger.Infof("上传文件 %s 已存在", data.FileMd5)
@@ -131,7 +133,7 @@ func UploadCheck(data *receive.UploadCheckStruct) (results interface{}, err erro
 	}
 	//取出未上传的分片
 	for _, v := range data.SliceList {
-		if _, err := os.Stat(Temporary + "/" + v.Hash); os.IsNotExist(err) {
+		if _, err := os.Stat(filepath.ToSlash(Temporary + "/" + v.Hash)); os.IsNotExist(err) {
 			list = append(list, receive.UploadSliceInfo{
 				Index: v.Index,
 				Hash:  v.Hash,
@@ -146,16 +148,22 @@ func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err erro
 	if !method.IsExistByField("interface", data.Interface) {
 		return nil, fmt.Errorf("未配置上传方法")
 	}
-	dst := method.Path + "/" + data.FileName
+	if !location.IsDir(filepath.ToSlash(method.Path)) {
+		if err = os.MkdirAll(filepath.ToSlash(method.Path), 0775); err != nil {
+			global.Logger.Errorf("创建文件报错路径失败 创建路径为：%s", method.Path)
+			return nil, fmt.Errorf("创建保存路径失败")
+		}
+	}
+	dst := filepath.ToSlash(method.Path + "/" + data.FileName)
 	list := make(receive.UploadSliceList, 0)
-	path := method.Path + "/" + data.FileName
+	path := filepath.ToSlash(method.Path + "/" + data.FileName)
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		//文件已存在直接返回
 		return dst, nil
 	}
 	//取出未上传的分片
 	for _, v := range data.SliceList {
-		if _, err := os.Stat(Temporary + "/" + v.Hash); os.IsNotExist(err) {
+		if _, err := os.Stat(filepath.ToSlash(Temporary + "/" + v.Hash)); os.IsNotExist(err) {
 			list = append(list, receive.UploadSliceInfo{
 				Index: v.Index,
 				Hash:  v.Hash,
@@ -166,41 +174,45 @@ func UploadMerge(data *receive.UploadMergeStruct) (results interface{}, err erro
 		global.Logger.Warnf("上传文件 %s 分片未全部上传", data.FileName)
 		return nil, fmt.Errorf("分片未全部上传")
 	}
-	//进行合并操作
 	cf, err := os.Create(dst)
-	defer func(f *os.File) {
-		if err := f.Close(); err != nil {
-			global.Logger.Errorf("合并操作释放内存失败 %d", err)
-		}
-	}(cf)
 	if err != nil {
-		return nil, fmt.Errorf("保存失败")
+		global.Logger.Errorf("创建的合并后文件失败 err : %s", err)
 	}
-	fileInfo, err := os.OpenFile(dst, os.O_APPEND, os.ModeSetuid)
+	if err := cf.Close(); err != nil {
+		global.Logger.Errorf("创建的合并后文件释放内存失败 %d", err)
+	}
+	fileInfo, err := os.OpenFile(dst, os.O_APPEND|os.O_WRONLY, os.ModeSetuid)
+	if err != nil {
+		global.Logger.Errorf("打开创建的合并后文件失败  path %s err : %s", dst, err)
+	}
 	defer func(fileInfo *os.File) {
 		if err := fileInfo.Close(); err != nil {
-			global.Logger.Errorf("关闭资源 err : %d", err)
+			global.Logger.Errorf("关闭资源 err : %s", err)
 		}
 	}(fileInfo)
 	//合并操作
 	for _, v := range data.SliceList {
-		tmpFile, err := os.OpenFile(Temporary+"/"+v.Hash, os.O_RDONLY, os.ModePerm)
+		tmpFile, err := os.OpenFile(filepath.ToSlash(Temporary+"/"+v.Hash), os.O_RDONLY, os.ModePerm)
 		if err != nil {
-			fmt.Println(err)
+			global.Logger.Errorf("合并操作打开临时分片失败 错误原因 : %s", err)
+			break
 		}
 		b, err := ioutil.ReadAll(tmpFile)
 		if err != nil {
-			fmt.Println(err)
+			global.Logger.Errorf("合并操作读取分片失败 错误原因 : %s", err)
+			break
 		}
 		if _, err := fileInfo.Write(b); err != nil {
-			global.Logger.Errorf("合并分片追加错误 错误原因 : %d", err)
+			global.Logger.Errorf("合并分片追加错误 错误原因 : %s", err)
+			return nil, fmt.Errorf("合并分片追加错误")
+			break
 		}
 		// 关闭分片
 		if err := tmpFile.Close(); err != nil {
-			global.Logger.Errorf("关闭分片错误 错误原因 : %d", err)
+			global.Logger.Errorf("关闭分片错误 错误原因 : %s", err)
 		}
 		if err := os.Remove(tmpFile.Name()); err != nil {
-			global.Logger.Errorf("合并操作删除临时分片失败 错误原因 : %d", err)
+			global.Logger.Errorf("合并操作删除临时分片失败 错误原因 : %s", err)
 		}
 	}
 	return dst, nil
