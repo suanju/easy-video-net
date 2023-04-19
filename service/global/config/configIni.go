@@ -9,6 +9,7 @@ import (
 type Info struct {
 	SqlConfig     *SqlConfigStruct
 	RConfig       *RConfigStruct
+	EmailConfig   *EmailConfigStruct
 	ProjectConfig *ProjectConfigStruct
 	LiveConfig    *LiveConfigStruct
 	AliyunOss     *AliyunOss
@@ -38,6 +39,14 @@ type RConfigStruct struct {
 	Port     int    `ini:"port"`
 	Password string `ini:"password"`
 }
+
+type EmailConfigStruct struct {
+	User string `ini:"user"`
+	Pass string `ini:"pass"`
+	Host string `ini:"host"`
+	Port string `ini:"port"`
+}
+
 type LiveConfigStruct struct {
 	IP        string `ini:"ip"`
 	Agreement string `ini:"agreement"`
@@ -87,6 +96,12 @@ func ReturnsInstance() *Info {
 	err = cfg.Section("redis").MapTo(Config.RConfig)
 	if err != nil {
 		fmt.Printf("Redis读取配置文件错误: %v \n", err)
+		os.Exit(1)
+	}
+	Config.EmailConfig = &EmailConfigStruct{}
+	err = cfg.Section("email").MapTo(Config.EmailConfig)
+	if err != nil {
+		fmt.Printf("email读取配置文件错误: %v \n", err)
 		os.Exit(1)
 	}
 	Config.ProjectConfig = &ProjectConfigStruct{}
