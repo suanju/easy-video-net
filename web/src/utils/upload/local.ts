@@ -70,12 +70,14 @@ export const localUpload = async (file: File, uploadConfig: FileUpload, dir: str
                 console.log("所以需要上传的切片", sliceArr)
                 console.log("未上传的切片", notUploadSlice)
 
+                let promiseArr = []
+
                 for (let i = 0; i < notUploadSlice.length; i++) {
                     const formData = new FormData()
                     formData.append('interface', uploadConfig.interface)
                     formData.append('name', notUploadSlice[i].hash)
                     formData.append('file', notUploadSlice[i].file)
-                    try {
+                    const p = new Promise<void>(async (resolve, reject) => {
                         const slice = ref(<FileSliceUpload>{
                             index: i,
                             progress: 0, //上传进度
@@ -92,19 +94,22 @@ export const localUpload = async (file: File, uploadConfig: FileUpload, dir: str
                             })
                             if (slice.value.progress === 100) {
                                 w()
+                                resolve()
                                 return
                             }
                         }, { deep: true })
                         await UploadSliceFile(formData, slice.value)
-                        notUploadSlice.reverse()
-                    } catch (err) {
-                        console.log(err)
-                        //如果失败等待3秒进行重试
-                        setTimeout(() => { uploadCheckFun() }, 3000)
-                        break
-                    }
+
+                        .catch((error) => {
+                            reject(error)
+                        })
+                    })
+                    promiseArr.push(p)
                 }
+
                 try {
+                    await Promise.all(promiseArr)
+                    console.log('所有分片上传完成')
                     //分片全部上传成功进行合并
                     const uploadMergeResponse = await uploadMerge(<UploadMergeReq>{
                         file_name: name,
@@ -112,15 +117,11 @@ export const localUpload = async (file: File, uploadConfig: FileUpload, dir: str
                         slice_list: sliceArr
                     })
                     uploadConfig.progress = 100
-                    return new Promise((resolve, _) => {
-                        resolve({ path: uploadMergeResponse.data })
-                    })
+                    return resolve({ path: uploadMergeResponse.data })
                 } catch (err) {
-                    return new Promise((_, reject) => {
-                        reject({ msg: "上传失败" })
-                    })
+                    console.log('存在未上传分片')
+                    uploadCheckFun()
                 }
-
             }
 
             const updataProgress = (sliceArr: Array<any>, uploadConfig: FileUpload) => {
