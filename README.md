@@ -2,8 +2,11 @@
 
 #### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
 
+**前言** 
 
+项目为自己在学习golang和vue3时进行编写的学习项目可能依然存在许多问题，欢迎提lssuse，后续可能依然进行迭代，如果对你有帮助的话希望可以得到您的star
 
+体验地址 [easy-video](http://124.220.20.83:9999/)
 
 **主要功能模块**
 
@@ -122,12 +125,10 @@ npm run dev 运行项目
 ```
 
 #### **项目展示**
+
 ![image-20230419151645612](https://user-images.githubusercontent.com/64412088/233002215-359b2337-6224-4318-811c-b2195f3cef4a.png)
 ![image-20230419151937238](https://user-images.githubusercontent.com/64412088/233002263-ff599b43-00c7-4d9a-8caf-2797500b1787.png)
 ![image-20230419151819626](https://user-images.githubusercontent.com/64412088/233002291-0ff90253-5e13-4240-9d89-43fff9e455b5.png)
 ![image-20230419151958183](https://user-images.githubusercontent.com/64412088/233002317-6bb54307-b696-48a7-9f73-4a24bdd65261.png)
 ![image-20230419152335308](https://user-images.githubusercontent.com/64412088/233002344-96b837f1-8174-4d21-9bb7-5d1ea4fad625.png)
 ![image-20230419151844222](https://user-images.githubusercontent.com/64412088/233002384-374e5375-dad6-4516-9a45-2466ad63d1bb.png)
-
-
-
