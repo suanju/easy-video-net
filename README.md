@@ -1,6 +1,10 @@
 # easy-video-net
 
+<<<<<<< HEAD
 #### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
+=======
+#### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + ts + element-plus 进行开发
+>>>>>>> origin/master
 
 
 
@@ -8,10 +12,17 @@
 **主要功能模块**
 - **视频上传分享支持转码及弹幕功能**
 - **稿件投稿使用富文本编辑器进行简单发布**
+<<<<<<< HEAD
 - **一个简单直播功能 需要使用livego搭建直播服务**
 - **简单的消息通知 及其im功能**
 - **个人相关及其相关发布信息的CRUD**
 
+=======
+- **一个简单直播功能 需要使用live 搭建直播服务**
+- **简单的消息通知 及其im功能**
+- **个人相关及其相关发布信息的CRUD**
+- 
+>>>>>>> origin/master
 
 #### 项目环境 
 
@@ -115,6 +126,7 @@ npm i 安装所需依赖
 npm run dev 运行项目
 ```
 
+<<<<<<< HEAD
 #### **项目展示**
 
 ![image-20230419151645612](D:\GoStudy\easy-video-net\docs\image-20230419151645612.png)
@@ -132,3 +144,5 @@ npm run dev 运行项目
 ![image-20230419151844222](D:\GoStudy\easy-video-net\docs\image-20230419151844222.png)
 
 ![image-20230419152335308](D:\GoStudy\easy-video-net\docs\image-20230419152335308.png)
+=======
+>>>>>>> origin/master
