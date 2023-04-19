@@ -55,7 +55,7 @@
             <ChatBox :tid="chatListStore.tid" :msg-list="tMessageList"></ChatBox>
         </div>
         <div class="empty" v-if="!chatListStore.tid">
-            <el-empty image="/src/components/messageList/static/img/unselectedMsg.png" description="快选择一位好友聊天叭~" />
+            <el-empty :image="emptyImg" description="快选择一位好友聊天叭~" />
         </div>
     </div>
 </template>
@@ -72,8 +72,8 @@ import { ClickOutside as vClickOutside } from 'element-plus';
 import { computed, onMounted } from 'vue';
 import { VueEllipsis3 } from 'vue-ellipsis-3';
 import ChatBox from "./chatBox.vue";
-
-components: {
+import emptyImg from '@/components/messageList/static/img/unselectedMsg.png'
+components: { 
     ChatBox
     VueEllipsis3
 }
