@@ -1,6 +1,7 @@
 package email
 
 import (
+	"easy-video-net/global"
 	"gopkg.in/gomail.v2"
 	"strconv"
 )
@@ -8,10 +9,10 @@ import (
 func SendMail(mailTo []string, subject string, body string) error {
 	// 设置邮箱主体
 	mailConn := map[string]string{
-		"user": "q2506152074@163.com",
-		"pass": "TPDAYYESMYRHLSDU",
-		"host": "smtp.163.com",
-		"port": "465",
+		"user": global.Config.EmailConfig.User,
+		"pass": global.Config.EmailConfig.Pass,
+		"host": global.Config.EmailConfig.Host,
+		"port": global.Config.EmailConfig.Port,
 	}
 
 	port, _ := strconv.Atoi(mailConn["port"])
