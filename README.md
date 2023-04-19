@@ -123,18 +123,11 @@ npm run dev 运行项目
 
 #### **项目展示**
 
-![image-20230419151645612](D:\GoStudy\easy-video-net\docs\image-20230419151645612.png)
+![image-20230419151645612](https://user-im![image-20230419151819626](https://user-images.githubusercontent.com/64412088/233001850-c0fd2ece-6587-43ad-ac3d-b9874e3ff3ea.png)
+![image-2023041915195818![image-20230419152335308](https://user-images.githubusercontent.com/64412088/233001902-466b9b93-ba68-44fb-8003-90a4aa6ffb12.png)
+3](https://user-images.git![image-20230419151844222](https://user-images.githubusercontent.com/64412088/233001920-a2a222b7-5c32-4e9b-9720-905f8121d19f.png)
+hubusercontent.com/64412088/233001865-83407d67-5c29-4a97-94da-9f0ca2e97a63.png)
 
+ages.githubusercontent.com/64412088/233001786-764dc1a5-3b55-4001-bb67-027d87653c1b.png)
+![image-20230419151937238](https://user-images.githubusercontent.com/64412088/233001828-796324be-985f-44b9-b568-faef48fe94c7.png)
 
-
-
-
-![image-20230419151937238](.\docs\image-20230419151937238.png)
-
-![image-20230419151819626](.\image-20230419151819626.png)
-
-![image-20230419151958183](.\image-20230419151958183.png)
-
-![image-20230419151844222](.\image-20230419151844222.png)
-
-![image-20230419152335308](.\image-20230419152335308.png)
