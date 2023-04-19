@@ -277,7 +277,7 @@ export const useSaveData = async (form: vdeoContributionForm, uploadFileformatio
                     await updateVideoContribution(updateRequistData)
                 } else {
                     //创建视频
-                    if (!uploadFileformation.uploadUrl) throw "上传未完成"
+                    if (uploadFileformation.progress != 100) throw "上传未完成"
                     var createRequistData = <CreateVideoContributionReq>{
                         id: form.id,
                         video: uploadFileformation.uploadUrl,
