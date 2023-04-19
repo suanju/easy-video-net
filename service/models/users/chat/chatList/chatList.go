@@ -83,10 +83,9 @@ func (i *ChatsListInfo) FindByID(uid uint, tid uint) error {
 //GetUnreadNumber 获取该用户未读消息数量
 func (i ChatsListInfo) GetUnreadNumber(uid uint) *int64 {
 	num := new(int64)
-	err := global.Db.Model(i).Select("SUM(unread) as total_unread").Where(ChatsListInfo{Uid: uid}).Scan(num).Error
+	err := global.Db.Model(i).Select("IFNULL(unread,0) as total_unread").Where(ChatsListInfo{Uid: uid}).Scan(num).Error
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	return num
 }
