@@ -49,8 +49,9 @@
                             <span>{{ liveNumber }} 人正在看</span> , <span> 已装填 {{ videoInfo?.videoInfo?.barrageNumber }}
                                 条弹幕 </span>
                         </div>
-                        <div class="barrage-set" @click="videoBarrage = !videoBarrage">
-                            <SvgIcon :name="videoBarrage ? 'barrageOn' : 'barrageOff'" class="barrage-icon" color="#61666D">
+                        <div class="barrage-set">
+                            <SvgIcon @click="videoBarrage = !videoBarrage" :name="videoBarrage ? 'barrageOn' : 'barrageOff'"
+                                class="barrage-icon" color="#61666D">
                             </SvgIcon>
                             <div class="barrage-input" v-show="userStore.userInfoData.token">
                                 <el-input v-model="barrageInput" placeholder="发个友善的弹幕见证当下">
