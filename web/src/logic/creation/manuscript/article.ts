@@ -134,7 +134,10 @@ export const useLoadData = async (articleList: Ref<GetArticleManagementListRes>,
         })
         page.value.page++
         if (!data.data) return false
-        if (data.data.length == 0) isTheEnd.value = true
+        if (data.data.length == 0) {
+            console.log("全部加载完成")
+            isTheEnd.value = true
+        }
         data.data = data.data.filter((item) => {
             item.is_delete = false
             return item

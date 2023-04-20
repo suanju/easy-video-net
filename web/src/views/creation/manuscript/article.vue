@@ -1,9 +1,9 @@
 <template>
     <div class="overall">
-        <pageHeader title="专栏稿件" icon-nmae="column" :animate="false" :whiteWhale="false"></pageHeader>
+        <pageHeader title="专栏管理" icon-nmae="column" :animate="false" :whiteWhale="false"></pageHeader>
         <div class="content" v-loading="isLoading" :infinite-scroll-disabled="isTheEnd">
             <div class="article-list" v-show="articleList.length > 0" v-infinite-scroll="scrollBottom"
-                infinite-scroll-delay="1000" :infinite-scroll-disabled="isTheEnd">
+                :infinite-scroll-delay="1000" :infinite-scroll-disabled="isTheEnd">
                 <div :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
                     v-for="(item, index) in articleList" :key="item.id" placement="top">
                     <div class="article-item">
@@ -72,8 +72,10 @@ const editRecord = (item: GetArticleManagementListItem) => {
 //加载底部
 const scrollBottom = async () => {
     //无数据时取消加载更多
+    if (!isTheEnd.value) return false
     isLoadMore.value = true
     if (articleList.value.length <= 0) return false
+    console.log("加载")
     useLoadData(articleList, isLoading, pageInfo, isTheEnd)
     isLoadMore.value = false
 }
@@ -82,6 +84,7 @@ watch(() => route.path, async () => {
     articleList.value = []
     isLoading.value = true
     useLoadData(articleList, isLoading, pageInfo, isTheEnd)
+    console.log(isTheEnd.value)
 }, { immediate: true, deep: true })
 
 </script>
