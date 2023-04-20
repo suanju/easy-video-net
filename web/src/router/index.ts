@@ -4,9 +4,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import creation from "@/router/creation";
 import liveRouter from "@/router/live";
 import personalRouter from "@/router/personal";
+import search from "@/router/search";
 import articleShow from "@/router/show/article";
 import videoShow from "@/router/show/video";
-import search from "@/router/search"
 import space from "@/router/space";
 const routes = [
     {
