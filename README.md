@@ -1,6 +1,6 @@
 # easy-video-net
 
-#### **项目介绍** : easy-video-net 是基于GO + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
+#### **项目介绍** : easy-video-net 是基于 golang + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
 
 **前言** 
 
