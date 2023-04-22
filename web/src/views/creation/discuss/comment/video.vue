@@ -1,6 +1,7 @@
 <template>
     <div class="comment-box" v-loading="isLoading" :infinite-scroll-distance="40" v-infinite-scroll="scrollBottom"
-        :infinite-scroll-disabled="isTheEnd" ref="scrollRef" :style="{ height: scrollHeight + 'px' }">
+        :infinite-scroll-disabled="isTheEnd" :infinite-scroll-immediate="false" ref="scrollRef"
+        :style="{ height: scrollHeight + 'px' }">
         <div class="comment-item" v-for="item in commentList" :key="item.id">
             <div class="item-left">
                 <div class="avatar"><el-avatar :size="52" :src="item.photo" />
@@ -37,15 +38,14 @@
 </template>
 
 <script lang="ts" setup>
+import { getDiscussVideoList } from '@/apis/contribution';
+import globalScss from "@/assets/styles/global/export.module.scss";
 import { GetDiscussVideoListReq, GetDiscussVideoListRes } from '@/types/creation/discuss/comment';
+import { PageInfo } from '@/types/idnex';
+import dayjs from "dayjs";
 import Swal from 'sweetalert2';
 import { nextTick, onMounted, ref } from 'vue';
-import globalScss from "@/assets/styles/global/export.module.scss"
 import { VueEllipsis3 } from 'vue-ellipsis-3';
-import { PageInfo } from '@/types/idnex';
-import { getDiscussVideoList } from '@/apis/contribution';
-import dayjs from "dayjs"
-import { Console } from 'console';
 
 components: {
     VueEllipsis3
@@ -103,7 +103,7 @@ const scrollBottom = async () => {
 onMounted(async () => {
     await loadData()
     isLoading.value = false
-    nextTick(()=>{
+    nextTick(() => {
         scrollHeight.value = document.documentElement.clientHeight - scrollRef.value.offsetTop - 20
     })
 })

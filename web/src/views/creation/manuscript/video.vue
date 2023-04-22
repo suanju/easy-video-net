@@ -3,7 +3,7 @@
         <pageHeader title="视频稿件" icon-nmae="video" :animate="false" :whiteWhale="false"></pageHeader>
         <div class="content" v-loading="isLoading">
             <div class="video-list" v-show="videoList.length > 0" v-infinite-scroll="scrollBottom"
-                infinite-scroll-delay="1000">
+                :infinite-scroll-delay="1000" :infinite-scroll-immediate="false">
                 <div :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
                     v-for="(item, index) in videoList" :key="item.id" placement="top">
                     <div class="video-item">

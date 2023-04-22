@@ -1,9 +1,9 @@
 <template>
     <div class="overall">
         <pageHeader title="专栏管理" icon-nmae="column" :animate="false" :whiteWhale="false"></pageHeader>
-        <div class="content" v-loading="isLoading" :infinite-scroll-disabled="isTheEnd">
+        <div class="content" v-loading="isLoading">
             <div class="article-list" v-show="articleList.length > 0" v-infinite-scroll="scrollBottom"
-                :infinite-scroll-delay="1000" :infinite-scroll-disabled="isTheEnd">
+                :infinite-scroll-delay="1000" :infinite-scroll-disabled="isTheEnd" :infinite-scroll-immediate="false">
                 <div :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
                     v-for="(item, index) in articleList" :key="item.id" placement="top">
                     <div class="article-item">

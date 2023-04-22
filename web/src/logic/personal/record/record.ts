@@ -81,7 +81,10 @@ export const useLoadData = async (recordList: Ref<GetRecordListRes>, isLoading: 
         )
         page.value.page++
         if (!data.data) return false
-        if (data.data.length == 0) isTheEnd.value = true
+        if (data.data.length == 0) {
+            console.log("无更多记录")
+            isTheEnd.value = true
+        }
         data.data = data.data.filter((item) => {
             item.is_delete = false
             return item

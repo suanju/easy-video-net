@@ -19,7 +19,7 @@
     </div>
 
     <div class="message-list" v-loading="isLoading" :infinite-scroll-delay="1000" :infinite-scroll-distance="40"
-      v-infinite-scroll="scrollBottom" :infinite-scroll-disabled="isTheEnd">
+      v-infinite-scroll="scrollBottom" :infinite-scroll-disabled="isTheEnd" :infinite-scroll-immediate="false">
       <div class="message-item" v-for="item in noticeList" :key="item.id" @click="jump(item.type, item.to_id)">
         <div class="item-left">
           <div class="avatar"><el-avatar :size="38" :src="item.photo" />

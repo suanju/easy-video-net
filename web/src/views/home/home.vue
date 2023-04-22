@@ -10,7 +10,7 @@
     <homeHeaderChannel @click="notOpen()"></homeHeaderChannel>
     <!-- 主体 -->
     <div class="middle" :infinite-scroll-distance="770" v-infinite-scroll="scrollBottom" :record-empty="40"
-      :infinite-scroll-delay="1000">
+      :infinite-scroll-delay="1000" :infinite-scroll-immediate="false">
       <!-- 轮播图架屏 -->
       <div class="rotograph-skeleton">
         <el-skeleton style="width: 100%; height: 70%;" class="video-card" :loading="!homeInfo.rotograph.length" animated>

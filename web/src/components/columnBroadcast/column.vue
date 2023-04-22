@@ -1,7 +1,7 @@
 <template>
     <div class="column">
         <div class="column-list" v-show="!isLoading || columnList.length > 0" v-infinite-scroll="scrollBottom"
-            infinite-scroll-delay="1000">
+            infinite-scroll-delay="1000" :infinite-scroll-immediate="false">
             <!-- 骨架屏 -->
             <el-skeleton style="width: 100%; height: 18rem; margin-bottom: 8rem; " class="video-card"
                 v-for="(item, index) in columnList.length ? columnList : quickCreationArr(6) " :key="item.id"

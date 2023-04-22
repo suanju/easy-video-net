@@ -2,8 +2,8 @@
     <div class="overall">
         <pageHeader title="历史记录" icon-nmae="playRecording"></pageHeader>
         <div class="content" v-loading="isLoading">
-            <div class="timeline" v-show="recordList.length > 0" v-infinite-scroll="scrollBottom"
-                infinite-scroll-delay="1000">
+            <div class="timeline" v-show="recordList.length > 0" :infinite-scroll-delay="1000"
+                :infinite-scroll-disabled="isTheEnd" :infinite-scroll-immediate="false" v-infinite-scroll="scrollBottom">
                 <el-timeline>
                     <el-timeline-item :class="{ 'animate__animated': true, 'animate__fadeOutLeftBig': item.is_delete }"
                         v-for="(item, index) in recordList" :key="item.id" :timestamp="recordTimeFormat(item.updated_at)"
