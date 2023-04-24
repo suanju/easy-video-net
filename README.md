@@ -1,6 +1,6 @@
 # easy-video-net
 
-#### **项目介绍** : easy-video-net 是基于 golang + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
+#### **项目介绍** : easy-video-net 是基于 golang + vue 开发的前后端分离项目,service端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
 
 **前言** 
 
@@ -19,7 +19,7 @@
 
 #### 项目环境 
 
-**server**
+**service**
 
 -  golang  1.18
 -  mysql  8.0
@@ -103,7 +103,7 @@ easy-vide-net
         └─views 视图文件
 ```
 
-**server端启动**
+**service端启动**
 
 ```
 //填写完成项目config文件夹内config.ini
@@ -112,7 +112,7 @@ go build  打包项目
 ./easy-video-net.exe 运行项目
 ```
 
-**server端启动**
+**web端启动**
 
 ```
 //填写完成项目env文件配置请求地址
