@@ -21,8 +21,8 @@ func (m *MyWriter) Printf(format string, v ...interface{}) {
 }
 
 func NewMyWriter() *MyWriter {
-	log := globalLog.ReturnsInstance()
-	return &MyWriter{log: log}
+	instance := globalLog.ReturnsInstance()
+	return &MyWriter{log: instance}
 }
 
 func ReturnsInstance() *gorm.DB {
