@@ -2,8 +2,10 @@ package config
 
 import (
 	"fmt"
-	"gopkg.in/ini.v1"
 	"os"
+	"path/filepath"
+
+	"gopkg.in/ini.v1"
 )
 
 type Info struct {
@@ -81,7 +83,7 @@ type AliyunOss struct {
 
 func ReturnsInstance() *Info {
 	Config.SqlConfig = &SqlConfigStruct{}
-	cfg, err = ini.Load("config/config.ini")
+	cfg, err = ini.Load(filepath.ToSlash("/service/config/config.ini"))
 	if err != nil {
 		fmt.Printf("配置文件不存在,请检查环境: %v \n", err)
 		os.Exit(1)
