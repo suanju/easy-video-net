@@ -13,13 +13,14 @@ import (
 	"easy-video-net/utils/oss"
 	"easy-video-net/utils/validator"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -72,7 +73,7 @@ func Upload(file *multipart.FileHeader, ctx *gin.Context) (results interface{}, 
 			return nil, fmt.Errorf("创建保存路径失败")
 		}
 	}
-	dst := method.Path + "/" + fileName
+	dst := filepath.ToSlash(method.Path + "/" + fileName)
 	err = ctx.SaveUploadedFile(file, dst)
 	if err != nil {
 		global.Logger.Errorf("保存文件失败-保存路径为：%s ,错误原因 : %s", dst, err.Error())
