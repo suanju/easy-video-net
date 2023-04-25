@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  #Mysql
+  mysql:
+    image: mysql:8.0.12
+    container_name: esay-mysql
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456 # root密码
+      MYSQL_DATABASE: easy-video-net
+    restart: on-failure 
+    volumes: 
+     - ./sql:/docker-entrypoint-initdb.d #导入默认sql
+    ports:
+      - '3306:3306'
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --explicit_defaults_for_timestamp=true --lower_case_table_names=1
+
+  #Redis
+  redis:
+    image: redis
+    container_name: esay-redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker-data/redis:/data
+      
+  #后端
+  api:
+    container_name: esay-server
+    restart: always
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    working_dir: /service
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      #挂载文件
+      - ./service/config:/service/config #配置文件
+      - ./docker-data/service/assets:/service/assets  #静态文件
+      - ./docker-data/service/runtime:/service/runtime #运行时文件
+    ports:
+      # 映射端口
+      - "8080:8080" 
+    depends_on:
+      - mysql
+      - redis
