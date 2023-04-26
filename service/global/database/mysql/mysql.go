@@ -41,7 +41,6 @@ func ReturnsInstance() *gorm.DB {
 		},
 	)
 	b := retry.NewFibonacci(10 * time.Second)
-	//var Db *gorm.DB
 	ctx := context.Background()
 	if err := retry.Do(ctx, retry.WithMaxRetries(5, b), func(ctx context.Context) error {
 		// 创建链接
