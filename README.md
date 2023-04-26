@@ -2,7 +2,7 @@
 
 #### **项目介绍** : easy-video-net 是基于 golang + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
 
-**前言** 
+**前言**
 
 项目为自己在学习golang和vue3时进行编写的学习项目可能依然存在许多问题，欢迎提lssuse，后续可能依然进行迭代，如果对你有帮助的话希望可以得到您的star
 
@@ -17,7 +17,7 @@
 - **个人相关及其相关发布信息的CRUD**
 
 
-#### 项目环境 
+#### 项目环境
 
 **server**
 
@@ -41,13 +41,13 @@
 
 ```
 easy-vide-net
-│  .gitignore 
-│  README.md  
+│  .gitignore
+│  README.md
 ├─service 服务端代码
 │  │  .gitignore
 │  │  go.mod
 │  │  go.sum
-│  │  main.go   
+│  │  main.go
 │  ├─assets 静态资源
 │  ├─config 配置文件
 │  │  │  config.ini
@@ -55,7 +55,7 @@ easy-vide-net
 │  ├─controllers 控制器
 │  ├─global 全局使用
 │  ├─interaction 结构体定义
-│  │  ├─receive   请求  
+│  │  ├─receive   请求
 │  │  └─response   响应
 │  ├─logic  逻辑处理
 │  ├─middlewares 中间件
@@ -64,7 +64,7 @@ easy-vide-net
 │  ├─router   路由定义
 │  ├─runtime 运行时文件如日志
 │  └─utils 工具类
-│              
+│
 └─web
     │  .env  配置文件
     │  .gitignore
@@ -78,22 +78,22 @@ easy-vide-net
     │  tsconfig.json
     │  tsconfig.node.json
     │  vite.config.ts
-    │  
+    │
     ├─node_modules
     ├─public
-    │      vite.svg  
+    │      vite.svg
     └─src
-        │  App.vue 
+        │  App.vue
         │  main.ts
         │  shime-vue.d.ts
         │  style.css
         │  style.scss
         │  vite-env.d.ts
-        │   
+        │
         ├─apis 接口定义
         ├─assets 静态资源
         ├─components 组件
-        ├─hooks 
+        ├─hooks
         ├─logic 逻辑代码
         ├─proto proto文件
         ├─router 路由定义
@@ -112,7 +112,7 @@ go build  打包项目
 ./easy-video-net.exe 运行项目
 ```
 
-**server端启动**
+**web端启动**
 
 ```
 //填写完成项目env文件配置请求地址
