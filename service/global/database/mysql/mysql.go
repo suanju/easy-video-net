@@ -40,10 +40,10 @@ func ReturnsInstance() *gorm.DB {
 			LogLevel: logger.Error,
 		},
 	)
-	b := retry.NewFibonacci(3 * time.Second)
+	b := retry.NewFibonacci(10 * time.Second)
 	//var Db *gorm.DB
 	ctx := context.Background()
-	if err := retry.Do(ctx, retry.WithMaxRetries(3, b), func(ctx context.Context) error {
+	if err := retry.Do(ctx, retry.WithMaxRetries(5, b), func(ctx context.Context) error {
 		// 创建链接
 		var err error
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=Local", mysqlConfig.User, mysqlConfig.Password, mysqlConfig.IP, mysqlConfig.Port, mysqlConfig.Database)
