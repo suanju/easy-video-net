@@ -59,7 +59,7 @@ func ReturnsInstance() *gorm.DB {
 		return nil
 	}); err != nil {
 		// handle error
-		log.Fatalf("重连3次后依旧数据库链接错误- %v \n", err)
+		log.Fatalf("重连5次后依旧数据库链接错误- %v \n", err)
 	}
 	return Db
 }
