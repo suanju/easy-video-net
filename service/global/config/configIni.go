@@ -1,8 +1,7 @@
 package config
 
 import (
-	"fmt"
-	"os"
+	"log"
 	"path/filepath"
 
 	"gopkg.in/ini.v1"
@@ -85,46 +84,39 @@ func ReturnsInstance() *Info {
 	Config.SqlConfig = &SqlConfigStruct{}
 	cfg, err = ini.Load(filepath.ToSlash("/service/config/config.ini"))
 	if err != nil {
-		fmt.Printf("配置文件不存在,请检查环境: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("配置文件不存在,请检查环境: %v \n", err)
 	}
 
 	err = cfg.Section("mysql").MapTo(Config.SqlConfig)
 	if err != nil {
-		fmt.Printf("Mysql读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("Mysql读取配置文件错误: %v \n", err)
 	}
 	Config.RConfig = &RConfigStruct{}
 	err = cfg.Section("redis").MapTo(Config.RConfig)
 	if err != nil {
-		fmt.Printf("Redis读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("Redis读取配置文件错误: %v \n", err)
 	}
 	Config.EmailConfig = &EmailConfigStruct{}
 	err = cfg.Section("email").MapTo(Config.EmailConfig)
 	if err != nil {
-		fmt.Printf("email读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("Email读取配置文件错误: %v \n", err)
 	}
 	Config.ProjectConfig = &ProjectConfigStruct{}
 	err = cfg.Section("project").MapTo(Config.ProjectConfig)
 	if err != nil {
-		fmt.Printf("Project读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("Project读取配置文件错误: %v \n", err)
 	}
 
 	Config.LiveConfig = &LiveConfigStruct{}
 	err = cfg.Section("live").MapTo(Config.LiveConfig)
 	if err != nil {
-		fmt.Printf("Live读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("Live读取配置文件错误: %v \n", err)
 	}
 
 	Config.AliyunOss = &AliyunOss{}
 	err = cfg.Section("aliyunOss").MapTo(Config.AliyunOss)
 	if err != nil {
-		fmt.Printf("Live读取配置文件错误: %v \n", err)
-		os.Exit(1)
+		log.Fatalf("AliyunOss读取配置文件错误: %v \n", err)
 	}
 
 	//判断是否为正式环境

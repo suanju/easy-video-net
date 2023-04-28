@@ -28,5 +28,8 @@ func SendMail(mailTo []string, subject string, body string) error {
 	// 设置邮件正文
 	d := gomail.NewDialer(mailConn["host"], port, mailConn["user"], mailConn["pass"])
 	err := d.DialAndSend(m)
+	if err != nil {
+		global.Logger.Errorf("发送至%s邮箱验证码失败,内容 ： %s 错误原因 :%d", mailTo, body, err)
+	}
 	return err
 }

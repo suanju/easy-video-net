@@ -7,6 +7,7 @@ import (
 	socketResponse "easy-video-net/interaction/response/socket"
 	userModel "easy-video-net/models/users"
 	"easy-video-net/models/users/notice"
+	noticeModel "easy-video-net/models/users/notice"
 	"easy-video-net/utils/response"
 	"encoding/json"
 	"github.com/gorilla/websocket"
@@ -46,6 +47,7 @@ func (e *Engine) Start() {
 		case registerMsg := <-e.Register:
 			//添加成员
 			e.UserMapChannel[registerMsg.UserInfo.ID] = registerMsg
+			registerMsg.NoticeMessage(noticeModel.Online)
 		case cancellationMsg := <-e.Cancellation:
 			//删除成员
 			delete(e.UserMapChannel, cancellationMsg.UserInfo.ID)

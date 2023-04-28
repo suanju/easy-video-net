@@ -23,6 +23,7 @@ type Notice struct {
 }
 
 var (
+	Online         = "online"         //上线时进行通知
 	VideoComment   = "videoComment"   //视频评论
 	VideoLike      = "videoLike"      //视频点赞
 	ArticleComment = "articleComment" //文章评论
