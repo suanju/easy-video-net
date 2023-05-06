@@ -36,7 +36,7 @@
               <SvgIcon name="notice" class="icon" :color="iconColor">
                 <div class="red-num-message">1</div>
               </SvgIcon>
-              <p :style="{ color: iconColor }">消息</p>
+              <p class="item-text" :style="{ color: iconColor }">消息</p>
             </div>
           </el-badge>
         </template>
@@ -48,7 +48,7 @@
 
       <div class="icon-item" @click="notOpen()">
         <SvgIcon name="dynamic" class="icon" :color="iconColor"></SvgIcon>
-        <p :style="{ color: iconColor }">动态</p>
+        <p class="item-text" :style="{ color: iconColor }">动态</p>
       </div>
 
       <el-popover :visible="chatListStore.isShow" :teleported="false" :width="720" trigger="hover"
@@ -57,7 +57,7 @@
           <el-badge is-dot :hidden="chatUnreadMessage == 0">
             <div class="icon-item" @mouseover="chatListStore.isShow = true">
               <SvgIcon name="message" class="icon" :color="iconColor"></SvgIcon>
-              <p :style="{ color: iconColor }">私信</p>
+              <p class="item-text" :style="{ color: iconColor }">私信</p>
             </div>
           </el-badge>
         </template>
@@ -68,12 +68,12 @@
 
       <div class="icon-item" @click="jump('Record')">
         <SvgIcon name="history" class="icon" :color="iconColor"></SvgIcon>
-        <p :style="{ color: iconColor }">历史</p>
+        <p class="item-text" :style="{ color: iconColor }">历史</p>
       </div>
 
       <div class="icon-item" @click="jump('Contribute')">
         <SvgIcon name="creation" class="icon" :color="iconColor"></SvgIcon>
-        <p :style="{ color: iconColor }"> 创作</p>
+        <p class="item-text" :style="{ color: iconColor }"> 创作</p>
       </div>
 
     </div>

@@ -67,6 +67,7 @@
                 display: inline-block;
                 box-sizing: content-box;
                 width: 100%;
+                min-width: 3rem;
                 height: 32px;
                 line-height: 32px;
                 border: 1px solid #F1F2F3;
@@ -95,9 +96,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                .icon{
+
+                .icon {
                     width: 20px;
                     height: 20px;
+                }
+
+                .channel-text {
+                    white-space: pre;
                 }
             }
         }
