@@ -1,56 +1,54 @@
+<div align="center">
+
+<img src="./.github/logo.png" height="150px" width="150px">
+
 # easy-video-net
 
-#### **项目介绍** : easy-video-net 是基于 golang + vue 开发的前后端分离项目,server端采用 golang + gin + gorm 进行开发 web 端采用vue3 + typescript + element-plus 进行开发
+*Golang + Vue编写的视频弹幕网，支持视频，专栏 ，直播 ，im等功能*
 
-**前言**  
+__本项目仅处于实验性阶段，依然存在许多问题，但后续会持续维护__
 
-项目为自己在学习golang和vue3时进行编写的学习项目可能依然存在许多问题，欢迎提lssuse，后续可能依然进行迭代，如果对你有帮助的话希望可以得到您的star
 
-体验地址 [easy-video](http://easy-video.top/)
 
-**主要功能模块**  
+</div>
 
-- **视频上传分享支持转码及弹幕功能**
-- **稿件投稿使用富文本编辑器进行简单发布**
-- **一个简单直播功能 需要使用livego搭建直播服务**
-- **简单的消息通知 及其im功能**
-- **个人相关及其相关发布信息的CRUD**
+## 预览
+> 体验地址 [easy-video](http://easy-video.top/)
 
- 
-#### 项目环境 
+![image-20230419151645612](https://user-images.githubusercontent.com/64412088/233002215-359b2337-6224-4318-811c-b2195f3cef4a.png)
+![image-20230419151937238](https://user-images.githubusercontent.com/64412088/233002263-ff599b43-00c7-4d9a-8caf-2797500b1787.png)
+![image-20230419151819626](https://user-images.githubusercontent.com/64412088/233002291-0ff90253-5e13-4240-9d89-43fff9e455b5.png)
+![image-20230419151958183](https://user-images.githubusercontent.com/64412088/233002317-6bb54307-b696-48a7-9f73-4a24bdd65261.png)
+![image-20230419152335308](https://user-images.githubusercontent.com/64412088/233002344-96b837f1-8174-4d21-9bb7-5d1ea4fad625.png)
+![image-20230419151844222](https://user-images.githubusercontent.com/64412088/233002384-374e5375-dad6-4516-9a45-2466ad63d1bb.png)
 
-**server**
+## 简介
 
--  golang  1.18
--  mysql  8.0
--  reids  3.0
--  ffmpeg  4.2
+`easy-video-net` 是基于Golang + Vue开发的前后端分离项目
+- Server端采用 Golang + Gin + Gorm
+- Web端采用 Vue3 + Typescript + Element-Plus
 
-**web**
+### 主要模块
 
--  npm 8.18
--  node v16.16
+1. 视频上传分享支持转码及弹幕功能
+2. 稿件投稿使用富文本编辑器进行简单发布
+3. 一个简单直播功能 需要使用[livego](https://github.com/gwuhaolin/livego)搭建直播服务
+4. 简单的消息通知 及其im功能
+5. 个人相关及其相关发布信息的CRUD
 
-**项目特点**
+### 特点
 
-- 完成上传分接口类型使用不用存储，不同质量，实现本地极其阿里云oss存储 支持分片上传，断点续传 oss 直传
-- 视频本地存储使用ffnpeg进行视频转码 , oss使用阿里云智能媒体转码
+- 上传支持 不用存储、 不同质量、 实现本地及阿里云oss存储、 支持分片上传、 断点续传、 oss直传
+- 视频本地存储使用ffmpeg进行视频转码 , oss使用阿里云智能媒体转码
 - 简单实现直播功能并且采用protobuf进行通信
 
-**项目目录**
+### 项目结构
 
 ```
 easy-vide-net
-│  .gitignore 
-│  README.md  
 ├─service 服务端代码
-│  │  .gitignore
-│  │  go.mod
-│  │  go.sum
-│  │  main.go   
 │  ├─assets 静态资源
 │  ├─config 配置文件
-│  │  │  config.ini
 │  ├─consts 常量定义
 │  ├─controllers 控制器
 │  ├─global 全局使用
@@ -67,29 +65,7 @@ easy-vide-net
 │              
 └─web
     │  .env  配置文件
-    │  .gitignore
-    │  .hintrc
-    │  auto-imports.d.ts
-    │  components.d.ts
-    │  index.html
-    │  package-lock.json
-    │  package.json
-    │  README.md
-    │  tsconfig.json
-    │  tsconfig.node.json
-    │  vite.config.ts
-    │  
-    ├─node_modules
-    ├─public
-    │      vite.svg  
     └─src
-        │  App.vue 
-        │  main.ts
-        │  shime-vue.d.ts
-        │  style.css
-        │  style.scss
-        │  vite-env.d.ts
-        │   
         ├─apis 接口定义
         ├─assets 静态资源
         ├─components 组件
@@ -103,28 +79,29 @@ easy-vide-net
         └─views 视图文件
 ```
 
-**server端启动**
 
-```
-//填写完成项目config文件夹内config.ini
-go mod tidy 安装所需依赖
-go build  打包项目
-./easy-video-net.exe 运行项目
-```
+## 构建 || 运行
 
-**server端启动**
+### 依赖
+- Server端依赖
+    1. golang v1.18
+    2. mysql  v8.0
+    3. reids  v3.0
+    4. ffmpeg  v4.2
 
-```
-//填写完成项目env文件配置请求地址
-npm i 安装所需依赖
-npm run dev 运行项目
-```
+- Web端依赖
+    1. node v16.16
 
-#### **项目展示**
+### Server端构建 || 运行
+1. 配置 [./service/config/config.ini](./service/config/config.ini)
+2. `cd service && go mod tidy`
+3. `go build`
+4. `./easy-video-net.exe`
 
-![image-20230419151645612](https://user-images.githubusercontent.com/64412088/233002215-359b2337-6224-4318-811c-b2195f3cef4a.png)
-![image-20230419151937238](https://user-images.githubusercontent.com/64412088/233002263-ff599b43-00c7-4d9a-8caf-2797500b1787.png)
-![image-20230419151819626](https://user-images.githubusercontent.com/64412088/233002291-0ff90253-5e13-4240-9d89-43fff9e455b5.png)
-![image-20230419151958183](https://user-images.githubusercontent.com/64412088/233002317-6bb54307-b696-48a7-9f73-4a24bdd65261.png)
-![image-20230419152335308](https://user-images.githubusercontent.com/64412088/233002344-96b837f1-8174-4d21-9bb7-5d1ea4fad625.png)
-![image-20230419151844222](https://user-images.githubusercontent.com/64412088/233002384-374e5375-dad6-4516-9a45-2466ad63d1bb.png)
+
+### Web端构建 || 运行
+- `cd web && npm i`
+- `npm run dev`
+
+## License
+查看 [./LICENSE]()
