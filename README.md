@@ -100,6 +100,7 @@ easy-vide-net
 
 
 ### Web端构建 || 运行
+1. 配置 [./web/.env](./web/.env)
 - `cd web && npm i`
 - `npm run dev`
 
